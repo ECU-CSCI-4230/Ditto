@@ -18,7 +18,7 @@
  *
  * @var string
  */
-define('SECRET_ACCESS_TOKEN', '!AccessToken5203!');
+define('SECRET_ACCESS_TOKEN', '96d2675c649962a7dd517cdc8957f5eb43a9e387');
 /**
  * The address of the remote Git repository that contains the code that's being
  * deployed.
