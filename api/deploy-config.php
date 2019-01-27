@@ -26,7 +26,7 @@ define('SECRET_ACCESS_TOKEN', '!AccessToken5203!');
  *
  * @var string
  */
-define('REMOTE_REPOSITORY', 'https://github.com/ECU-CSCI-4230/Ditto.git');
+define('REMOTE_REPOSITORY', 'git@github.com:ECU-CSCI-4230/Ditto.git');
 /**
  * The branch that's being deployed.
  * Must be present in the remote repository.
