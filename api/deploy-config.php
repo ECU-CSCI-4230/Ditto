@@ -40,7 +40,7 @@ define('BRANCH', 'master');
  *
  * @var string Full path including the trailing slash
  */
-define('TARGET_DIR', '/var/www/html/Ditto');
+define('TARGET_DIR', '/var/www/html/');
 /**
  * Whether to delete the files that are not in the repository but are on the
  * local (server) machine.
