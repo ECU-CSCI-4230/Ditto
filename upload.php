@@ -6,10 +6,7 @@
 
 	<body>
 		<?php
-		echo "<h1>Upload Succesful</h2>";
+		echo "<h1>Upload Succesful</h1>";
 		?>
-	</body>
-
-
 	</body>
 </html>
