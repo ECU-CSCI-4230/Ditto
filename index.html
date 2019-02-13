@@ -8,10 +8,10 @@
 
 <h1>Upload Testing </h1>
 
-<form action="upload.php" method="POST">
-    <input type="file" multiple/>
-    <p>Drag your files here or click in this area.</p>
-    <button type="submit">Upload</button>
+<form action="upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
 </form>
 
 </body>
