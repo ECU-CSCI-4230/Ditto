@@ -2,17 +2,46 @@
 <html>
 <head>
     <title>Ditto</title>
-    <link rel="stylesheet" href="style.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function display_filenames() {
+            let x = document.getElementById("uploadinput").files;
+            let y = "";
+            for (let z = 0; z < x.length; z++){
+                y += "<div class=" + "\"alert alert-info\" role=\"alert\">" + x[z].name + " selected." + "</div>";
+            }
+            document.getElementById('filenames-output').innerHTML = y;
+        }
+    </script>
 </head>
 <body>
+<h1> Ditto Drive </h1>
 
-<h1>Upload Testing </h1>
+<br>
 
-<form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
+<div class="row">
+    <div class="form-group col-md-12" id="filenames-output" title="Files">
+        <div class="alert alert-info" role="alert">
+            No files selected.
+        </div>
+    </div>
+</div>
+
+<br><br><br><br><br>
+
+<div class="row">
+    <div class="form-group col-md-12">
+        <form action="upload.php" method="POST">
+            <input id="uploadinput" name="fileToUpload" oninput="display_filenames()" type="file" multiple/>
+            <p>Drag your files here or click in this area.</p>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

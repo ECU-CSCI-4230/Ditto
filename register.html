@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ditto</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Form control: input</h2>
+    <form>
+        <div class="form-row">
+            <!-- md is short for Medium, >= 768 px -->
+            <div class="form-group col-md-4">
+                <label for="first_name">Frist Name</label>
+                <!-- possible types:  text, password, datetime, datetime-local, date, month, time, week, number, email, url, search, tel, and color. -->
+                <input type="text" class="form-control" id="first_name" placeholder="Frist Name">
+                <!-- <input type="time" class="form-control" id="first_name" placeholder="Frist Name"> -->
+                <!-- <input type="color" class="form-control" id="first_name" placeholder="Frist Name"> -->
+            </div>
+
+            <!-- The .form-group class is the easiest way to add some structure to forms. It provides a flexible class that encourages proper grouping of labels, controls, optional help text, and form validation messaging. -->
+
+            <div class="form-group col-md-4">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <div class="radio">
+                    <label><input type="radio" name="optradio" id="male_radio" checked>Male</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="optradio" id="female_radio">Female</label>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
