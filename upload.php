@@ -63,28 +63,25 @@
 
 <?php
 if(isset($_FILES['fileToUpload'])){
-    $errors= array();
+    $err = 0;
     $file_name = $_FILES['fileToUpload']['name'];
     $file_size = $_FILES['fileToUpload']['size'];
     $file_tmp = $_FILES['fileToUpload']['tmp_name'];
-    $file_type= $_FILES['fileToUpload']['type'];
-    $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+//    $file_type= $_FILES['fileToUpload']['type'];
+//    $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
 
-    if($file_size > 2097152){
-        $errors[]="File size must be < 2 MB";
-    }
-
-    // Check if file already exists
     if (file_exists("uploads/$file_name")) {
-        $errors[]="Sorry, file already exists.";
-    }
-
-    if(empty($errors)==true){
+        echo '<script>display_error();</script>';
+        $err = 1;
+    }else if($file_size > 2097152){
+        echo '<script>display_error();</script>';
+        $err = 1;
+    }else if ($err == 0) {
         move_uploaded_file($file_tmp,"uploads/$file_name");
         echo '<script>display_success();</script>';
-    }else{
-        echo '<script>display_error();</script>';
-        echo 'fail';
+        echo $file_name;
+        echo $file_size;
+        echo $file_tmp;
     }
 }
 ?>
