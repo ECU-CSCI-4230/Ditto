@@ -33,7 +33,7 @@ define('REMOTE_REPOSITORY', 'git@github.com:ECU-CSCI-4230/Ditto.git');
  *
  * @var string
  */
-define('BRANCH', 'master');
+define('BRANCH', 'ryan-test');
 /**
  * The location that the code is going to be deployed to.
  * Don't forget the trailing slash!
