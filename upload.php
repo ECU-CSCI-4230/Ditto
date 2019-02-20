@@ -35,6 +35,17 @@
     </div>
 </div>
 
+<br><br><br><br><br><br><br>
+
+<div class="row">
+    <div class="form-group col-md-6">
+    </div>
+    <div class="form-group col-md-6">
+        <ul class="list-group" id="stats">
+        </ul>
+    </div>
+</div>
+
 <?php
 
 if(isset($_FILES['fileToUpload'])){
@@ -47,17 +58,19 @@ if(isset($_FILES['fileToUpload'])){
         $file_name = $_FILES['fileToUpload']['name'][$i];
         $file_size = $_FILES['fileToUpload']['size'][$i];
         $file_tmp = $_FILES['fileToUpload']['tmp_name'][$i];
-//      $file_type= $_FILES['fileToUpload']['type'];
-//      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+        $file_type = $_FILES['fileToUpload']['type'][$i];
+//        $file_ext = strtolower(end(explode('.',$_FILES['image']['name'][$i])));
+
         if (file_exists("uploads/$file_name")) {
             $msg .= "display_error(\"" . $file_name . " A file with this name exists already.\");";
             $err = 1;
         } else if ($file_size > 8388608) {
-            $msg .= 'display_error("' + $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb");';
+            $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb");';
             $err = 1;
         } else if ($err == 0) {
             move_uploaded_file($file_tmp, "uploads/$file_name");
-            $msg .= 'display_success("' . $file_name . ' ' . $file_size / 1048576 . ' Mb "); display_upload_stats();';
+            $msg .= 'display_success("' . $file_name . '");';
+            $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
         }
     }
     $msg .= '</script>';

@@ -5152,8 +5152,8 @@ a.thumbnail.active {
   color: #333333;
 }
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
   border: 1px solid transparent;
   border-radius: 4px;
 }

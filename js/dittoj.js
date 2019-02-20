@@ -25,7 +25,13 @@ function display_error(errortext) {
     document.getElementById('filealert').innerHTML += text;
 }
 
-
-function display_upload_stats() {
-
+function display_upload_stats(name, size, type) {
+    let text = "";
+    text += "<div>";
+    text += "<li class=" + "\"list-group-item\"><strong>Filename:</strong> " + name + " </li>";
+    text += "<li class=" + "\"list-group-item\"><strong>Type:</strong> " + type + " </li>";
+    text += "<li class=" + "\"list-group-item\"><strong>Size:</strong> " + size + " Kb </li>";
+    text += "</div>";
+    text += "<br>";
+    document.getElementById('stats').innerHTML += text;
 }
