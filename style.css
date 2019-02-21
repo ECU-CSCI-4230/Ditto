@@ -1,57 +1,91 @@
-body{
-  background: #f1f1f1;
-}
-p{
-  width: 100%;
+body, html {
   height: 100%;
-  text-align: center;
-  line-height: 170px;
-  color: #000000;
-  font-family: Arial;
-}
-form{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -100px;
-  margin-left: -250px;
-  width: 500px;
-  height: 200px;
-  border: 4px dashed #fff;
-}
-form p{
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  line-height: 170px;
-  color: #000000;
-  font-family: Arial;
-}
-form input{
-  position: absolute;
   margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  outline: aqua;
-  opacity: 0;
+  font-family: "Lucida Grande";
 }
-form button{
-  margin: -4px -20px 0 0;
-  color: #fff;
-  background: #16a085;
-  border: none;
-  width: 508px;
-  height: 35px;
-  border-radius: 4px;
-  border-bottom: 4px solid #117A60;
-  transition: all .2s ease;
-  outline: none;
+
+body {
+  background-image: url(images/background.jpg);
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  background-size: cover;
 }
-form button:hover{
-  background: #149174;
-  color: #0C5645;
+
+#logo {
+  height: auto;
+  width: 50vw;
+  /* margin-left: 26%; */
+  margin-bottom: -10%;
 }
-form button:active{
-  border:0;
+
+#slogan {
+  color: #FFFFFF;
+  border: #979797;
+  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  font-size: 275%;
+}
+
+button {
+  margin-top: 3%;
+  padding: 2% 15% 2% 15%;
+  background-color: #303841;
+  border: 1px solid #979797;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: #FFFFFF;
+  font-size: 125%;
+}
+
+button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  transform: scale(1.1);
+}
+
+#or {
+  margin-top: 5%;
+  font-size: 125%;
+  color: #FFFFFF;
+}
+
+#line {
+  margin-left: 31vw;
+  margin-right: 31vw;
+  border-width: 2px;
+}
+
+#signIn {
+  margin: auto;
+  width: 75%;
+  margin-top: 10%;
+  background: rgba(216, 216, 216, 0.8);
+}
+
+input {
+  border-radius: 5px;
+  background: rgb(216, 216, 216);
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 7.5px 25px 0 rgba(0,0,0,0.19);
+  border:1px solid #979797;
+}
+
+#info {
+  width:80%;
+  margin-bottom: 7%;
+  height: 5vh;
+}
+
+#remember {
+  margin-top: 7%;
+  margin-bottom: 5%;
+}
+
+#forgot {
+  margin-top: 7%;
+  margin-bottom: 5%;
+}
+
+#reg_box {
+  margin: auto;
+  width: 75%;
+  margin-top: 10%;
+  background: rgba(216, 216, 216, 0.8);
 }
