@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
-/* Test */
 
 class Kernel extends BaseKernel
 {
