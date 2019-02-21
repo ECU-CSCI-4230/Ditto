@@ -33,7 +33,7 @@ define('REMOTE_REPOSITORY', 'git@github.com:ECU-CSCI-4230/Ditto.git');
  *
  * @var string
  */
-define('BRANCH', 'tester');
+define('BRANCH', 'Symfony');
 /**
  * The location that the code is going to be deployed to.
  * Don't forget the trailing slash!
@@ -52,7 +52,7 @@ define('TARGET_DIR', '/var/www/html/');
  *
  * @var boolean
  */
-define('DELETE_FILES', false);
+define('DELETE_FILES', true);
 /**
  * The directories and files that are to be excluded when updating the code.
  * Normally, these are the directories containing files that are not part of
