@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Olivia Gomez</title>
     <meta charset="utf-8">
@@ -20,7 +20,7 @@
         <center><img id="logo" src="images\logo.png"></center>
         <h1 id="slogan"> Where convience is key... </h1>
         <center><button onclick="showSignIn()"> Sign In </button></center>
-        <center><p id="or">OR</p></center>
+        <center><p id="or">OR</p>
         <hr id="line">
         <center><button onclick="showReg()"> Register </button></center>
     </div>
@@ -31,7 +31,7 @@
     <div class="row">
         <center><img id="logo" src="images\logo.png" style="max-width: 200px;"></center>
     </div>
-    <form action="action_page.php">
+    <form action="login.php" method="post">
         <div class="row">
             <center><input id="info" type="text" placeholder="Enter Username" name="uname" required></center>
         </div>
@@ -39,7 +39,7 @@
             <center><input id="info" type="password" placeholder="Enter Password" name="psw" required></center>
         </div>
         <div class="row">
-            <center><button type="submit">Login</button></center>
+            <center><input type="submit" class="btn btn-primary" value="Submit" name="login"></center>
         </div>
         <div class="col-sm-6">
             <center><label id="remember">
