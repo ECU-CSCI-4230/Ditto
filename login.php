@@ -52,7 +52,7 @@ if (isset($_POST['login'])) {
 // SQL query to fetch information of registerd users and finds user match.
         $query = mysqli_query("select User_ID from User where Password=" . $password . "AND Username=" . $username , $conn);
         echo "Doing Stuff3";
-        echo $query;
+        echo "select User_ID from User where Password=" . $password . "AND Username=" . $username;
         $rows = mysqli_num_rows($query);
         if ($rows == 1) {
             $res = $query->fetch_assoc();
