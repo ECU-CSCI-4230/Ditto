@@ -118,7 +118,7 @@ define('USE_COMPOSER', true);
  * @var string Composer options
  * @link http://getcomposer.org/doc/03-cli.md#install
  */
-define('COMPOSER_OPTIONS', '--no-dev');
+define('COMPOSER_OPTIONS', '/home/wert1098_gmail.com/.composer');
 /**
  * OPTIONAL
  * The COMPOSER_HOME environment variable is needed only if the script is
