@@ -36,8 +36,9 @@ if (isset($_POST['login'])) {
     {
         echo "Doing Stuff";
 // Define $username and $password
-        $username= trim($_POST['uname'], " ");
-        $password= trim($_POST['psw'], " ");
+
+        $username= preg_replace('/\s+/', '', $_POST['uname']);
+        $password= preg_replace('/\s+/', '', $_POST['psw']);
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
         $conn = mysqli_connect("localhost", "root", "admin");
         $db = mysqli_select_db($conn, "Ditto_Drive");
