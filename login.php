@@ -44,13 +44,13 @@ if (isset($_POST['login'])) {
 
         echo "Doing Stuff2";
 // To protect MySQL injection for Security purpose
-        $username = stripslashes($username);
-        $password = stripslashes($password);
-        $username = mysqli_real_escape_string($username);
-        $password = mysqli_real_escape_string($password);
+//        $username = stripslashes($username);
+//        $password = stripslashes($password);
+//        $username = mysqli_real_escape_string($username);
+//        $password = mysqli_real_escape_string($password);
 
 // SQL query to fetch information of registerd users and finds user match.
-        $query = mysqli_query("select User_ID from User where Password=' $password 'AND Username=' $username '", $conn);
+        $query = mysqli_query("select User_ID from User where Password=' . $password . 'AND Username=' . $username . '", $conn);
         echo "Doing Stuff3";
         echo "select User_ID from User where Password=' $password 'AND Username=' $username '";
         $rows = mysqli_num_rows($query);
