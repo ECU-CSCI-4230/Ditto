@@ -113,7 +113,7 @@ define('BACKUP_DIR', false);
 define('USE_COMPOSER', true);
 /**
  * OPTIONAL
- * The options that the composer is going to use.
+ * The options that the composer is going to use
  *
  * @var string Composer options
  * @link http://getcomposer.org/doc/03-cli.md#install
