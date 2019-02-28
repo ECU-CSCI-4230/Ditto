@@ -12,8 +12,10 @@ if (isset($_POST['login'])) {
         $username=$_POST['uname'];
         $password=$_POST['psw'];
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-        $conn = mysqli_connect("localhost", "root", "admin", "Ditto_Drive");
+        $conn = mysqli_connect("localhost", "root", "admin");
+        $db = mysqli_select_db($conn, "Ditto_Drive");
 
+        echo "Doing Stuff2";
 // To protect MySQL injection for Security purpose
         $username = stripslashes($username);
         $password = stripslashes($password);
@@ -22,7 +24,7 @@ if (isset($_POST['login'])) {
 
 // SQL query to fetch information of registerd users and finds user match.
         $query = $conn->query("select User_ID from User where Password='$password' AND Username='$username'");
-
+        echo "Doing Stuff3";
         $rows = mysqli_num_rows($query);
         if ($rows == 1) {
             $res = $query->fetch_assoc();
