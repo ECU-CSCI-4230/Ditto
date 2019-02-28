@@ -43,6 +43,7 @@ if (isset($_POST['login'])) {
         $conn = mysqli_connect("localhost", "root", "admin");
         $db = mysqli_select_db($conn, "Ditto_Drive");
 
+
         echo "Doing Stuff2";
 // To protect MySQL injection for Security purpose
 //        $username = stripslashes($username);
@@ -53,8 +54,10 @@ if (isset($_POST['login'])) {
 // SQL query to fetch information of registerd users and finds user match.
         $query = mysqli_query("select User_ID from User where Password='.$password.'AND Username='.$username.'", $conn);
         echo "Doing Stuff3";
-        echo "select User_ID from User where Password=' $password 'AND Username=' $username '";
+        echo "select User_ID from User where Password='.$password.'AND Username='.$username.'";
         $rows = mysqli_num_rows($query);
+        echo "select User_ID from User where Password='.$password.'AND Username='.$username.'".$rows;
+
         if ($rows == 1) {
             $res = $query->fetch_assoc();
             $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
