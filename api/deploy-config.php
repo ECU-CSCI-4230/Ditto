@@ -110,7 +110,7 @@ define('BACKUP_DIR', false);
  * @var boolean Whether to use composer or not
  * @link http://getcomposer.org/
  */
-define('USE_COMPOSER', false);
+define('USE_COMPOSER', true);
 /**
  * OPTIONAL
  * The options that the composer is going to use.
