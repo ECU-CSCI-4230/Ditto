@@ -1,5 +1,5 @@
-//this file exists just to test database connection with mysqli
 <?php
+// this file exists just to test database connection with mysqli
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'josh');
 define('DB_PASSWORD', 'jcc15241711');
