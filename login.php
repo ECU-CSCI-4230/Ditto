@@ -41,10 +41,16 @@ if (isset($_POST['login'])) {
         $password= preg_replace('/\s+/', '', $_POST['psw']);
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
         $conn = mysqli_connect("127.0.0.1", "root", "admin");
-        $db = mysqli_select_db($conn, "ditto_drive");
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        } else {
+
+            $db = mysqli_select_db($conn, "ditto_drive");
 
 
-        echo "Doing Stuff2";
+            echo "Doing Stuff2";
 // To protect MySQL injection for Security purpose
 //        $username = stripslashes($username);
 //        $password = stripslashes($password);
@@ -52,24 +58,25 @@ if (isset($_POST['login'])) {
 //        $password = mysqli_real_escape_string($password);
 
 // SQL query to fetch information of registerd users and finds user match.
-        //$query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
-        $query = mysqli_query("SELECT * FROM User;", $conn);
+            //$query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
+            $query = mysqli_query("SELECT * FROM User;", $conn);
 
 
-        echo "Doing Stuff3";
-        echo "select User_ID from User where Password='$password' AND Username='$username';";
+            echo "Doing Stuff3";
+            echo "select User_ID from User where Password='$password' AND Username='$username';";
 
-        $rows = mysqli_num_rows($query);
-        echo $rows;
+            $rows = mysqli_num_rows($query);
+            echo $rows;
 
-        if ($rows == 1) {
-            $res = $query->fetch_assoc();
-            $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
-            header("location: profile.php"); // Redirecting To Other Page
-        } else {
-            $error = "Username or Password is invalid";
+            if ($rows == 1) {
+                $res = $query->fetch_assoc();
+                $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
+                header("location: profile.php"); // Redirecting To Other Page
+            } else {
+                $error = "Username or Password is invalid";
+            }
+            mysqli_close($conn); // Closing Connection
         }
-        mysqli_close($conn); // Closing Connection
     }
 }
 
