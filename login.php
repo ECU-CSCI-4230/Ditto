@@ -59,14 +59,11 @@ if (isset($_POST['login'])) {
 
 // SQL query to fetch information of registerd users and finds user match.
             //$query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
-            $query = mysqli_query($conn, "Select * from User");
+            $query = mysqli_query($conn, "SELECT * FROM User");
 
 
             echo "Doing Stuff3 ";
             echo "select User_ID from User where Password='$password' AND Username='$username'; ";
-
-            $rows = mysqli_num_rows($query);
-            echo $rows;
 
             /*if ($rows == 1) {
                 $res = $query->fetch_assoc();
@@ -82,7 +79,7 @@ if (isset($_POST['login'])) {
                     echo "id: " . $row["User_ID"] . " - User: " . $row["Username"] . "<br>";
                 }
             } else {
-                echo "0 results";
+                echo "0 results ";
             }
 
             mysqli_close($conn); // Closing Connection
