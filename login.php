@@ -40,8 +40,8 @@ if (isset($_POST['login'])) {
         $username= preg_replace('/\s+/', '', $_POST['uname']);
         $password= preg_replace('/\s+/', '', $_POST['psw']);
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-        $conn = mysqli_connect("localhost", "root", "admin");
-        $db = mysqli_select_db($conn, "Ditto_Drive");
+        $conn = mysqli_connect("127.0.0.1", "root", "admin");
+        $db = mysqli_select_db($conn, "ditto_drive");
 
 
         echo "Doing Stuff2";
