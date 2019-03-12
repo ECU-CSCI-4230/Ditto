@@ -64,18 +64,27 @@ if (isset($_POST['login'])) {
 
             echo "Doing Stuff3 ";
             echo "select User_ID from User where Password='$password' AND Username='$username'; ";
-            echo $query;
 
             $rows = mysqli_num_rows($query);
             echo $rows;
 
-            if ($rows == 1) {
+            /*if ($rows == 1) {
                 $res = $query->fetch_assoc();
                 $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
                 header("location: profile.php"); // Redirecting To Other Page
             } else {
                 $error = "Username or Password is invalid ";
+            }*/
+
+            if (mysqli_num_rows($result) > 0) {
+                // output data of each row
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "id: " . $row["User_ID"] . " - User: " . $row["Username"] . "<br>";
+                }
+            } else {
+                echo "0 results";
             }
+
             mysqli_close($conn); // Closing Connection
         }
     }
