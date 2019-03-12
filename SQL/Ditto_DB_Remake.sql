@@ -1,6 +1,8 @@
-create database Ditto_Drive;
-
 use ditto_drive;
+
+drop table FileShare;
+drop table User;
+drop table File;
 
 CREATE TABLE User (
     User_ID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
