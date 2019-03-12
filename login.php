@@ -30,27 +30,27 @@ session_start(); // Starting Session
 $error = "Begin Error Message: "; // Variable To Store Error Message
 if (isset($_POST['login'])) {
     if (empty($_POST['uname']) || empty($_POST['psw'])) {
-        echo "Username or Password is empty";
+        echo "Username or Password is empty ";
     }
     else
     {
-        echo "Doing Stuff";
+        echo "Doing Stuff ";
 // Define $username and $password
 
         $username= preg_replace('/\s+/', '', $_POST['uname']);
         $password= preg_replace('/\s+/', '', $_POST['psw']);
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-        $conn = mysqli_connect("127.0.0.1", "root", "admin");
+        $conn = mysqli_connect("127.0.0.1", "root", "admin", "Ditto_Drive");
 
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } else {
 
-            $db = mysqli_select_db($conn, "ditto_drive");
+            //$db = mysqli_select_db($conn, "Ditto_Drive");
 
 
-            echo "Doing Stuff2";
+            echo "Doing Stuff2 ";
 // To protect MySQL injection for Security purpose
 //        $username = stripslashes($username);
 //        $password = stripslashes($password);
@@ -59,11 +59,12 @@ if (isset($_POST['login'])) {
 
 // SQL query to fetch information of registerd users and finds user match.
             //$query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
-            $query = mysqli_query("SELECT * FROM User;", $conn);
+            $query = mysqli_query($conn, "Select * from User");
 
 
-            echo "Doing Stuff3";
-            echo "select User_ID from User where Password='$password' AND Username='$username';";
+            echo "Doing Stuff3 ";
+            echo "select User_ID from User where Password='$password' AND Username='$username'; ";
+            echo $query;
 
             $rows = mysqli_num_rows($query);
             echo $rows;
@@ -73,7 +74,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
                 header("location: profile.php"); // Redirecting To Other Page
             } else {
-                $error = "Username or Password is invalid";
+                $error = "Username or Password is invalid ";
             }
             mysqli_close($conn); // Closing Connection
         }
