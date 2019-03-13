@@ -70,9 +70,9 @@ if (isset($_POST['login'])) {
 
             $password = "'" . $password . "'";
             $username = "'" . $username . "'";
-            echo "select User_ID from User where Password='$password' AND Username='$username';";
-            $query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
-            $rows = mysqli_num_rows($query);
+            $stmt =  "select User_ID from User where Password='$password' AND Username='$username';";
+            $result = mysqli_query($conn, $stmt);
+            $rows = mysqli_num_rows($result);
 
             echo $rows;
 
@@ -84,7 +84,7 @@ if (isset($_POST['login'])) {
                 $error = "Username or Password is invalid ";
             }
 
-            if (mysqli_num_rows($query) > 0) {
+            if (rows > 0) {
                 // output data of each row
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "id: " . $row["User_ID"] . " - User: " . $row["Username"] . "<br>";
