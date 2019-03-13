@@ -1,3 +1,11 @@
+<?php
+include('session.php');
+session_start();
+if(!isset($_SESSION['login_user'])){
+    header("Location:signOReg.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +26,7 @@
     <div class="row">
 
       <div class="col-sm-2">
-        <a href="mainDrive.html">
+        <a href="mainDrive.php">
           <img id="logo" alt="Ditto Drive" src="images\logo2.png">
         </a>
       </div>

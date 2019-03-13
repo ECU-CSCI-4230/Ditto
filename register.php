@@ -50,7 +50,7 @@
         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
         <button type="submit" class="registerbtn">Register</button>
       <div class="container signin">
-        <p>Already have an account? <a href="signIn.html">Sign in</a>.</p>
+        <p>Already have an account? <a href="signIn.php">Sign in</a>.</p>
       </div>
     </form>
   </div>
