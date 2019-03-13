@@ -11,7 +11,7 @@
 
 <body>
 
-<a href="index.html"><h1>  Ditto Drive  </h1></a>
+<a href="index.php"><h1>  Ditto Drive  </h1></a>
 
 <br>
 
