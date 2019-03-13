@@ -11,8 +11,8 @@ include('session.php');
 <?php
 $servername = "localhost";
 $dbname = "Diito_Drive";
-$username = "root";
-$password = "admin";
+$username = "josh";
+$password = "jcc15241711";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
