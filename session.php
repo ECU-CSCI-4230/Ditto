@@ -1,6 +1,6 @@
 <?php
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-$conn = mysqli_connect("localhost", "root", "admin", "ditto_Drive");
+$conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
 // Selecting Database
 session_start();// Starting Session
 // Storing Session
