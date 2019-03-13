@@ -40,7 +40,7 @@ if(!isset($_SESSION['login_user'])){
       <div class="col-sm-3" id="icon">
         <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >help</i>
         <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >settings</i>
-        <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >account_circle</i>
+        <a href="profile.php"><i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >account_circle</i></a>
       </div>
 
     </div>
