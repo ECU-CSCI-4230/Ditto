@@ -19,7 +19,7 @@
     <div class="row">
       <center><img id="logo" src="images\logo.png"></center>
     </div>
-    <form action="action_page.php">
+    <form action="">
       <div class="row">
           <center><input id="info" type="text" placeholder="Enter Username" name="uname" required></center>
       </div>
