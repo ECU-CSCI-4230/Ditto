@@ -34,7 +34,8 @@ if (isset($_POST['login'])) {
     }
     else
     {
-        echo "Doing Stuff ";
+        echo $_POST['uname'];
+        echo $_POST['psw'];
 // Define $username and $password
 
         $username= preg_replace('/\s+/', '', $_POST['uname']);
