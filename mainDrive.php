@@ -4,8 +4,6 @@ include('session.php');
 session_start();
 if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
-} else {
-    header("Location:mainDrive.php");
 }
 ?>
 
