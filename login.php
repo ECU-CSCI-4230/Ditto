@@ -70,7 +70,11 @@ if (isset($_POST['login'])) {
 
             echo "select User_ID from User where Password='$password' AND Username='$username';";
 
-            $rows = mysqli_num_rows(mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn));
+            $password = "'" + $password + "'";
+            $username = "'" + $username + "'";
+            
+            $query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
+            $rows = mysqli_num_rows($query);
 
             echo $rows;
 
