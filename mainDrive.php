@@ -1,8 +1,11 @@
+
 <?php
 include('session.php');
 session_start();
 if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
+} else {
+    header("Location:mainDrive.php");
 }
 ?>
 
@@ -25,22 +28,24 @@ if(!isset($_SESSION['login_user'])){
   <div class="container-fluid header">
     <div class="row">
 
+        <div class="col-sm-1"></div>
       <div class="col-sm-2">
         <a href="mainDrive.php">
           <img id="logo" alt="Ditto Drive" src="images\logo2.png">
         </a>
       </div>
 
-      <div class="col-sm-7">
+      <div class="col-sm-6">
         <form>
           <input id="search" type="text" name="search" placeholder="Search..">
         </form>
       </div>
 
       <div class="col-sm-3" id="icon">
-        <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >help</i>
-        <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >settings</i>
-        <a href="profile.php"><i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >account_circle</i></a>
+          <a href="upload.php"><i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >backup</i> </a>
+          <a href="profile.php"><i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >account_circle</i> </a>
+          <a href="profile.php"> <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >help</i> </a>
+          <a href="profile.php"> <i id="head" class="material-icons" style="font-size: 400%; margin-left:7%;" >settings</i> </a>
       </div>
 
     </div>
