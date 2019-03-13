@@ -13,8 +13,16 @@ if(!isset($_SESSION['login_user'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <script type="text/javascript">
+        function redir() {
+            window.location = "/signOReg.html";
+        }
+    </script>
 </head>
 <body>
+    <script type="text/javascript">
+        redir();
+    </script>
     <h1> Ditto Drive 1 </h1>
     <p>
         <a href="upload.php">UPLOAD FILES</a>
