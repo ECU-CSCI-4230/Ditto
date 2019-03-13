@@ -12,7 +12,7 @@ include('session.php');
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-    <h1> Ditto Drive </h1>
+    <h1> Ditto Drive 1 </h1>
     <p>
         <a href="upload.php">UPLOAD FILES</a>
         <a href="register.html">REGISTER</a>
