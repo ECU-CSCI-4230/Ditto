@@ -3,9 +3,9 @@
 include('session.php');
 session_start();
 if(!isset($_SESSION['login_user'])){
-    header("Location:login.php");
+    header("Location:signOReg.html");
 } else {
-    header("Location:mainDrive.html");
+    header("Location:mainDrive.php");
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ if(!isset($_SESSION['login_user'])){
     <h1> Ditto Drive 1 </h1>
     <p>
         <a href="upload.php">UPLOAD FILES</a>
-        <a href="register.html">REGISTER</a>
+        <a href="register.php">REGISTER</a>
     </p>
 </body>
 </html>
