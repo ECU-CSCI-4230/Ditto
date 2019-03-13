@@ -38,8 +38,13 @@ if (isset($_POST['login'])) {
         echo $_POST['psw'];
 // Define $username and $password
 
-        $username= preg_replace('/\s+/', '', $_POST['uname']);
-        $password= preg_replace('/\s+/', '', $_POST['psw']);
+        $username= $_POST['uname'];
+        $password= $_POST['psw'];
+
+        //Server didn't like these commands
+        //$username= preg_replace('/\s+/', '', $_POST['uname']);
+        //$password= preg_replace('/\s+/', '', $_POST['psw']);
+
 // Establishing Connection with Server by passing DB_SERVER, DB_USERNAME, DB_PASSWORD and DB_NAME as a parameter
         define('DB_SERVER', 'localhost');
         define('DB_USERNAME', 'josh');
@@ -56,10 +61,10 @@ if (isset($_POST['login'])) {
 
 
 // To protect MySQL injection for Security purpose
-        $username = stripslashes($username);
-        $password = stripslashes($password);
-        $username = mysqli_real_escape_string($username);
-        $password = mysqli_real_escape_string($password);
+        //$username = stripslashes($username);
+        //$password = stripslashes($password);
+        //$username = mysqli_real_escape_string($username);
+        //$password = mysqli_real_escape_string($password);
 
 // SQL query to fetch information of registerd users and finds user match.
             $query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
