@@ -67,7 +67,7 @@ if (isset($_POST['login'])) {
         //$password = mysqli_real_escape_string($password);
 
 // SQL query to fetch information of registerd users and finds user match.
-            
+
             $stmt =  "select User_ID from User where Password='$password' AND Username='$username';";
             $result = mysqli_query($conn, $stmt);
             $rows = mysqli_num_rows($result);
@@ -75,7 +75,7 @@ if (isset($_POST['login'])) {
             echo $rows;
 
             if ($rows == 1) {
-                $res = $query->fetch_assoc();
+                $res = $result->fetch_assoc();
                 $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
                 header("location: profile.php"); // Redirecting To Other Page
             } else {
