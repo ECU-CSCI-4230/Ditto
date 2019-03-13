@@ -67,14 +67,13 @@ if (isset($_POST['login'])) {
         //$password = mysqli_real_escape_string($password);
 
 // SQL query to fetch information of registerd users and finds user match.
-            $query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
 
             echo "select User_ID from User where Password='$password' AND Username='$username';";
 
-            $rows = mysqli_num_rows($query);
+            $rows = mysqli_num_rows(mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn));
 
             echo $rows;
-            
+
             if ($rows == 1) {
                 $res = $query->fetch_assoc();
                 $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
