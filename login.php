@@ -68,8 +68,8 @@ if (isset($_POST['login'])) {
 
 // SQL query to fetch information of registerd users and finds user match.
 
-            $password = "'" + $password + "'";
-            $username = "'" + $username + "'";
+            $password = "'" . $password . "'";
+            $username = "'" . $username . "'";
             echo "select User_ID from User where Password='$password' AND Username='$username';";
             $query = mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn);
             $rows = mysqli_num_rows($query);
