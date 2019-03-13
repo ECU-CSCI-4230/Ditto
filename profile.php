@@ -10,7 +10,7 @@ include('session.php');
 <body>
 <?php
 $servername = "localhost";
-$dbname = "Diito_Drive";
+$dbname = "Ditto_Drive";
 $username = "josh";
 $password = "jcc15241711";
 
