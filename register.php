@@ -3,7 +3,7 @@
 
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'josh');
-define('DB_PASSWORD', 'jcc52896');
+define('DB_PASSWORD', 'jcc15241711');
 define('DB_NAME', 'Ditto_Drive');
 
 /* Attempt to connect to MySQL database */
