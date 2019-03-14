@@ -1,4 +1,3 @@
-
 <?php
 include('session.php');
 session_start();
@@ -60,63 +59,26 @@ if(!isset($_SESSION['login_user'])){
     <div class="row">
         <div class="col-sm-4 ">
             <div class="container-fluid background">
-                <?php
-                define('DB_SERVER', 'localhost');
-                define('DB_USERNAME', 'josh');
-                define('DB_PASSWORD', 'jcc15241711');
-                define('DB_NAME', 'Ditto_Drive');
-                /* Attempt to connect to MySQL database */
-                $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-                // Check connection
-                if ($link === false) {
-                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                }
-
-                $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
-                $result = mysqli_query($link, $sql);
-                $rows = mysqli_num_rows($result);
-
-                if ($rows != 0) {
-                    $msg .= 'display_error("Unable to connect to the server");';
-                    $err = 3;
-                } else {
-                    $res = $result->fetch_assoc();
-                    $username = $res["Username"];
-                    $user_dir = "uploads";
-
-                    $files = scandir($user_dir);
-                    sort($files);
-                    foreach ($files as $file) {
-                        if ($file != "." && $file != "..") {
-                            echo "\n";
-                            echo '<li><a href="uploads/' . $file . '">' . $file . '</a></li>';
-                        }
-                    }
-                }
-                // Close connection
-                mysqli_close($link);
-                ?>
+                Directories
 
             </div>
         </div>
         <div class="col-sm-8">
             <div class="row">
                 <div class="container-fluid background">
-                    HEYYYYYYY
-                </div>
-            </div>
-            <div class="row">
-                <div class="container-fluid background">
-                    HEYYYYYYY
-                </div>
-            </div>
-            <div class="row">
-                <div class="container-fluid background">
-                    HEYYYYYYY
+                    <?php
+                    $files = scandir('uploads');
+                    sort($files);
+                    foreach ($files as $file) {
+                        echo "\n";
+                        echo '<li><a href="uploads/' . $file . '">' . $file . '</a></li>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 
