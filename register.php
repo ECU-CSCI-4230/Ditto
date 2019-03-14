@@ -1,63 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Ditto Drive</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link href='.\style.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="script.js"></script>
-</head>
-
-<body>
-
-<!-- The Reg Page -->
-<div class="container" id="reg">
-    <form id="reg_box" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr>
-
-        <div class="row ">
-            <div class="col-sm-6">
-                <center><input type="text" placeholder="First Name" name="first_name" required></center>
-            </div>
-            <div class="col-sm-6">
-                <center><input type="text" placeholder="Last Name" name="last_name" required></center>
-            </div>
-        </div>
-
-        <div class="row">
-        </div>
-        <div class="row">
-            <center><input type="text" placeholder="Enter Email" name="email" required></center>
-        </div>
-        <div class="row">
-        </div>
-        <div class="row <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-            <center><input type="password" placeholder="Enter Password" name="password" required></center>
-            <span class="help-block"><?php echo $password_err; ?></span>
-        </div>
-        <div class="row">
-        </div>
-        <div class="row <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-            <center><input type="password" placeholder="Repeat Password" name="confirm_password" required></center>
-            <span class="help-block"><?php echo $confirm_password_err; ?></span>
-        </div>
-        <hr>
-
-        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="registerbtn">Register</button>
-        <div class="container signin">
-            <p>Already have an account? <a href="signIn.html">Sign in</a>.</p>
-        </div>
-    </form>
-</div>
-
-
 <?php
 // Initiate connection to database
 define('DB_SERVER', 'localhost');
@@ -117,6 +57,74 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ditto Drive</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href='.\style.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+
+<!-- The Reg Page -->
+<div class="container" id="reg">
+    <form id="reg_box" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+
+        <div class="row ">
+            <div class="col-sm-6">
+                <center><input type="text" placeholder="First Name" name="first_name" required></center>
+            </div>
+            <div class="col-sm-6">
+                <center><input type="text" placeholder="Last Name" name="last_name" required></center>
+            </div>
+        </div>
+
+        <div class="row">
+        </div>
+        <div class="row">
+            <center><input type="text" placeholder="Enter Email" name="email" required></center>
+        </div>
+        <div class="row">
+        </div>
+        <div class="row <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            <center><input type="password" placeholder="Enter Password" name="password" required></center>
+            <span class="help-block"><?php echo $password_err; ?></span>
+        </div>
+        <div class="row">
+        </div>
+        <div class="row <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+            <center><input type="password" placeholder="Repeat Password" name="confirm_password" required></center>
+            <span class="help-block"><?php echo $confirm_password_err; ?></span>
+        </div>
+        <hr>
+
+        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <button type="submit" class="registerbtn">Register</button>
+        <div class="container signin">
+            <p>Already have an account? <a href="signIn.html">Sign in</a>.</p>
+        </div>
+    </form>
+</div>
+
 
 </body>
 
