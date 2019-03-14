@@ -1,64 +1,3 @@
-<?php
-// Initiate connection to database
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'josh');
-define('DB_PASSWORD', 'jcc15241711');
-define('DB_NAME', 'Ditto_Drive');
-/* Attempt to connect to MySQL database */
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-// Check connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-//create variables to hold user information
-$username = $password = $confirm_password = $password = $first_name = $last_name =
-$confirm_password_err = $password_err = "";
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $email = trim($_POST["email"]);
-    $username = trim($_POST["email"]);
-    $password = trim($_POST["password"]);
-    $confirm_password = trim($_POST["confirm_password"]);
-    $first_name = trim($_POST["first_name"]);
-    $last_name = trim($_POST["last_name"]);
-    // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";
-    } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have atleast 6 characters.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    // Validate that passwords match
-    if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";
-    } else{
-        $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "Password did not match.";
-        }
-    }
-//test to see if any errors were generated
-    if(empty($password_err) && empty($confirm_password_err)) {
-// Prepare an insert statement
-        $sql = "INSERT INTO User (Username, Password, Email) VALUES (?, ?, ?)";
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
-            //execute statment
-            mysqli_stmt_execute($stmt);
-            echo "Statement executed";
-        } else {
-            echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
-        }
-// Close statement
-        mysqli_stmt_close($stmt);
-// Close connection
-        mysqli_close($link);
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,6 +56,68 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </form>
 </div>
+
+
+<?php
+// Initiate connection to database
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'josh');
+define('DB_PASSWORD', 'jcc15241711');
+define('DB_NAME', 'Ditto_Drive');
+/* Attempt to connect to MySQL database */
+$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+//create variables to hold user information
+$username = $password = $confirm_password = $password = $first_name = $last_name =
+$confirm_password_err = $password_err = "";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $email = trim($_POST["email"]);
+    $username = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
+    $confirm_password = trim($_POST["confirm_password"]);
+    $first_name = trim($_POST["first_name"]);
+    $last_name = trim($_POST["last_name"]);
+    // Validate password
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password.";
+    } elseif(strlen(trim($_POST["password"])) < 6){
+        $password_err = "Password must have atleast 6 characters.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    // Validate that passwords match
+    if(empty(trim($_POST["confirm_password"]))){
+        $confirm_password_err = "Please confirm password.";
+    } else{
+        $confirm_password = trim($_POST["confirm_password"]);
+        if(empty($password_err) && ($password != $confirm_password)){
+            $confirm_password_err = "Password did not match.";
+        }
+    }
+//test to see if any errors were generated
+    if(empty($password_err) && empty($confirm_password_err)) {
+// Prepare an insert statement
+        $sql = "INSERT INTO User (Username, Password, Email) VALUES (?, ?, ?)";
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
+            //execute statment
+            mysqli_stmt_execute($stmt);
+            echo "Statement executed.";
+            echo "<script>loginSuccess()</script>";
+        } else {
+            echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
+        }
+// Close statement
+        mysqli_stmt_close($stmt);
+// Close connection
+        mysqli_close($link);
+    }
+}
+?>
 
 </body>
 
