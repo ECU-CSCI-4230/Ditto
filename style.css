@@ -7,17 +7,24 @@ body, html {
 body {
   background-image: url(images/background.jpg);
   /* background-position: center; */
-  /* background-repeat: no-repeat; */
-  background-size: cover;
+  background-size: cover, contain;
 }
 
 
 #logo {
   height: auto;
   margin: 0 auto;
-  margin-bottom: -14%;
+  margin-bottom: -10%;
   margin-top: -5%;
   max-width: 700px;
+}
+
+#logo2 {
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: -10%;
+  margin-top: -5%;
+  width: 400px;
 }
 
 #SignOrReg {
@@ -68,8 +75,8 @@ button:hover {
 
 #signIn {
   margin: auto;
-  width: 75%;
-  margin-top: 10%;
+  width: 50%;
+  margin-top: 2%;
   background: rgba(216, 216, 216, 0.8);
 }
 
