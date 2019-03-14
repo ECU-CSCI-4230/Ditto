@@ -11,11 +11,20 @@ body {
   background-size: cover;
 }
 
+
 #logo {
   height: auto;
-  width: 50vw;
-  /* margin-left: 26%; */
-  margin-bottom: -10%;
+  margin: 0 auto;
+  margin-bottom: -14%;
+  margin-top: -5%;
+  max-width: 700px;
+}
+
+#SignOrReg {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 400px;
 }
 
 #slogan {
