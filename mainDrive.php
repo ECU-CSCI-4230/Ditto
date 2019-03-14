@@ -70,18 +70,17 @@ if(!isset($_SESSION['login_user'])){
       <div class="col-sm-8">
         <div class="row">
           <div class="container-fluid background">
-            HEYYYYYYY
+              <?php
+              $files = scandir('uploads');
+              sort($files);
+              foreach($files as $file){
+                  echo"\n";
+                  echo'<li><a href="uploads/'.$file.'">'.$file.'</a></li>';
+              }
+
+              ?>
           </div>
         </div>
-        <div class="row">
-          <div class="container-fluid background">
-            HEYYYYYYY
-          </div>
-        </div>
-        <div class="row">
-          <div class="container-fluid background">
-            HEYYYYYYY
-          </div>
         </div>
       </div>
     </div>
