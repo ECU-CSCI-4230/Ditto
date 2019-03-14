@@ -1,11 +1,4 @@
 
-<?php
-include('session.php');
-session_start();
-if(!isset($_SESSION['login_user'])){
-    header("Location:signOReg.html");
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +54,14 @@ if(!isset($_SESSION['login_user'])){
       <div class="col-sm-8">
         <div class="row">
           <div class="container-fluid background">
-            HEYYYYYYY
+              <?php
+              $files = scandir('uploads');
+              sort($files);
+              foreach($files as $file){
+                  echo'<a href="uploads/'.$file.'">'.$file.'</a>';
+              }
+
+              ?>
           </div>
         </div>
         <div class="row">
@@ -78,14 +78,6 @@ if(!isset($_SESSION['login_user'])){
     </div>
   </div>
 
-  <?php
-        $files = scandir('uploads');
-    sort($files); // this does the sorting
-    foreach($files as $file){
-        echo'<a href="uploads/'.$file.'">'.$file.'</a>';
-    }
-
-  ?>
 </body>
 
 </html>
