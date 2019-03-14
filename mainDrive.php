@@ -80,10 +80,10 @@ if(!isset($_SESSION['login_user'])){
 
   <?php
 
-        $files = scandir('uploads/');
+        $files = scandir('uploads');
     sort($files); // this does the sorting
     foreach($files as $file){
-       echo'<a href="/directory/to/list/'.$file.'">'.$file.'</a>';
+       echo'<a href="uploads'.$file.'">'.$file.'</a>';
     }
 
   ?>
