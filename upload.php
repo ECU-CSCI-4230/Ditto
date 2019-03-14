@@ -79,16 +79,17 @@ if(isset($_FILES['fileToUpload'])){
         } else {
             $res = $result->fetch_assoc();
             $username = $res["Username"];
-            $filepath = "uploads/$username/$file_name";
+            //$filepath = "uploads/$username/$file_name";
+            $filepath = "uploads/$file_name";
 
             if (file_exists($filepath)) {
-                $msg .= "display_error(\"" . $file_name . " A file with this name exists already.\");";
+                $msg .= "display_error(\"" . $filepath . " A file with this name exists already.\");";
                 $err = 1;
             } else if ($file_size > 8388608) {
                 $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb");';
                 $err = 2;
             } else if ($err == 0) {
-                move_uploaded_file($file_tmp, $file_name);
+                move_uploaded_file($file_tmp, $filepath);
                 $msg .= 'display_success("' . $file_name . '");';
                 $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
 
@@ -101,10 +102,11 @@ if(isset($_FILES['fileToUpload'])){
                     mysqli_stmt_bind_param($stmt, "sss", $filepath, $file_type, date("Y/m/d"), $file_size);
                     //execute statement
                     mysqli_stmt_execute($stmt);
-                    echo "<script>regSuccess()</script>";
                 } else {
                     echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
                 }
+                // Close statement
+                mysqli_stmt_close($stmt);
 
                 $sql = "select File_ID FROM File WHERE File_Path= $filepath";
                 $result = mysqli_query($conn, $sql);
@@ -118,14 +120,12 @@ if(isset($_FILES['fileToUpload'])){
                     $file_id = $res["File_ID"];
                     $filepath = "uploads/$username/$file_name";
 
-
                     $sql = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         // Bind variables to the prepared statement as parameters
                         mysqli_stmt_bind_param($stmt, "sss", $_SESSION['login_user'], $file_id, 1);
                         //execute statement
                         mysqli_stmt_execute($stmt);
-                        echo "<script>regSuccess()</script>";
                     } else {
                         echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
                     }
@@ -135,8 +135,6 @@ if(isset($_FILES['fileToUpload'])){
                 mysqli_stmt_close($stmt);
 // Close connection
                 mysqli_close($link);
-
-
             }
 
         }
