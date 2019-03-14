@@ -16,6 +16,7 @@ function showReg() {
 
 function regSuccess() {
     let text = "";
-    text += "<div class=" + "\"alert alert-success\" role=\"alert\" id=\"sucbadge\"><strong>Success!</strong>" + " REGISTRATION SUCCESSFUL "  + "</div>";
+    text += "<div class=" + "\"alert alert-success\" role=\"alert\" id=\"sucbadge\"><strong>Success!</strong>" + " REGISTRATION SUCCESSFUL ";
+    text += " <a href=\"signIn.php\">CLICK HERE TO LOGIN</a></div>";
     document.getElementById('reg').innerHTML = text;
 }
