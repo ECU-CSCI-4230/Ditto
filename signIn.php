@@ -17,7 +17,7 @@
   <!-- The Sign In Page -->
   <div class="container" id="signIn">
     <div class="row">
-      <center><img id="logo" src="images\logo.png"></center>
+      <center><img id="logo2" src="images\logo.png"></center>
     </div>
     <form action="" method="POST">
       <div class="row">
