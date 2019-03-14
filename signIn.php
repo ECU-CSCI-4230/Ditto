@@ -104,14 +104,13 @@
                   }
               } else {
                   echo "0 results ";
+                  echo $error;
               }
 
               mysqli_close($conn); // Closing Connection
           }
       }
   }
-
-  echo $error;
   ?>
 
 </body>
