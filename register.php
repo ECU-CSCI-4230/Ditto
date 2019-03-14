@@ -2,7 +2,7 @@
 // Initiate connection to database
 
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
+define('DB_USERNAME', 'josh');
 define('DB_PASSWORD', 'jcc52896');
 define('DB_NAME', 'Ditto_Drive');
 
@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-//test to see if any errors were generated 
+//test to see if any errors were generated
 if(empty($password_err) && empty($confirm_password_err)) {
 
 // Prepare an insert statement
