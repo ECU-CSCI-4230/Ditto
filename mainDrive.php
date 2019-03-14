@@ -82,9 +82,9 @@ if(!isset($_SESSION['login_user'])){
                 } else {
                     $res = $result->fetch_assoc();
                     $username = $res["Username"];
-                    $user_dir = "uploads/$username/";
+                    $user_dir = "uploads/";
 
-                    $files = scandir('user_dir');
+                    $files = scandir($user_dir);
                     sort($files);
                     foreach ($files as $file) {
                         if ($file != "." && $file != "..")
