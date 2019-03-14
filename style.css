@@ -7,15 +7,14 @@ body, html {
 body {
   background-image: url(images/background.jpg);
   /* background-position: center; */
-  /* background-repeat: no-repeat; */
-  background-size: cover;
+  background-size: cover, contain;
 }
 
 
 #logo {
   height: auto;
   margin: 0 auto;
-  margin-bottom: -14%;
+  margin-bottom: -10%;
   margin-top: -5%;
   max-width: 700px;
 }
