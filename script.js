@@ -14,8 +14,8 @@ function showReg() {
   y.style.display = "block";
 }
 
-function loginSuccess() {
+function regSuccess() {
     let text = "";
-    text += "<div class=" + "\"alert alert-success\" role=\"alert\"><strong>Success!</strong>" + " LOGIN SUCCESSFUL "  + "</div>";
+    text += "<div class=" + "\"alert alert-success\" role=\"alert\" id=\"sucbadge\"><strong>Success!</strong>" + " REGISTRATION SUCCESSFUL "  + "</div>";
     document.getElementById('reg').innerHTML = text;
 }

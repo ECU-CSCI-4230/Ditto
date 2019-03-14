@@ -27,6 +27,10 @@ body {
   max-width: 400px;
 }
 
+#sucbadge {
+  margin-top: 300px;
+}
+
 #slogan {
   color: #FFFFFF;
   border: #979797;
