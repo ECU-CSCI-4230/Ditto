@@ -105,47 +105,47 @@ if(isset($_FILES['fileToUpload'])){
                 move_uploaded_file($file_tmp, $filepath);
                 $msg .= 'display_success("' . $file_name . '");';
                 $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
+                /*
+                    // Prepare an insert statement
+                                $sql = "INSERT INTO File (File_Path, File_Type, LastModified, Size) VALUES (?, ?, ?, ?, ?)";
+                                if ($stmt = mysqli_prepare($link, $sql)) {
+                                    // Bind variables to the prepared statement as parameters
+                                    mysqli_stmt_bind_param($stmt, "sss", $filepath, $file_type, date("Y/m/d"), $file_size);
+                                    //execute statement
+                                    mysqli_stmt_execute($stmt);
+                                } else {
+                                    echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
+                                }
+                                // Close statement
+                                mysqli_stmt_close($stmt);
 
-    // Prepare an insert statement
-                $sql = "INSERT INTO File (File_Path, File_Type, LastModified, Size) VALUES (?, ?, ?, ?, ?)";
-                if ($stmt = mysqli_prepare($link, $sql)) {
-                    // Bind variables to the prepared statement as parameters
-                    mysqli_stmt_bind_param($stmt, "sss", $filepath, $file_type, date("Y/m/d"), $file_size);
-                    //execute statement
-                    mysqli_stmt_execute($stmt);
-                } else {
-                    echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
-                }
-                // Close statement
-                mysqli_stmt_close($stmt);
+                                $sql = "select File_ID FROM File WHERE File_Path= $filepath";
+                                $result = mysqli_query($link, $sql);
+                                $rows = mysqli_num_rows($result);
 
-                $sql = "select File_ID FROM File WHERE File_Path= $filepath";
-                $result = mysqli_query($link, $sql);
-                $rows = mysqli_num_rows($result);
+                                if ($rows != 0) {
+                                    $msg .= 'display_error("Unable to connect to the database");';
+                                    $err = 3;
+                                } else {
+                                    $res = $result->fetch_assoc();
+                                    $file_id = $res["File_ID"];
+                                    $filepath = "uploads/$username/$file_name";
 
-                if ($rows != 0) {
-                    $msg .= 'display_error("Unable to connect to the database");';
-                    $err = 3;
-                } else {
-                    $res = $result->fetch_assoc();
-                    $file_id = $res["File_ID"];
-                    $filepath = "uploads/$username/$file_name";
+                                    $sql = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
+                                    if ($stmt = mysqli_prepare($link, $sql)) {
+                                        // Bind variables to the prepared statement as parameters
+                                        mysqli_stmt_bind_param($stmt, "sss", $_SESSION['login_user'], $file_id, 1);
+                                        //execute statement
+                                        mysqli_stmt_execute($stmt);
+                                    } else {
+                                        echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
+                                    }
+                                }
 
-                    $sql = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
-                    if ($stmt = mysqli_prepare($link, $sql)) {
-                        // Bind variables to the prepared statement as parameters
-                        mysqli_stmt_bind_param($stmt, "sss", $_SESSION['login_user'], $file_id, 1);
-                        //execute statement
-                        mysqli_stmt_execute($stmt);
-                    } else {
-                        echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
-                    }
-                }
-
-    // Close statement
-                mysqli_stmt_close($stmt);
-    // Close connection
-                mysqli_close($link);/**/
+                    // Close statement
+                                mysqli_stmt_close($stmt);
+                    // Close connection
+                                mysqli_close($link);/**/
             }
 
 
