@@ -105,7 +105,7 @@ if(isset($_FILES['fileToUpload'])){
                 move_uploaded_file($file_tmp, $filepath);
                 $msg .= 'display_success("' . $file_name . '");';
                 $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
-
+                /*
     // Prepare an insert statement
                 $sql = "INSERT INTO File (File_Path, File_Type, LastModified, Size) VALUES (?, ?, ?, ?, ?)";
                 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -145,7 +145,7 @@ if(isset($_FILES['fileToUpload'])){
     // Close statement
                 mysqli_stmt_close($stmt);
     // Close connection
-                mysqli_close($link);
+                mysqli_close($link);*/
             }
 
 
