@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-
+//test to see if any errors were generated 
 if(empty($password_err) && empty($confirm_password_err)) {
 
 // Prepare an insert statement
@@ -78,17 +78,6 @@ if(empty($password_err) && empty($confirm_password_err)) {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>
