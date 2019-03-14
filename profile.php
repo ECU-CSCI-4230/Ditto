@@ -10,9 +10,9 @@ include('session.php');
 <body>
 <?php
 $servername = "localhost";
-$dbname = "Diito_Drive";
-$username = "root";
-$password = "admin";
+$dbname = "Ditto_Drive";
+$username = "josh";
+$password = "jcc15241711";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

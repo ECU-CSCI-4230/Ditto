@@ -68,21 +68,21 @@ if (isset($_POST['login'])) {
 
 // SQL query to fetch information of registerd users and finds user match.
 
-            echo "select User_ID from User where Password='$password' AND Username='$username';";
-
-            $rows = mysqli_num_rows(mysqli_query("select User_ID from User where Password='$password' AND Username='$username';", $conn));
+            $stmt =  "select User_ID from User where Password='$password' AND Username='$username';";
+            $result = mysqli_query($conn, $stmt);
+            $rows = mysqli_num_rows($result);
 
             echo $rows;
 
             if ($rows == 1) {
-                $res = $query->fetch_assoc();
+                $res = $result->fetch_assoc();
                 $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
                 header("location: profile.php"); // Redirecting To Other Page
             } else {
                 $error = "Username or Password is invalid ";
             }
 
-            if (mysqli_num_rows($query) > 0) {
+            if (rows > 0) {
                 // output data of each row
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "id: " . $row["User_ID"] . " - User: " . $row["Username"] . "<br>";
