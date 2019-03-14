@@ -55,15 +55,7 @@ if(!isset($_SESSION['login_user'])){
     <div class="row">
       <div class="col-sm-4 ">
         <div class="container-fluid background">
-            <?php
-            $files = scandir('uploads');
-            sort($files);
-            foreach($files as $file){
-                echo"\n";
-                echo'<li><a href="uploads/'.$file.'">'.$file.'</a></li>';
-            }
-
-            ?>
+            Directories
 
         </div>
       </div>
