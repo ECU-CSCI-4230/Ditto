@@ -60,7 +60,7 @@ if(!isset($_SESSION['login_user'])){
             sort($files);
             foreach($files as $file){
                 echo"\n";
-                echo'<a href="uploads/'.$file.'">'.$file.'</a>';
+                echo'<li><a href="uploads/'.$file.'">'.$file.'</a></li>';
             }
 
             ?>
