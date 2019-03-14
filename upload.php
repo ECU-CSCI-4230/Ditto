@@ -54,7 +54,6 @@ if(!isset($_SESSION['login_user'])){
 </div>
 
 <?php
-v
 
 if(isset($_FILES['fileToUpload'])){
     $err = 0;
