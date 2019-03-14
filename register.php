@@ -15,7 +15,8 @@ if($link === false){
 }
 
 //create variables to hold user information
-$username = $password = $confirm_password = $password = $first_name = $last_name = "";
+$username = $password = $confirm_password = $password = $first_name = $last_name =
+$confirm_password_err = $password_err = "";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -28,15 +29,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $last_name = trim($_POST["last_name"]);
 
 
-    
+    // Validate password
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password.";
+    } elseif(strlen(trim($_POST["password"])) < 6){
+        $password_err = "Password must have atleast 6 characters.";
+    } else{
+        $password = trim($_POST["password"]);
+
+    }
+
+    // Validate that passwords match
+    if(empty(trim($_POST["confirm_password"]))){
+        $confirm_password_err = "Please confirm password.";
+    } else{
+        $confirm_password = trim($_POST["confirm_password"]);
+        if(empty($password_err) && ($password != $confirm_password)){
+            $confirm_password_err = "Password did not match.";
+        }
+    }
 
 
-
+if(empty($password_err) && empty($confirm_password_err)) {
 
 // Prepare an insert statement
     $sql = "INSERT INTO User (Username, Password, Email) VALUES (?, ?, ?)";
 
-    if($stmt = mysqli_prepare($link, $sql)){
+    if ($stmt = mysqli_prepare($link, $sql)) {
 
         // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
@@ -45,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         mysqli_stmt_execute($stmt);
 
 
-    } else{
+    } else {
         echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
     }
 
@@ -54,6 +73,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 // Close connection
     mysqli_close($link);
+}
+
 
 
 }
@@ -98,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <p>Please fill in this form to create an account.</p>
         <hr>
 
-        <div class="row">
+        <div class="row ">
             <div class="col-sm-6">
                 <center><input type="text" placeholder="First Name" name="first_name" required></center>
             </div>
@@ -114,13 +135,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="row">
         </div>
-        <div class="row">
+        <div class="row <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
             <center><input type="password" placeholder="Enter Password" name="password" required></center>
+            <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <div class="row">
         </div>
-        <div class="row">
+        <div class="row <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
             <center><input type="password" placeholder="Repeat Password" name="confirm_password" required></center>
+            <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
         <hr>
 
