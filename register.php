@@ -106,8 +106,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
             //execute statment
             mysqli_stmt_execute($stmt);
-            echo "Statement executed.";
-            echo "<script>loginSuccess()</script>";
+            echo "<script>regSuccess()</script>";
         } else {
             echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
         }
