@@ -62,6 +62,7 @@ if(empty($password_err) && empty($confirm_password_err)) {
 
         //execute statment
         mysqli_stmt_execute($stmt);
+        echo "Statement executed";
 
 
     } else {
