@@ -13,6 +13,7 @@ if($link === false){
 //create variables to hold user information
 $username = $password = $confirm_password = $password = $first_name = $last_name =
 $confirm_password_err = $password_err = "";
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email = trim($_POST["email"]);
     $username = trim($_POST["email"]);
@@ -23,6 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
+        echo "<script>passErr($password_err)</script>";
     } elseif(strlen(trim($_POST["password"])) < 6){
         $password_err = "Password must have atleast 6 characters.";
     } else{
@@ -47,6 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             //execute statment
             mysqli_stmt_execute($stmt);
             echo "<script>regSuccess()</script>";
+            header("Location:signIn.php");
         } else {
             echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
         }
