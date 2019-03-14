@@ -59,8 +59,8 @@ if(!isset($_SESSION['login_user'])){
             $files = scandir('uploads');
             sort($files);
             foreach($files as $file){
-                echo'<a href="uploads/'.$file.'">'.$file.'</a>';
                 echo"\n";
+                echo'<a href="uploads/'.$file.'">'.$file.'</a>';
             }
 
             ?>
