@@ -62,11 +62,23 @@ if(isset($_FILES['fileToUpload'])){
 
     $msg = "<script>";
 
+// Initiate connection to database
+    define('DB_SERVER', 'localhost');
+    define('DB_USERNAME', 'josh');
+    define('DB_PASSWORD', 'jcc15241711');
+    define('DB_NAME', 'Ditto_Drive');
+    /* Attempt to connect to MySQL database */
+    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Check connection
+    if ($link === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
     $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_num_rows($result);
 
-    for( $i=0 ; $i < $total ; $i++ ) {
+    for ($i = 0; $i < $total; $i++) {
 
         $file_name = $_FILES['fileToUpload']['name'][$i];
         $file_size = $_FILES['fileToUpload']['size'][$i];
@@ -93,10 +105,8 @@ if(isset($_FILES['fileToUpload'])){
                 move_uploaded_file($file_tmp, $filepath);
                 $msg .= 'display_success("' . $file_name . '");';
                 $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
-
-//create variables to hold user information
-
-// Prepare an insert statement
+                /*
+    // Prepare an insert statement
                 $sql = "INSERT INTO File (File_Path, File_Type, LastModified, Size) VALUES (?, ?, ?, ?, ?)";
                 if ($stmt = mysqli_prepare($link, $sql)) {
                     // Bind variables to the prepared statement as parameters
@@ -132,16 +142,17 @@ if(isset($_FILES['fileToUpload'])){
                     }
                 }
 
-// Close statement
+    // Close statement
                 mysqli_stmt_close($stmt);
-// Close connection
-                mysqli_close($link);
+    // Close connection
+                mysqli_close($link);*/
             }
 
-        }
-        $msg .= '</script>';
 
-        echo $msg;
+            $msg .= '</script>';
+
+            echo $msg;
+        }
     }
 }
 ?>
