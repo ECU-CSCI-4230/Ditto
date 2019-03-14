@@ -73,7 +73,7 @@ if(!isset($_SESSION['login_user'])){
                 }
 
                 $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
-                $result = mysqli_query($conn, $sql);
+                $result = mysqli_query($link, $sql);
                 $rows = mysqli_num_rows($result);
 
                 if ($rows != 0) {
@@ -82,14 +82,15 @@ if(!isset($_SESSION['login_user'])){
                 } else {
                     $res = $result->fetch_assoc();
                     $username = $res["Username"];
-                    $user_dir = "uploads/";
+                    $user_dir = "uploads";
 
                     $files = scandir($user_dir);
                     sort($files);
                     foreach ($files as $file) {
-                        if ($file != "." && $file != "..")
+                        if ($file != "." && $file != "..") {
                             echo "\n";
-                        echo '<li><a href="uploads/' . $file . '">' . $file . '</a></li>';
+                            echo '<li><a href="uploads/' . $file . '">' . $file . '</a></li>';
+                        }
                     }
                 }
                 // Close connection
