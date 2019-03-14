@@ -75,7 +75,7 @@ if(isset($_FILES['fileToUpload'])){
     }
 
     $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
-    $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($link, $sql);
     $rows = mysqli_num_rows($result);
 
     for ($i = 0; $i < $total; $i++) {
@@ -105,7 +105,7 @@ if(isset($_FILES['fileToUpload'])){
                 move_uploaded_file($file_tmp, $filepath);
                 $msg .= 'display_success("' . $file_name . '");';
                 $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
-                /*
+
     // Prepare an insert statement
                 $sql = "INSERT INTO File (File_Path, File_Type, LastModified, Size) VALUES (?, ?, ?, ?, ?)";
                 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -120,7 +120,7 @@ if(isset($_FILES['fileToUpload'])){
                 mysqli_stmt_close($stmt);
 
                 $sql = "select File_ID FROM File WHERE File_Path= $filepath";
-                $result = mysqli_query($conn, $sql);
+                $result = mysqli_query($link, $sql);
                 $rows = mysqli_num_rows($result);
 
                 if ($rows != 0) {
@@ -145,7 +145,7 @@ if(isset($_FILES['fileToUpload'])){
     // Close statement
                 mysqli_stmt_close($stmt);
     // Close connection
-                mysqli_close($link);*/
+                mysqli_close($link);/**/
             }
 
 
