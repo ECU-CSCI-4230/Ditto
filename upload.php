@@ -91,7 +91,7 @@ if(isset($_FILES['fileToUpload'])){
             $err = 3;
         } else {
             //$res = $result->fetch_assoc();
-            $username = $res["Username"];
+            //$username = $res["Username"];
             //$filepath = "uploads/$username/$file_name";
             $filepath = "uploads/$file_name";
 
