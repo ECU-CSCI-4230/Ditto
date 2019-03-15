@@ -62,23 +62,23 @@ if(isset($_FILES['fileToUpload'])){
 
     $msg = "<script>";
 
-// Initiate connection to database
-    define('DB_SERVER', 'localhost');
-    define('DB_USERNAME', 'josh');
-    define('DB_PASSWORD', 'jcc15241711');
-    define('DB_NAME', 'Ditto_Drive');
-    /* Attempt to connect to MySQL database */
-    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-// Check connection
-    if ($link === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
-
-    $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
-    $result = mysqli_query($link, $sql);
-    $rows = mysqli_num_rows($result);
-
-    for ($i = 0; $i < $total; $i++) {
+//// Initiate connection to database
+//    define('DB_SERVER', 'localhost');
+//    define('DB_USERNAME', 'josh');
+//    define('DB_PASSWORD', 'jcc15241711');
+//    define('DB_NAME', 'Ditto_Drive');
+//    /* Attempt to connect to MySQL database */
+//    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+//// Check connection
+//    if ($link === false) {
+//        die("ERROR: Could not connect. " . mysqli_connect_error());
+//    }
+//
+//    $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
+//    $result = mysqli_query($link, $sql);
+//    $rows = mysqli_num_rows($result);
+//
+//    for ($i = 0; $i < $total; $i++) {
 
         $file_name = $_FILES['fileToUpload']['name'][$i];
         $file_size = $_FILES['fileToUpload']['size'][$i];
@@ -90,7 +90,7 @@ if(isset($_FILES['fileToUpload'])){
             $msg .= 'display_error("Unable to connect to the server");';
             $err = 3;
         } else {
-            $res = $result->fetch_assoc();
+            //$res = $result->fetch_assoc();
             $username = $res["Username"];
             //$filepath = "uploads/$username/$file_name";
             $filepath = "uploads/$file_name";
