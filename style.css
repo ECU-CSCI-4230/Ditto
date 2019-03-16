@@ -27,6 +27,12 @@ body {
   width: 400px;
 }
 
+#logo3 {
+  padding-bottom: -15%;
+  margin-top: -5%;
+  margin-bottom: -50%;
+}
+
 #SignOrReg {
   display: block;
   margin-right: auto;
@@ -80,6 +86,10 @@ button:hover {
   background: rgba(216, 216, 216, 0.8);
 }
 
+#namebar {
+  padding-top: 50px;
+  padding-right: 50px;
+}
 input {
   border-radius: 5px;
   background: rgb(216, 216, 216);

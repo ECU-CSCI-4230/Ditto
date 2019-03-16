@@ -1,6 +1,5 @@
 <?php
 include('session.php');
-session_start();
 if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
 }
@@ -15,7 +14,7 @@ if(!isset($_SESSION['login_user'])){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link href=".\drive.css" rel='stylesheet'>
+    <link href="drive.css" rel='stylesheet'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
@@ -29,7 +28,7 @@ if(!isset($_SESSION['login_user'])){
         <div class="col-sm-1"></div>
         <div class="col-sm-2">
             <a href="mainDrive.php">
-                <img id="logo" alt="Ditto Drive" src="images\logo2.png">
+                <img id="logo" alt="Ditto Drive" src="images/logo2.png">
             </a>
         </div>
 
@@ -79,7 +78,7 @@ if(!isset($_SESSION['login_user'])){
         </div>
     </div>
 </div>
-</div>
+
 </body>
 
 </html>

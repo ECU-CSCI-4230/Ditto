@@ -1,9 +1,28 @@
 <?php
 include('session.php');
-session_start();
 if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
 }
+
+// Initiate connection to database
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'josh');
+define('DB_PASSWORD', 'jcc15241711');
+define('DB_NAME', 'Ditto_Drive');
+
+/* Attempt to connect to MySQL database */
+$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Check connection
+if ($link === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+$sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
+$result = mysqli_query($link, $sql);
+$rows = mysqli_num_rows($result);
+
+$res = $result->fetch_assoc();
+$username = $res["Username"];
 ?>
 <html>
 <head>
@@ -19,7 +38,17 @@ if(!isset($_SESSION['login_user'])){
 
 <body>
 
-<a href="index.php"><h1>  Ditto Drive  </h1></a>
+<div class="row">
+    <div class="col-md-1">
+        <a href="index.php"><img id="logo3" src=".\images\logo.png" style="max-width: 400px"></a>
+    </div>
+    <div class="col-md-8"></div>
+    <div class="form-group col-md-3">
+        <ul class="list-group" id="namebar">
+            <li class="list-group-item">Logged in as: <?php echo $username; ?></li>
+        </ul>
+    </div>
+</div>
 
 <br>
 
@@ -59,26 +88,9 @@ if(!isset($_SESSION['login_user'])){
 if(isset($_FILES['fileToUpload'])){
     $err = 0;
     $total = count($_FILES['fileToUpload']['name']);
-
     $msg = "<script>";
 
-//// Initiate connection to database
-//    define('DB_SERVER', 'localhost');
-//    define('DB_USERNAME', 'josh');
-//    define('DB_PASSWORD', 'jcc15241711');
-//    define('DB_NAME', 'Ditto_Drive');
-//    /* Attempt to connect to MySQL database */
-//    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-//// Check connection
-//    if ($link === false) {
-//        die("ERROR: Could not connect. " . mysqli_connect_error());
-//    }
-//
-//    $sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
-//    $result = mysqli_query($link, $sql);
-//    $rows = mysqli_num_rows($result);
-//
-//    for ($i = 0; $i < $total; $i++) {
+    for ($i = 0; $i < $total; $i++) {
 
         $file_name = $_FILES['fileToUpload']['name'][$i];
         $file_size = $_FILES['fileToUpload']['size'][$i];
@@ -86,9 +98,10 @@ if(isset($_FILES['fileToUpload'])){
         $file_type = $_FILES['fileToUpload']['type'][$i];
 //        $file_ext = strtolower(end(explode('.',$_FILES['image']['name'][$i])));
 
-        if ($rows != 0) {
+        if ($rows == 0) {
             $msg .= 'display_error("Unable to connect to the server");';
             $err = 3;
+
         } else {
             //$res = $result->fetch_assoc();
             //$username = $res["Username"];
@@ -96,7 +109,7 @@ if(isset($_FILES['fileToUpload'])){
             $filepath = "uploads/$file_name";
 
             if (file_exists($filepath)) {
-                $msg .= "display_error(\"" . $filepath . " A file with this name exists already.\");";
+                $msg .= "display_error(\"" . $file_name . " A file with this name exists already.\");";
                 $err = 1;
             } else if ($file_size > 8388608) {
                 $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb");';
