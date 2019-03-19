@@ -16,23 +16,23 @@
 
   <!-- The Sign In Page -->
   <div class="container" id="signIn">
-    <div class="row">
-      <center><img id="logo2" src="images\logo.png"></center>
+    <div class="row" style = "text-align:center">
+      <img id="logo2" src="images\logo.png">
     </div>
     <form action="" method="POST">
-      <div class="row">
-          <center><input id="info" type="text" placeholder="Enter Username" name="uname" required></center>
+      <div class="row" style = "text-align:center">
+          <input id="info" type="text" placeholder="Enter Username" name="uname" required>
       </div>
-      <div class="row">
-        <center><input id="info" type="password" placeholder="Enter Password" name="psw" required></center>
+      <div class="row" style = "text-align:center">
+        <input id="info" type="password" placeholder="Enter Password" name="psw" required>
       </div>
-      <div class="row">
-        <center><button type="submit" class="btn btn-primary" value="Submit" name="login">Login</button></center>
+      <div class="row" style = "text-align:center">
+        <button type="submit" class="btn btn-primary" value="Submit" name="login">Login</button>
       </div>
-      <div class="col-sm-6">
-        <center><label id="remember">
+      <div class="col-sm-6" style = "text-align:center">
+        <label id="remember">
           <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label></center>
+        </label>
       </div>
       <div class="col-sm-6">
         <p id="forgot">Forgot Username/Password?</p>
