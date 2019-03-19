@@ -66,7 +66,10 @@ if(!isset($_SESSION['login_user'])){
             <div class="row">
                 <div class="container-fluid background">
                     <?php
-                    $files = scandir('uploads');
+
+                    echo 'uploads/' . $_SESSION['login_username'] . '/';
+
+                    $files = scandir('uploads/' . $_SESSION['login_username'] . '/');
                     sort($files);
                     foreach ($files as $file) {
                         echo "\n";

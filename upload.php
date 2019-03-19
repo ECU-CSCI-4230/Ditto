@@ -105,8 +105,8 @@ if(isset($_FILES['fileToUpload'])){
         } else {
             //$res = $result->fetch_assoc();
             //$username = $res["Username"];
-            //$filepath = "uploads/$username/$file_name";
-            $filepath = "uploads/$file_name";
+            $filepath = "uploads/$username/$file_name";
+            //$filepath = "uploads/$file_name";
 
             if (file_exists($filepath)) {
                 $msg .= "display_error(\"" . $file_name . " A file with this name exists already.\");";

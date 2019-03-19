@@ -48,6 +48,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
             //execute statment
             mysqli_stmt_execute($stmt);
+
+            mkdir('HELLO', 0777, true);
+            mkdir('uploads/' . $email, 0777, true);
+            chmod('uploads/' . $email, 0777);
+
             echo "<script>regSuccess()</script>";
             header("Location:signIn.php");
         } else {
@@ -60,9 +65,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
-
-
-
 
 
 
