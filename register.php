@@ -95,30 +95,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <hr>
 
         <div class="row ">
-            <div class="col-sm-6">
-                <center><input type="text" placeholder="First Name" name="first_name" required></center>
+            <div class="col-sm-6" style = "text-align:center">
+                <input type="text" placeholder="First Name" name="first_name" required>
             </div>
-            <div class="col-sm-6">
-                <center><input type="text" placeholder="Last Name" name="last_name" required></center>
+            <div class="col-sm-6" style = "text-align:center">
+                <input type="text" placeholder="Last Name" name="last_name" required>
             </div>
         </div>
 
         <div class="row">
         </div>
-        <div class="row">
-            <center><input type="text" placeholder="Enter Email" name="email" required></center>
+        <div class="row" style = "text-align:center">
+            <input type="text" placeholder="Enter Email" name="email" required>
         </div>
         <div class="row">
         </div>
 
-        <div class="row <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-            <center><input type="password" placeholder="Enter Password" name="password" required></center>
+        <div class="row <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>" style = "text-align:center">
+            <input type="password" placeholder="Enter Password" name="password" required>
             <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <div class="row">
         </div>
-        <div class="row <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-            <center><input type="password" placeholder="Repeat Password" name="confirm_password" required></center>
+        <div class="row <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>" style = "text-align:center">
+            <input type="password" placeholder="Repeat Password" name="confirm_password" required>
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
         <hr>
