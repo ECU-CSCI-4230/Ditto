@@ -93,7 +93,7 @@
                   $res = $result->fetch_assoc();
                   $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
                   $_SESSION['login_username'] = $username;
-                  header("location: mainDrive.php"); // Redirecting To Other Page
+                  header("location: index.php"); // Redirecting To Other Page
               } else {
                   $error = "Username or Password is invalid ";
               }
