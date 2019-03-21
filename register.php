@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             mkdir('HELLO', 0777, true);
             mkdir('uploads/' . $email, 0777, true);
-            chmod('uploads/' . $email, 0777);
+            chown('uploads/' . $email, 'www-data:www-data');
 
             echo "<script>regSuccess()</script>";
             header("Location:signIn.php");
