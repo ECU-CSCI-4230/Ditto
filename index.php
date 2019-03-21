@@ -102,6 +102,11 @@ if(!isset($_SESSION['login_user'])){
 
               $files = scandir('uploads/' . $_SESSION['login_username'] . '/');
               sort($files);
+
+              //Remove base directories
+              unset($files[0]);
+              unset($files[1]);
+
               foreach ($files as $file) {
                   echo "\n";
                   echo '<li><a href="uploads/' . $file . '">' . $file . '</a></li>';
