@@ -109,8 +109,10 @@ if(!isset($_SESSION['login_user'])){
 
               foreach ($files as $file) {
                   echo "\n";
-                  echo '<li><a href="uploads/' . $file . '">' . $file . '</a></li>';
+                  echo '<li><a href="uploads/'. $_SESSION['login_username'] . "/" . $file . '">' . $file . '</a></li>';
               }
+
+
               ?>
           </div>
         </div>
