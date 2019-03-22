@@ -3,26 +3,7 @@ include('session.php');
 if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
 }
-
-// Initiate connection to database
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'josh');
-define('DB_PASSWORD', 'jcc15241711');
-define('DB_NAME', 'Ditto_Drive');
-
-/* Attempt to connect to MySQL database */
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-// Check connection
-if ($link === false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-
-$sql = "select Username FROM User WHERE User_ID=" . $_SESSION['login_user'];
-$result = mysqli_query($link, $sql);
-$rows = mysqli_num_rows($result);
-
-$res = $result->fetch_assoc();
-$username = $res["Username"];
+$username = $_SESSION['login_username'];
 ?>
 <html>
 <head>
@@ -90,6 +71,19 @@ if(isset($_FILES['fileToUpload'])){
     $total = count($_FILES['fileToUpload']['name']);
     $msg = "<script>";
 
+// Initiate connection to database
+    define('DB_SERVER', 'localhost');
+    define('DB_USERNAME', 'josh');
+    define('DB_PASSWORD', 'jcc15241711');
+    define('DB_NAME', 'Ditto_Drive');
+
+    /* Attempt to connect to MySQL database */
+    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Check connection
+    if ($link === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
     for ($i = 0; $i < $total; $i++) {
 
         $file_name = $_FILES['fileToUpload']['name'][$i];
@@ -98,74 +92,68 @@ if(isset($_FILES['fileToUpload'])){
         $file_type = $_FILES['fileToUpload']['type'][$i];
 //        $file_ext = strtolower(end(explode('.',$_FILES['image']['name'][$i])));
 
-        if ($rows == 0) {
-            $msg .= 'display_error("Unable to connect to the server");';
-            $err = 3;
+        $filepath = "uploads/$username/$file_name";
 
-        } else {
-            //$res = $result->fetch_assoc();
-            //$username = $res["Username"];
-            $filepath = "uploads/$username/$file_name";
-            //$filepath = "uploads/$file_name";
+        if (file_exists($filepath)) {
+            $msg .= "display_error(\"" . $file_name . " A file with this name exists already. \" );";
+            $err = 1;
+        } else if ($file_size > 8388608) {
+            $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb ");';
+            $err = 2;
+        } else if ($err == 0) {
+            move_uploaded_file($file_tmp, $filepath);
+            $msg .= 'display_success("' . $file_name . '");';
+            $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
 
-            if (file_exists($filepath)) {
-                $msg .= "display_error(\"" . $file_name . " A file with this name exists already.\");";
-                $err = 1;
-            } else if ($file_size > 8388608) {
-                $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb");';
-                $err = 2;
-            } else if ($err == 0) {
-                move_uploaded_file($file_tmp, $filepath);
-                $msg .= 'display_success("' . $file_name . '");';
-                $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
-                /*
-                    // Prepare an insert statement
-                                $sql = "INSERT INTO File (File_Path, File_Type, LastModified, Size) VALUES (?, ?, ?, ?, ?)";
-                                if ($stmt = mysqli_prepare($link, $sql)) {
-                                    // Bind variables to the prepared statement as parameters
-                                    mysqli_stmt_bind_param($stmt, "sss", $filepath, $file_type, date("Y/m/d"), $file_size);
-                                    //execute statement
-                                    mysqli_stmt_execute($stmt);
-                                } else {
-                                    echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
-                                }
-                                // Close statement
-                                mysqli_stmt_close($stmt);
+            // Prepare an insert For adding th eFile to the File table
+            $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
+            if ($stmtF = mysqli_prepare($link, $sqlF)) {
+                // Bind variables to the prepared statement as parameters
+                $dat = date("Y-m-d");
+                mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $file_type, $dat, $file_size);
 
-                                $sql = "select File_ID FROM File WHERE File_Path= $filepath";
-                                $result = mysqli_query($link, $sql);
-                                $rows = mysqli_num_rows($result);
-
-                                if ($rows != 0) {
-                                    $msg .= 'display_error("Unable to connect to the database");';
-                                    $err = 3;
-                                } else {
-                                    $res = $result->fetch_assoc();
-                                    $file_id = $res["File_ID"];
-                                    $filepath = "uploads/$username/$file_name";
-
-                                    $sql = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
-                                    if ($stmt = mysqli_prepare($link, $sql)) {
-                                        // Bind variables to the prepared statement as parameters
-                                        mysqli_stmt_bind_param($stmt, "sss", $_SESSION['login_user'], $file_id, 1);
-                                        //execute statement
-                                        mysqli_stmt_execute($stmt);
-                                    } else {
-                                        echo "ERROR: Could not prepare query: $sql. " . mysqli_error($link);
-                                    }
-                                }
-
-                    // Close statement
-                                mysqli_stmt_close($stmt);
-                    // Close connection
-                                mysqli_close($link);/**/
+                mysqli_stmt_execute($stmtF);
+            } else {
+                echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
             }
 
+            mysqli_stmt_close($stmtF);
 
-            $msg .= '</script>';
 
-            echo $msg;
+            //Get the File_ID for the file we just made
+            $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
+            $resultFID = mysqli_query($link, $sqlFID);
+            $rowsFID = mysqli_num_rows($resultFID);
+
+            if ($rowsFID == 0) {
+                echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
+                $msg .= 'display_error("Unable to connect to the database. ");';
+                $err = 3;
+            } else {
+                $res = $resultFID->fetch_assoc();
+                $file_id = $res["File_ID"];
+            }
+
+            //Insert into FileShare
+            $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
+            if ($stmtFS = mysqli_prepare($link, $sqlFS)) {
+                // Bind variables to the prepared statement as parameters
+                $own = 1;
+                mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
+
+                mysqli_stmt_execute($stmtFS);
+            } else {
+                echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($link);
+            }
+
+            mysqli_stmt_close($stmtFS);
         }
+
+        mysqli_close($link);/**/
+
+        $msg .= '</script>';
+
+        echo $msg;
     }
 }
 ?>

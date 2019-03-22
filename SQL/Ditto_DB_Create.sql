@@ -12,9 +12,9 @@ CREATE TABLE User (
 CREATE TABLE File (
     File_ID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     File_Path VARCHAR(100) NOT NULL,
-    File_Type VARCHAR(6) NOT NULL,
+    File_Type VARCHAR(32) NOT NULL,
     Last_Modified DATE NOT NULL,
-    Size INT(32) NOT NULL
+    File_Size INT(32) NOT NULL
 );
 
 CREATE TABLE FileShare (
