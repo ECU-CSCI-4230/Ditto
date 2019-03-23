@@ -3,6 +3,13 @@ include('session.php');
 if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
 }
+
+$conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+$username = $_SESSION['login_username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +95,7 @@ if(!isset($_SESSION['login_user'])){
           </div>
           <div class="card-body">
               <?php
-              echo 'uploads/' . $_SESSION['login_username'] . '/';
+              echo 'uploads/' . $username . '/';
               ?>
           </div>
         </div>
@@ -98,22 +105,31 @@ if(!isset($_SESSION['login_user'])){
             All Files
           </div>
           <div class="card-body">
-              <?php
+              <ul class="list-group">
+                  <?php
+                  $selectedpath = "";
 
-              $files = scandir('uploads/' . $_SESSION['login_username'] . '/');
-              sort($files);
+                  $username = $username . $selectedpath;
+                  $stmt =  "select * from file where File_Path like '%uploads/$username%' ;";
+                  $result = mysqli_query($conn, $stmt);
+                  $rows = mysqli_num_rows($result);
 
-              //Remove base directories
-              unset($files[0]);
-              unset($files[1]);
+                  while($res = $result->fetch_assoc()) {
+                      $filename = $res['File_Path'];
+                      $filetype = $res['File_Type'];
+                      $lastmod = $res['Last_Modified'];
+                      $size = $res['File_Size'];
 
-              foreach ($files as $file) {
-                  echo "\n";
-                  echo '<li><a href="uploads/'. $_SESSION['login_username'] . "/" . $file . '">' . $file . '</a></li>';
-              }
+                      $len = strlen($filename);
+                      $pos = strrpos($filename, '/');
+                      $filename = substr($filename, $pos-$len+1);
 
+                      echo '<li class="list-group-item file-desc">' . $filename . '</li>';
+                      echo '<script>addfile(' . $filename . ',' . $filetype . ',' . $lastmod . ',' . $size . ')</script>';
+                  }
 
-              ?>
+                  ?>
+              </ul>
           </div>
         </div>
         <!-- /.card -->

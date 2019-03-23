@@ -76,11 +76,11 @@
 
 
 // To protect MySQL injection for Security purpose
-              //$username = stripslashes($username);
-              //$password = stripslashes($password);
-              //$username = mysqli_real_escape_string($username);
-              //$password = mysqli_real_escape_string($password);
-
+//                  $username = stripslashes($username);
+//                  $password = stripslashes($password);
+//                  $username = mysqli_real_escape_string($username);
+//                  $password = mysqli_real_escape_string($password);
+//
 // SQL query to fetch information of registerd users and finds user match.
 
               $stmt =  "select User_ID from User where Password='$password' AND Username='$username';";
@@ -98,15 +98,15 @@
                   $error = "Username or Password is invalid ";
               }
 
-              if (rows > 0) {
-                  // output data of each row
-                  while ($row = mysqli_fetch_assoc($result)) {
-                      echo "id: " . $row["User_ID"] . " - User: " . $row["Username"] . "<br>";
-                  }
-              } else {
-                  echo "0 results ";
-                  echo $error;
-              }
+//              if (rows > 0) {
+//                  // output data of each row
+//                  while ($row = mysqli_fetch_assoc($result)) {
+//                      echo "id: " . $row["User_ID"] . " - User: " . $row["Username"] . "<br>";
+//                  }
+//              } else {
+//                  echo "0 results ";
+//                  echo $error;
+//              }
 
               mysqli_close($conn); // Closing Connection
           }
