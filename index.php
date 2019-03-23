@@ -125,7 +125,7 @@ $username = $_SESSION['login_username'];
                       $filename = substr($filename, $pos-$len+1);
 
                       echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-                      echo '<script>addfile(' . $filename . ',' . $filetype . ',' . $lastmod . ',' . $size . ')</script>';
+                      //echo '<script>addfile(' . $filename . ',' . $filetype . ',' . $lastmod . ',' . $size . ')</script>';
                   }
 
                   ?>
