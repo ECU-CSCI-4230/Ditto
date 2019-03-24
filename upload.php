@@ -148,13 +148,13 @@ if(isset($_FILES['fileToUpload'])){
 
             mysqli_stmt_close($stmtFS);
         }
-
-        mysqli_close($link);/**/
-
-        $msg .= '</script>';
-
-        echo $msg;
     }
+
+    mysqli_close($link);/**/
+
+    $msg .= '</script>';
+
+    echo $msg;
 }
 ?>
 
