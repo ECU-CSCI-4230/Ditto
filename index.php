@@ -73,9 +73,9 @@ $username = $_SESSION['login_username'];
         <div class="col-lg-3">
             <h1 class="my-4">My Drive</h1>
             <div class="list-group">
-                <a href="#" class="list-group-item active">New Folder</a>
-                <a href="#" class="list-group-item">Test 1</a>
-                <a href="#" class="list-group-item">Test 2</a>
+                <a href="#" class="list-group-item active">Home</a>
+                <a class="list-group-item" data-toggle="modal" data-target="#modalSubscriptionForm">+</a>
+
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -103,20 +103,18 @@ $username = $_SESSION['login_username'];
 
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
-                    All Files
+                    File Explorer
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
                         <?php
-                        //Directory based lookup
-                        //                        $selectedpath = "";
-                        //
-                        //                        $username = $username . $selectedpath;
-                        //                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
+                        $selectedpath = "";
 
-                        //Directory independent lookup
+                        $username = $username . $selectedpath;
+                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
+
                         $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . ";";
+                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%' ;";
 
                         $result = mysqli_query($conn, $stmt);
 
@@ -128,6 +126,7 @@ $username = $_SESSION['login_username'];
                             $rows = mysqli_num_rows($result);
 
                             while ($res = $result->fetch_assoc()) {
+
                                 $filename = $res['File_Path'];
                                 $filetype = $res['File_Type'];
                                 $lastmod = $res['Last_Modified'];
@@ -139,6 +138,48 @@ $username = $_SESSION['login_username'];
 
                                 echo '<li class="list-group-item file-desc">' . $filename . '</li>';
                                 //echo '<script>addfile(' . $filename . ',' . $filetype . ',' . $lastmod . ',' . $size . ')</script>';
+                            }
+                        }
+
+                        if($_SERVER["REQUEST_METHOD"] == "POST"){
+                            $dirname = $_POST['dirname'];
+                            $filepath = $_SESSION['login_username'] . '/' . $dirname . '/';
+                            $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
+                            if ($stmtF = mysqli_prepare($conn, $sqlF)) {
+                                // Bind variables to the prepared statement as parameters
+                                $dat = date("Y-m-d");
+                                $dir = 'directory';
+                                $size = 0;
+                                mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
+
+                                mysqli_stmt_execute($stmtF);
+                            } else {
+                                echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+                            }
+
+                            mysqli_stmt_close($stmtF);
+
+                            $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
+                            $resultFID = mysqli_query($conn, $sqlFID);
+                            $rowsFID = mysqli_num_rows($resultFID);
+                            if ($rowsFID == 0) {
+                                echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
+                                $msg .= 'display_error("Unable to connect to the database. ");';
+                                $err = 3;
+                            } else {
+                                $res = $resultFID->fetch_assoc();
+                                $file_id = $res["File_ID"];
+                            }
+
+                            $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
+                            if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
+                                // Bind variables to the prepared statement as parameters
+                                $own = 1;
+                                mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
+
+                                mysqli_stmt_execute($stmtFS);
+                            } else {
+                                echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
                             }
                         }
                         ?>
@@ -154,6 +195,35 @@ $username = $_SESSION['login_username'];
 
 </div>
 <!-- /.container -->
+
+<!-- MODAL -->
+<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Create Directory</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" class="form-control validate" name="dirname">
+                    <label data-error="wrong" data-success="right" for="form3">File Name</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-indigo">Create <i class="fas fa-paper-plane-o ml-1"></i></button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- MODAL -->
+
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">

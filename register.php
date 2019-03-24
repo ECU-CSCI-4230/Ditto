@@ -49,7 +49,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             //execute statment
             mysqli_stmt_execute($stmt);
 
-            mkdir('HELLO', 0777, true);
             mkdir('uploads/' . $email, 0777, true);
             chown('uploads/' . $email, 'www-data:www-data');
 
