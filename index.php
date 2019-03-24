@@ -223,8 +223,8 @@ if (!$result) {
 
         echo "<script>addfolderitem('" . $filename . "')</script>";
     }
-    echo "<script>addaddfolder()</script>";
 }
+echo "<script>addaddfolder()</script>";
 //                        <-- END DIRECTORY VIEWER SCRIPT -->
 
 
