@@ -177,7 +177,7 @@ if (!$result) {
     printf("Error: %s\n", mysqli_error($conn));
 } else {
     $rows = mysqli_num_rows($result);
-
+    $text = "<script>";
     while ($res = $result->fetch_assoc()) {
 
         $filename = $res['File_Path'];
@@ -190,8 +190,9 @@ if (!$result) {
         $filename = substr($filename, $pos - $len + 1);
 
         //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-        echo "<script>addfiletoexplorer('" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "')</script>";
+        $text .= "addfiletoexplorer('" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "');";
     }
+    echo $text . '</script>';
 }
 //                        <-- END DISPLAY FILE EXPLORER CONTENTS -->
 
@@ -209,7 +210,7 @@ if (!$result) {
     printf("Error: %s\n", mysqli_error($conn));
 } else {
     $rows = mysqli_num_rows($result);
-
+    $text = "<script>";
     while ($res = $result->fetch_assoc()) {
 
         $filename = $res['File_Path'];
@@ -221,8 +222,9 @@ if (!$result) {
         $pos = strrpos($filename, $username);
         $filename = substr($filename, $pos - $len + 1);
 
-        echo "<script>addfolderitem('" . $filename . "')</script>";
+        $text .= "addfolderitem('" . $filename . "');";
     }
+    echo $text . '</script>';
 }
 echo "<script>addaddfolder()</script>";
 //                        <-- END DIRECTORY VIEWER SCRIPT -->
