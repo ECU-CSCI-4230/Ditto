@@ -10,6 +10,7 @@ if ($conn === false) {
 }
 
 $username = $_SESSION['login_username'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +22,7 @@ $username = $_SESSION['login_username'];
     <meta name="description"
           content="Ditto Drive (Totally not trademarked) is a very file hosting service. We are a small team of students at East Carolina University working on our final project.">
     <meta name="author" content="">
+    <script type="text/javascript" src="script.js"></script>
 
     <title>Ditto Drive</title>
 
@@ -73,14 +75,11 @@ $username = $_SESSION['login_username'];
 
         <div class="col-lg-3">
             <h1 class="my-4">My Drive</h1>
-            <div class="list-group">
+            <div class="list-group" id="folderlist">
                 <a href="#" class="list-group-item active">Home</a>
-                <a class="list-group-item" data-toggle="modal" data-target="#modalSubscriptionForm">+</a>
-
             </div>
         </div>
         <!-- /.col-lg-3 -->
-
         <div class="col-lg-9">
 
             <div class="card mt-4">
@@ -96,9 +95,6 @@ $username = $_SESSION['login_username'];
                     Folders
                 </div>
                 <div class="card-body">
-                    <?php
-                    echo 'uploads/' . $username . '/';
-                    ?>
                 </div>
             </div>
 
@@ -107,86 +103,8 @@ $username = $_SESSION['login_username'];
                     File Explorer
                 </div>
                 <div class="card-body">
-                    <ul class="list-group">
-                        <?php
-                        $selectedpath = "";
+                    <ul class="list-group" id="fileexplorer">
 
-                        $username = $username . $selectedpath;
-                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
-
-                        $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%' 
-                          and File_Type not like 'directory';";
-
-                        $result = mysqli_query($conn, $stmt);
-
-                        //echo $stmt; // for  debug
-                        //Check to see the the query ran
-                        if (!$result) {
-                            printf("Error: %s\n", mysqli_error($conn));
-                        } else {
-                            $rows = mysqli_num_rows($result);
-
-                            while ($res = $result->fetch_assoc()) {
-
-                                $filename = $res['File_Path'];
-                                $filetype = $res['File_Type'];
-                                $lastmod = $res['Last_Modified'];
-                                $size = $res['File_Size'];
-
-                                $len = strlen($filename);
-                                $pos = strrpos($filename, '/');
-                                $filename = substr($filename, $pos - $len + 1);
-
-                                echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-                                //echo '<script>addfile(' . $filename . ',' . $filetype . ',' . $lastmod . ',' . $size . ')</script>';
-                            }
-                        }
-
-                        if($_SERVER["REQUEST_METHOD"] == "POST"){
-                            $dirname = $_POST['dirname'];
-                            $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
-                            $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
-                            if ($stmtF = mysqli_prepare($conn, $sqlF)) {
-                                // Bind variables to the prepared statement as parameters
-                                $dat = date("Y-m-d");
-                                $dir = 'directory';
-                                $size = 0;
-                                mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
-
-                                mysqli_stmt_execute($stmtF);
-                            } else {
-                                echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
-                            }
-
-                            mysqli_stmt_close($stmtF);
-
-                            $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
-                            $resultFID = mysqli_query($conn, $sqlFID);
-                            $rowsFID = mysqli_num_rows($resultFID);
-                            if ($rowsFID == 0) {
-                                echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
-                                $msg .= 'display_error("Unable to connect to the database. ");';
-                                $err = 3;
-                            } else {
-                                $res = $resultFID->fetch_assoc();
-                                $file_id = $res["File_ID"];
-                            }
-
-                            $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
-                            if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
-                                // Bind variables to the prepared statement as parameters
-                                $own = 1;
-                                mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
-
-                                mysqli_stmt_execute($stmtFS);
-                            } else {
-                                echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
-                            }
-
-                            header('Location: red.php');
-                        }
-                        ?>
                     </ul>
                 </div>
             </div>
@@ -240,6 +158,118 @@ $username = $_SESSION['login_username'];
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<?php
+//                        <-- DISPLAY FILE EXPLORER CONTENTS -->
+$selectedpath = "";
+$selectedpath = $username . $selectedpath;
+//                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
+
+$stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
+                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%' 
+                          and File_Type not like 'directory';";
+
+$result = mysqli_query($conn, $stmt);
+
+//echo $stmt; // for  debug
+//Check to see the the query ran
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($conn));
+} else {
+    $rows = mysqli_num_rows($result);
+
+    while ($res = $result->fetch_assoc()) {
+
+        $filename = $res['File_Path'];
+        $filetype = $res['File_Type'];
+        $lastmod = $res['Last_Modified'];
+        $size = $res['File_Size'];
+
+        $len = strlen($filename);
+        $pos = strrpos($filename, '/');
+        $filename = substr($filename, $pos - $len + 1);
+
+        //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
+        echo "<script>addfiletoexplorer('" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "')</script>";
+    }
+}
+//                        <-- END DISPLAY FILE EXPLORER CONTENTS -->
+
+//                        <-- START CREATE DIRECTORY SCRIPT -->
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $dirname = $_POST['dirname'];
+    $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
+    $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
+    if ($stmtF = mysqli_prepare($conn, $sqlF)) {
+        // Bind variables to the prepared statement as parameters
+        $dat = date("Y-m-d");
+        $dir = 'directory';
+        $size = 0;
+        mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
+
+        mysqli_stmt_execute($stmtF);
+    } else {
+        echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+    }
+
+    mysqli_stmt_close($stmtF);
+
+    $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
+    $resultFID = mysqli_query($conn, $sqlFID);
+    $rowsFID = mysqli_num_rows($resultFID);
+    if ($rowsFID == 0) {
+        echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
+        $msg .= 'display_error("Unable to connect to the database. ");';
+        $err = 3;
+    } else {
+        $res = $resultFID->fetch_assoc();
+        $file_id = $res["File_ID"];
+    }
+
+    $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
+    if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
+        // Bind variables to the prepared statement as parameters
+        $own = 1;
+        mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
+
+        mysqli_stmt_execute($stmtFS);
+    } else {
+        echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
+    }
+
+    header('Location: red.php');
+}
+//                        <-- START CREATE DIRECTORY SCRIPT -->
+
+$stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
+User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
+and File_Type like 'directory';";
+
+$result = mysqli_query($conn, $stmt);
+
+//echo $stmt; // for  debug
+//Check to see the the query ran
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($conn));
+} else {
+    $rows = mysqli_num_rows($result);
+
+    while ($res = $result->fetch_assoc()) {
+
+        $filename = $res['File_Path'];
+        $filetype = $res['File_Type'];
+        $lastmod = $res['Last_Modified'];
+        $size = $res['File_Size'];
+
+        $len = strlen($filename);
+        $pos = strrpos($filename, $username);
+        $filename = substr($filename, $pos - $len + 1);
+
+        echo "<script>addfolderitem('" . $filename . "')</script>";
+    }
+    echo "<script>addaddfolder()</script>";
+}
+?>
 
 </body>
 

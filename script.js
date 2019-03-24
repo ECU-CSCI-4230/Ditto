@@ -20,3 +20,19 @@ function regSuccess() {
     text += " <a href=\"signIn.php\">CLICK HERE TO LOGIN</a></div>";
     document.getElementById('reg').innerHTML = text;
 }
+
+function addfiletoexplorer(filename, filetype, lastmod, size) {
+    let text = '<li class="list-group-item file-desc">' + filename + '</li>'
+    document.getElementById('fileexplorer').innerHTML += text;
+}
+
+function addfolderitem(foldername) {
+    let text = "";
+    text += '<a href="#" class="list-group-item">' + foldername + '</a>';
+    document.getElementById('folderlist').innerHTML += text;
+}
+
+function addaddfolder() {
+    let text = '<a class="list-group-item" data-toggle="modal" data-target="#modalSubscriptionForm">+</a>';
+    document.getElementById('folderlist').innerHTML += text;
+}
