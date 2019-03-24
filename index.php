@@ -115,7 +115,8 @@ $username = $_SESSION['login_username'];
                         $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
 
                         $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%' ;";
+                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%' 
+                          and File_Type not like 'directory';";
 
                         $result = mysqli_query($conn, $stmt);
 
@@ -182,6 +183,8 @@ $username = $_SESSION['login_username'];
                             } else {
                                 echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
                             }
+
+                            header('Location: signIn.php');
                         }
                         ?>
                     </ul>
