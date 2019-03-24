@@ -108,13 +108,19 @@ $username = $_SESSION['login_username'];
                 <div class="card-body">
                     <ul class="list-group">
                         <?php
-                        $selectedpath = "";
+                        //Directory based lookup
+                        //                        $selectedpath = "";
+                        //
+                        //                        $username = $username . $selectedpath;
+                        //                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
 
-                        $username = $username . $selectedpath;
-                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
+                        //Directory independent lookup
+                        $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
+                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . ";";
+
                         $result = mysqli_query($conn, $stmt);
 
-                        echo $stmt;
+                        //echo $stmt; // for  debug
                         //Check to see the the query ran
                         if (!$result) {
                             printf("Error: %s\n", mysqli_error($conn));
