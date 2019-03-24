@@ -184,7 +184,7 @@ $username = $_SESSION['login_username'];
                                 echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
                             }
 
-                            header('Location: signIn.php');
+                            header('Location: red.php');
                         }
                         ?>
                     </ul>
