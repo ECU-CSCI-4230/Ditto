@@ -111,9 +111,10 @@ $username = $_SESSION['login_username'];
                         $selectedpath = "";
 
                         $username = $username . $selectedpath;
-                        $stmt = "select * from file where File_Path like '%uploads/$username%' ;";
+                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
                         $result = mysqli_query($conn, $stmt);
 
+                        echo $stmt;
                         //Check to see the the query ran
                         if (!$result) {
                             printf("Error: %s\n", mysqli_error($conn));
