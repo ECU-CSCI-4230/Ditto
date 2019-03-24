@@ -18,7 +18,8 @@ $username = $_SESSION['login_username'];
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description"
+          content="Ditto Drive (Totally not trademarked) is a very file hosting service. We are a small team of students at East Carolina University working on our final project.">
     <meta name="author" content="">
 
     <title>Ditto Drive</title>
@@ -143,7 +144,7 @@ $username = $_SESSION['login_username'];
 
                         if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $dirname = $_POST['dirname'];
-                            $filepath = $_SESSION['login_username'] . '/' . $dirname . '/';
+                            $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
                             $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
                             if ($stmtF = mysqli_prepare($conn, $sqlF)) {
                                 // Bind variables to the prepared statement as parameters
@@ -212,7 +213,7 @@ $username = $_SESSION['login_username'];
                 <div class="md-form mb-5">
                     <i class="fas fa-user prefix grey-text"></i>
                     <input type="text" id="form3" class="form-control validate" name="dirname">
-                    <label data-error="wrong" data-success="right" for="form3">File Name</label>
+                    <label data-error="wrong" data-success="right" for="form3">Directory Name</label>
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
