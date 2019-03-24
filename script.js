@@ -26,17 +26,39 @@ function addfiletoexplorer(filename, filetype, lastmod, size) {
     document.getElementById('fileexplorer').innerHTML += text;
 }
 
+let foldercount = 1;
+
 function addfolderitem(foldername) {
     let text = "";
-    text += '<a href="#" class="list-group-item">' + foldername + '</a>';
+    text += '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
     document.getElementById('folderlist').innerHTML += text;
+    foldercount++;
 }
 
 function addaddfolder() {
     let text = '<a class="list-group-item" data-toggle="modal" data-target="#modalSubscriptionForm">+</a>';
+    text += "";
     document.getElementById('folderlist').innerHTML += text;
 }
 
 function red() {
     window.location.replace("red.php");
+}
+
+function changefold(foldernum) {
+    clearfileexplorer();
+    for (let i=0; i <foldercount;i++) {
+        document.getElementById('fold' + i).classList.remove('active');
+    }
+    document.getElementById('fold' + foldernum).classList.add('active');
+
+    let text = '<?php $selectedpath = "';
+    text += document.getElementById('fold' + foldernum).innerText;
+    text += '"; loadfileexplorer($conn, $username, $selectedpath); ?>';
+
+    document.body.innerHTML += text;
+}
+
+function clearfileexplorer() {
+    document.getElementById("fileexplorer").innerHTML = "";
 }
