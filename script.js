@@ -36,3 +36,7 @@ function addaddfolder() {
     let text = '<a class="list-group-item" data-toggle="modal" data-target="#modalSubscriptionForm">+</a>';
     document.getElementById('folderlist').innerHTML += text;
 }
+
+function red() {
+    window.location.replace("red.php");
+}

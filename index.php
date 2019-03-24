@@ -195,6 +195,39 @@ if (!$result) {
 }
 //                        <-- END DISPLAY FILE EXPLORER CONTENTS -->
 
+
+//                        <-- START DIRECTORY VIEWER SCRIPT -->
+$stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
+User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
+and File_Type like 'directory';";
+
+$result = mysqli_query($conn, $stmt);
+
+//echo $stmt; // for  debug
+//Check to see the the query ran
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($conn));
+} else {
+    $rows = mysqli_num_rows($result);
+
+    while ($res = $result->fetch_assoc()) {
+
+        $filename = $res['File_Path'];
+        $filetype = $res['File_Type'];
+        $lastmod = $res['Last_Modified'];
+        $size = $res['File_Size'];
+
+        $len = strlen($filename);
+        $pos = strrpos($filename, $username);
+        $filename = substr($filename, $pos - $len + 1);
+
+        echo "<script>addfolderitem('" . $filename . "')</script>";
+    }
+    echo "<script>addaddfolder()</script>";
+}
+//                        <-- END DIRECTORY VIEWER SCRIPT -->
+
+
 //                        <-- START CREATE DIRECTORY SCRIPT -->
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $dirname = $_POST['dirname'];
@@ -237,38 +270,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
     }
 
-    header('Location: red.php');
+    //header('Location: red.php');
+    echo "<script>red()</script>";
 }
-//                        <-- START CREATE DIRECTORY SCRIPT -->
-
-$stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
-and File_Type like 'directory';";
-
-$result = mysqli_query($conn, $stmt);
-
-//echo $stmt; // for  debug
-//Check to see the the query ran
-if (!$result) {
-    printf("Error: %s\n", mysqli_error($conn));
-} else {
-    $rows = mysqli_num_rows($result);
-
-    while ($res = $result->fetch_assoc()) {
-
-        $filename = $res['File_Path'];
-        $filetype = $res['File_Type'];
-        $lastmod = $res['Last_Modified'];
-        $size = $res['File_Size'];
-
-        $len = strlen($filename);
-        $pos = strrpos($filename, $username);
-        $filename = substr($filename, $pos - $len + 1);
-
-        echo "<script>addfolderitem('" . $filename . "')</script>";
-    }
-    echo "<script>addaddfolder()</script>";
-}
+//                        <-- END CREATE DIRECTORY SCRIPT -->
 ?>
 
 </body>
