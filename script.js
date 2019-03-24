@@ -21,9 +21,9 @@ function regSuccess() {
     document.getElementById('reg').innerHTML = text;
 }
 
-function addfiletoexplorer(filename, filetype, lastmod, size) {
+function addfiletoexplorer(num, filename, filetype, lastmod, size) {
     let text = '<li class="list-group-item file-desc">' + filename + '</li>'
-    document.getElementById('fileexplorer').innerHTML += text;
+    document.getElementById('filelist' + num).innerHTML += text;
 }
 
 let foldercount = 1;
@@ -32,6 +32,7 @@ function addfolderitem(foldername) {
     let text = "";
     text += '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
     document.getElementById('folderlist').innerHTML += text;
+    newexplorer();
     foldercount++;
 }
 
@@ -46,19 +47,26 @@ function red() {
 }
 
 function changefold(foldernum) {
-    clearfileexplorer();
-    for (let i=0; i <foldercount;i++) {
+    for (let i = 0; i < foldercount; i++) {
         document.getElementById('fold' + i).classList.remove('active');
     }
     document.getElementById('fold' + foldernum).classList.add('active');
+    changeexplorer(foldernum);
+}
 
-    let text = '<?php $selectedpath = "';
-    text += document.getElementById('fold' + foldernum).innerText;
-    text += '"; loadfileexplorer($conn, $username, $selectedpath); ?>';
-
-    document.body.innerHTML += text;
+function changeexplorer(exnum) {
+    for (let i = 0; i < foldercount; i++) {
+        document.getElementById('fileexplorer' + i).classList.add('d-none');
+    }
+    document.getElementById('fileexplorer' + exnum).classList.remove('d-none');
 }
 
 function clearfileexplorer() {
     document.getElementById("fileexplorer").innerHTML = "";
+}
+
+function newexplorer() {
+    let text = '<div class="card-body d-none" id="fileexplorer' + foldercount + '"><ul class="list-group" id="filelist' + foldercount + '">' +
+        '<a class="list-group-item">Test ' + foldercount + '</a></ul>';
+    document.getElementById('explorer').innerHTML += text;
 }

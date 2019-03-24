@@ -99,12 +99,12 @@ $selectedpath = "";
                 </div>
             </div>
 
-            <div class="card card-outline-secondary my-4">
+            <div class="card card-outline-secondary my-4" id="explorer">
                 <div class="card-header">
                     File Explorer
                 </div>
-                <div class="card-body">
-                    <ul class="list-group" id="fileexplorer">
+                <div class="card-body" id="fileexplorer0">
+                    <ul class="list-group" id="filelist0">
 
                     </ul>
                 </div>
@@ -119,7 +119,6 @@ $selectedpath = "";
 </div>
 <!-- /.container -->
 
-<script>changefold(0);</script>
 <!-- MODAL -->
 <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -200,14 +199,11 @@ and File_Type like 'directory';";
 
 loaddirs($conn, $username);
 
-function loadfileexplorer($conn, $username, $selectedpath)
+function loadfileexplorer($conn, $username)
 {
 //                        <-- DISPLAY FILE EXPLORER CONTENTS -->
-    if ($selectedpath == 'Home') {
-        $selectedpath = 'uploads/' . $username . '/';
-    } else {
-        $selectedpath = 'uploads/' . $username . '/' . $selectedpath;
-    }
+    $selectedpath = 'uploads/' . $username . '/';
+
 //                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
 
     $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
@@ -235,7 +231,7 @@ function loadfileexplorer($conn, $username, $selectedpath)
             $filename = substr($filename, $pos - $len + 1);
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-            $text .= "addfiletoexplorer('" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "');";
+            $text .= "addfiletoexplorer(0,'" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "');";
         }
         echo $text . '</script>';
     }
@@ -283,6 +279,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
 
         mysqli_stmt_execute($stmtFS);
+
+        mkdir('uploads/' . $username . '/' . $dirname, 0777, true);
+        chown('uploads/' . $username . '/' . $dirname, 'www-data:www-data');
     } else {
         echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
     }
