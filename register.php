@@ -1,9 +1,4 @@
 <?php
-include('session.php');
-if(isset($_SESSION['login_user'])){
-    header("Location:index.php");
-}
-
 // Initiate connection to database
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'josh');
