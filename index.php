@@ -119,8 +119,8 @@ $selectedpath = "";
 </div>
 <!-- /.container -->
 
-<!-- MODAL -->
-<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- CREATE DIR MODAL -->
+<div class="modal fade" id="createDirForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -145,7 +145,36 @@ $selectedpath = "";
         </div>
     </div>
 </div>
-<!-- MODAL -->
+<!-- END CREATE DIR MODAL -->
+
+<!-- EDIT FILE MODAL -->
+<div class="modal fade" id="fileForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Move File</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix grey-text"></i>
+                        <p type="hidden" name="hiddenValue" id="hiddenValue" value="">-</p>
+                        <input type="text" id="form3" class="form-control validate" name="dirname">
+                        <label data-error="wrong" data-success="right" for="form3">Location</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-indigo">Move <i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END EDIT FILE MODAL -->
 
 
 <!-- Footer -->
@@ -159,6 +188,7 @@ $selectedpath = "";
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
 <?php
 
@@ -199,7 +229,7 @@ and File_Type like 'directory';";
 
 loaddirs($conn, $username);
 
-function loadfileexplorer($conn, $username)
+function loadfileexplorer($conn, $username, $Folder)
 {
 //                        <-- DISPLAY FILE EXPLORER CONTENTS -->
     $selectedpath = 'uploads/' . $username . '/';
@@ -225,13 +255,14 @@ function loadfileexplorer($conn, $username)
             $filetype = $res['File_Type'];
             $lastmod = $res['Last_Modified'];
             $size = $res['File_Size'];
+            $home = substr_count($filename, '/');
 
             $len = strlen($filename);
             $pos = strrpos($filename, '/');
             $filename = substr($filename, $pos - $len + 1);
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-            $text .= "addfiletoexplorer(0,'" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "');";
+            $text .= "addfiletoexplorer('" . $Folder ."','" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "');";
         }
         echo $text . '</script>';
     }

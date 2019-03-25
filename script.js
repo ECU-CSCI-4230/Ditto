@@ -14,6 +14,7 @@ function showReg() {
   y.style.display = "block";
 }
 
+// DISPLAY REGISTRATION SUCCESS --OLD CODE--
 function regSuccess() {
     let text = "";
     text += "<div class=" + "\"alert alert-success\" role=\"alert\" id=\"sucbadge\"><strong>Success!</strong>" + " REGISTRATION SUCCESSFUL ";
@@ -21,23 +22,27 @@ function regSuccess() {
     document.getElementById('reg').innerHTML = text;
 }
 
-function addfiletoexplorer(num, filename, filetype, lastmod, size) {
-    let text = '<li class="list-group-item file-desc">' + filename + '</li>'
-    document.getElementById('filelist' + num).innerHTML += text;
-}
-
+ // VARIABLES KEEP TRACK(internally) of directory(or folder) names and count
 let foldercount = 1;
+let filecount = 0;
+var foldernames = [];
+var filenames = [];
+foldernames.push('');
+filenames.push('');
 
+ // ADDS FOLDER
 function addfolderitem(foldername) {
     let text = "";
     text += '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
     document.getElementById('folderlist').innerHTML += text;
     newexplorer();
+    foldernames.push(foldername);
     foldercount++;
 }
 
+ // ADDS "+" CREATE FOLDER TAB
 function addaddfolder() {
-    let text = '<a class="list-group-item" data-toggle="modal" data-target="#modalSubscriptionForm">+</a>';
+    let text = '<a class="list-group-item" data-toggle="modal" data-target="#createDirForm">+</a>';
     text += "";
     document.getElementById('folderlist').innerHTML += text;
 }
@@ -46,6 +51,32 @@ function red() {
     window.location.replace("red.php");
 }
 
+function addfiletoexplorer(dir, filename, filetype, lastmod, size) {
+    let num = getfoldernum(dir);
+    let text = '<li class="list-group-item file-desc" id="file' + filecount + '" data-toggle="modal" data-target="#fileForm">' + filename + '</li>'
+    document.getElementById('filelist' + num).innerHTML += text;
+    filenames.push(filename);
+    filecount++
+}
+
+// RETURNS FOLDER INDEX OF NAME
+function getfoldernum(name){
+    for (let i=0;i<=foldercount; i++) {
+        if (name == foldernames[i]) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+function getactivefolder() {
+    for (let i=0;i<=foldercount; i++) {
+        if (document.getElementById('fold' + i).classList.contains('active')) {
+            return i;
+        }
+    }
+    return 0;
+}
 function changefold(foldernum) {
     for (let i = 0; i < foldercount; i++) {
         document.getElementById('fold' + i).classList.remove('active');
