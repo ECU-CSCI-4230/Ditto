@@ -51,9 +51,9 @@ function red() {
     window.location.replace("red.php");
 }
 
-function addfiletoexplorer(dir, filename, filetype, lastmod, size) {
+function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath) {
     let num = getfoldernum(dir);
-    let text = '<li class="list-group-item file-desc" id="file' + filecount + '" data-toggle="modal" data-target="#fileForm">' + filename + '</li>'
+    let text = '<li class="list-group-item file-desc" id="file' + filecount + '" data-toggle="modal" data-target="#fileForm">' + filename + '  ' +'<a class="btn btn-dark" href="' + filePath + '" role="button" download>Download</a>' + '</li>'
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
     filecount++

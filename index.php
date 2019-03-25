@@ -211,6 +211,7 @@ and File_Type like 'directory';";
         while ($res = $result->fetch_assoc()) {
 
             $filename = $res['File_Path'];
+            $filePath = $res['File_Path'];
             $filetype = $res['File_Type'];
             $lastmod = $res['Last_Modified'];
             $size = $res['File_Size'];
@@ -252,6 +253,7 @@ function loadfileexplorer($conn, $username, $Folder)
         while ($res = $result->fetch_assoc()) {
 
             $filename = $res['File_Path'];
+            $filePath = $res['File_Path'];
             $filetype = $res['File_Type'];
             $lastmod = $res['Last_Modified'];
             $size = $res['File_Size'];
@@ -262,7 +264,7 @@ function loadfileexplorer($conn, $username, $Folder)
             $filename = substr($filename, $pos - $len + 1);
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-            $text .= "addfiletoexplorer('" . $Folder ."','" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "');";
+            $text .= "addfiletoexplorer('" . $Folder ."','" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "','" . $filePath . "');";
         }
         echo $text . '</script>';
     }
