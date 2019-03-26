@@ -54,8 +54,8 @@ function red() {
 function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath) {
     let num = getfoldernum(dir);
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-        '<a class="btn btn-dark" href="' + filePath + '" role="button" id="filebutt">Download</a>' +
-        '<a class="btn btn-danger" data-toggle="modal" data-target="#fileForm" id="filebutt">Move File</a>' +
+        '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" id="filebutt">Download</a>' +
+        '<a class="btn btn-danger float-right" data-toggle="modal" data-target="#fileForm" id="filebutt">Move File</a>' +
         '</li>'
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
