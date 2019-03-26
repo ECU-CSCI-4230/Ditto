@@ -66,7 +66,7 @@ define('EXCLUDE', serialize(array(
     '.gitignore',
     '.gcloudignore',
     'README.md',
-    '.uploads'
+    'uploads'
 )));
 /**
  * Temporary directory we'll use to stage the code before the update. If it
