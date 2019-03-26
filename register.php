@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "Password did not match.";
+            $confirm_password_err = "Passwords did not match.";
         }
     }
 //test to see if any errors were generated
@@ -68,69 +68,55 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
+
 <head>
-    <title>Ditto Drive</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>Ditto Driven</title>
+
+    <link rel="stylesheet" href="css/regstyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link href='.\style.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
 
-<!-- The Reg Page -->
-<div class="container" id="reg">
-    <form id="reg_box" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr>
-
-        <div class="row ">
-            <div class="col-sm-6" style = "text-align:center">
-                <input type="text" placeholder="First Name" name="first_name" required>
-            </div>
-            <div class="col-sm-6" style = "text-align:center">
-                <input type="text" placeholder="Last Name" name="last_name" required>
-            </div>
-        </div>
-
-        <div class="row">
-        </div>
-        <div class="row" style = "text-align:center">
-            <input type="text" placeholder="Enter Email" name="email" required>
-        </div>
-        <div class="row">
-        </div>
-
-        <div class="row <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>" style = "text-align:center">
-            <input type="password" placeholder="Enter Password" name="password" required>
+<div class="container">
+    <form id="contact" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <img src="images\logo.png" height="350" width="350" style = "text-align:center">
+        <h3>Create a new Account</h3>
+        <fieldset>
+            <input placeholder="Your first name" type="text" name="first_name" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+            <input placeholder="Your last name" type="text" name="last_name" tabindex="1">
+        </fieldset>
+        <fieldset>
+            <input placeholder="Your Email Address (used as your username)" type="text" name="email" tabindex="1">
+        </fieldset>
+        <div class = "container<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+        <fieldset>
+            <input placeholder="Password" type="text" name="password" tabindex="1">
             <span class="help-block"><?php echo $password_err; ?></span>
+        </fieldset>
         </div>
-        <div class="row">
-        </div>
-        <div class="row <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>" style = "text-align:center">
-            <input type="password" placeholder="Repeat Password" name="confirm_password" required>
+        <div class = "container<?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
+        <fieldset>
+            <input placeholder="Confirm Password" type="text" name="confirm_password" tabindex="1">
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
+        </fieldset>
         </div>
-        <hr>
-
-        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="registerbtn">Register</button>
-        <div class="container signin">
+        <fieldset>
+            <button type="submit" id="contact-submit">Submit</button>
             <p>Already have an account? <a href="signIn.php">Sign in</a>.</p>
-        </div>
+        </fieldset>
     </form>
 </div>
-
 
 </body>
 
 </html>
+
+
+
+
