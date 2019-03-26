@@ -1,44 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
+
 <head>
-  <title>Ditto Drive</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <link href=".\style.css" rel='stylesheet'>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script type="text/javascript" src="script.js"></script>
+    <meta charset="UTF-8">
+    <title>Ditto Drive</title>
+
+    <link rel="stylesheet" href="css/regstyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="script.js"></script>
+
 </head>
 
 <body>
 
-  <!-- The Sign In Page -->
-  <div class="container" id="signIn">
-    <div class="row" style = "text-align:center">
-      <img id="logo2" src="images\logo.png">
-    </div>
-    <form action="" method="POST">
-      <div class="row" style = "text-align:center">
-          <input id="info" type="text" placeholder="Enter Username" name="uname" required>
-      </div>
-      <div class="row" style = "text-align:center">
-        <input id="info" type="password" placeholder="Enter Password" name="psw" required>
-      </div>
-      <div class="row" style = "text-align:center">
-        <button type="submit" class="btn btn-primary" value="Submit" name="login">Login</button>
-      </div>
-      <div class="col-sm-6" style = "text-align:center">
-        <label id="remember">
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-      </div>
-      <div class="col-sm-6">
-        <p id="forgot">Forgot Username/Password?</p>
-      </div>
+<div class="container">
+    <form id="contact" action="" method="POST">
+        <img src="images\logo.png" height="350" width="350" style = "text-align:center">
+        <h3>Log In</h3>
+        <fieldset>
+            <input placeholder="Username Or Email" type="text" name="uname" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+            <input placeholder="Password" type="text" name="psw" tabindex="1">
+        </fieldset>
+
+        <fieldset>
+            <button type="submit" id="contact-submit" value="Submit" name="login" > Login</button>
+            <p>Don't have an account? <a href="register.php">Create one.</a>.</p>
+        </fieldset>
     </form>
-  </div>
+</div>
+
+</body>
+
+</html>
+
+
+
+
 
   <?php
   session_start(); // Starting Session
