@@ -212,7 +212,7 @@ and File_Type like 'directory';";
         while ($res = $result->fetch_assoc()) {
 
             $filepath = $res['File_Path'];
-            $foldername = substr($filepath, 1 - strpos($filepath, $username) + strlen($username) + 1, -1);
+            $foldername = substr($filepath, strpos($filepath, $username) + strlen($username) + 1, -1);
             $text .= "addfolderitem('" . $foldername . "');";
         }
         echo $text . '</script>';
