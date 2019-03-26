@@ -192,45 +192,41 @@ $selectedpath = "";
 
 <?php
 
+/*
+ * loaddirs adds each folder owned by the user to the drive viewer(index.php).
+ * loaddirs adds each folder owned by the user to the folder tab.
+ */
 function loaddirs($conn, $username)
 {
-//                        <-- START DIRECTORY VIEWER SCRIPT -->
+
     $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
 User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
 and File_Type like 'directory';";
 
     $result = mysqli_query($conn, $stmt);
 
-//echo $stmt; // for  debug
-//Check to see the the query ran
     if (!$result) {
         printf("Error: %s\n", mysqli_error($conn));
     } else {
-        $rows = mysqli_num_rows($result);
         $text = "<script>";
         while ($res = $result->fetch_assoc()) {
 
-            $filename = $res['File_Path'];
-            $filePath = $res['File_Path'];
-            $filetype = $res['File_Type'];
-            $lastmod = $res['Last_Modified'];
-            $size = $res['File_Size'];
-
-            $len = strlen($filename);
-            $pos = strrpos($filename, $username);
-            $filename = substr($filename, $pos - $len + 1);
-
-            $text .= "addfolderitem('" . $filename . "');";
+            $filepath = $res['File_Path'];
+            $foldername = substr($filepath, 1 - strpos($filepath, $username) + strlen($username) + 1, -1);
+            $text .= "addfolderitem('" . $foldername . "');";
         }
         echo $text . '</script>';
     }
     echo "<script>addaddfolder()</script>";
-//                        <-- END DIRECTORY VIEWER SCRIPT -->
 }
 
 loaddirs($conn, $username);
 
-function loadfileexplorer($conn, $username, $Folder)
+
+/*
+ * loadfileexplorer adds each file owned by the user to their respective folder views(explorers).
+ */
+function loadfileexplorer($conn, $username)
 {
 //                        <-- DISPLAY FILE EXPLORER CONTENTS -->
     $selectedpath = 'uploads/' . $username . '/';
@@ -238,13 +234,12 @@ function loadfileexplorer($conn, $username, $Folder)
 //                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
 
     $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%$selectedpath%' 
-                          and File_Type not like 'directory';";
+                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " 
+                          and File_Path like '%$selectedpath%' and File_Type not like 'directory';";
 
     $result = mysqli_query($conn, $stmt);
 
 //echo $stmt; // for  debug
-//Check to see the the query ran
     if (!$result) {
         printf("Error: %s\n", mysqli_error($conn));
     } else {
@@ -257,21 +252,26 @@ function loadfileexplorer($conn, $username, $Folder)
             $filetype = $res['File_Type'];
             $lastmod = $res['Last_Modified'];
             $size = $res['File_Size'];
-            $home = substr_count($filename, '/');
 
             $len = strlen($filename);
             $pos = strrpos($filename, '/');
             $filename = substr($filename, $pos - $len + 1);
 
+            $foldername = substr($filePath, strpos($filePath, $username) + strlen($username) + 1, 0 - strlen($filename)-1);
+
+            if ($foldername == '') {
+                $foldername = "Home";
+            }
+
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-            $text .= "addfiletoexplorer('" . $Folder ."','" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "','" . $filePath . "');";
+            $text .= "addfiletoexplorer('" . $foldername ."','" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "','" . $filePath . "');";
         }
         echo $text . '</script>';
     }
 //                        <-- END DISPLAY FILE EXPLORER CONTENTS -->
 }
 
-loadfileexplorer($conn, $username, 'Home');
+loadfileexplorer($conn, $username);
 
 
 //                        <-- START CREATE DIRECTORY SCRIPT -->

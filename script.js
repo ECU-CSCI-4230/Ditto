@@ -97,7 +97,6 @@ function clearfileexplorer() {
 }
 
 function newexplorer() {
-    let text = '<div class="card-body d-none" id="fileexplorer' + foldercount + '"><ul class="list-group" id="filelist' + foldercount + '">' +
-        '<a class="list-group-item">Test ' + foldercount + '</a></ul>';
+    let text = '<div class="card-body d-none" id="fileexplorer' + foldercount + '"><ul class="list-group" id="filelist' + foldercount + '"></ul>';
     document.getElementById('explorer').innerHTML += text;
 }
