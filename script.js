@@ -103,3 +103,8 @@ function newexplorer() {
     let text = '<div class="card-body d-none" id="fileexplorer' + foldercount + '"><ul class="list-group" id="filelist' + foldercount + '"></ul>';
     document.getElementById('explorer').innerHTML += text;
 }
+
+function adduploaddir(foldername) {
+    let text = '<option value="' + foldername + '">' + foldername + '</option>'
+    document.getElementById('uploadfolders').innerHTML += text;
+}

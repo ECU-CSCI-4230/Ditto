@@ -4,6 +4,12 @@ if(!isset($_SESSION['login_user'])){
     header("Location:signOReg.html");
 }
 $username = $_SESSION['login_username'];
+
+$link = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
+if ($link === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
 ?>
 <html>
 <head>
@@ -15,6 +21,7 @@ $username = $_SESSION['login_username'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="js/dittoj.js"></script>
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -23,10 +30,16 @@ $username = $_SESSION['login_username'];
     <div class="col-md-1">
         <a href="index.php"><img id="logo3" src=".\images\logo.png" style="max-width: 400px"></a>
     </div>
-    <div class="col-md-8"></div>
+    <div class="col-md-8">
+    </div>
     <div class="form-group col-md-3">
         <ul class="list-group" id="namebar">
             <li class="list-group-item">Logged in as: <?php echo $username; ?></li>
+            <li class="list-group-item">Select a Folder:
+        <select id="uploadfolders" form="uploadform" name="selectedfolder">
+            <option value="">Home</option>
+        </select>
+            </li>
         </ul>
     </div>
 </div>
@@ -41,12 +54,13 @@ $username = $_SESSION['login_username'];
     </div>
 </div>
 
-<br><br><br><br><br>
+<br><br><br><br>
 
 <div class="row">
     <div class="form-group col-md-12">
-        <form action="" method="POST" enctype = "multipart/form-data">
-            <input id="uploadinput" name="fileToUpload[]" oninput="display_filenames()" type="file" multiple/>
+        <form action="" method="POST" enctype = "multipart/form-data" id="uploadform">
+            <input type="text"  name="directory">
+            <input id="uploadinput" name="fileToUpload[]" oninput="display_filenames()" type="file" multiple>
             <p>Drag your files here or click in this area.</p>
             <button type="submit">Upload</button>
         </form>
@@ -66,23 +80,38 @@ $username = $_SESSION['login_username'];
 
 <?php
 
+function loaddirs($conn, $username)
+{
+
+    $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
+User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
+and File_Type like 'directory';";
+
+    $result = mysqli_query($conn, $stmt);
+
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($conn));
+    } else {
+        $text = "<script>";
+        while ($res = $result->fetch_assoc()) {
+
+            $filepath = $res['File_Path'];
+            $foldername = substr($filepath, strpos($filepath, $username) + strlen($username) + 1, -1);
+            $text .= "adduploaddir('" . $foldername . "');";
+        }
+        echo $text . '</script>';
+    }
+}
+
+loaddirs($link, $username);
+
 if(isset($_FILES['fileToUpload'])){
     $err = 0;
     $total = count($_FILES['fileToUpload']['name']);
     $msg = "<script>";
 
-// Initiate connection to database
-    define('DB_SERVER', 'localhost');
-    define('DB_USERNAME', 'josh');
-    define('DB_PASSWORD', 'jcc15241711');
-    define('DB_NAME', 'Ditto_Drive');
 
-    /* Attempt to connect to MySQL database */
-    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-// Check connection
-    if ($link === false) {
-        die("ERROR: Could not connect. " . mysqli_connect_error());
-    }
+    $foldername = $_POST['selectedfolder'];
 
     for ($i = 0; $i < $total; $i++) {
 
@@ -92,7 +121,11 @@ if(isset($_FILES['fileToUpload'])){
         $file_type = $_FILES['fileToUpload']['type'][$i];
 //        $file_ext = strtolower(end(explode('.',$_FILES['image']['name'][$i])));
 
-        $filepath = "uploads/$username/$file_name";
+        if ($foldername == '') {
+            $filepath = "uploads/$username/$file_name";
+        } else {
+            $filepath = "uploads/$username/$foldername/$file_name";
+        }
 
         if (file_exists($filepath)) {
             $msg .= "display_error(\"" . $file_name . " A file with this name exists already. \" );";
