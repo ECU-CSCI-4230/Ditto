@@ -73,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <head>
     <meta charset="UTF-8">
-    <title>Ditto Driven</title>
+    <title>Ditto Drive</title>
 
     <link rel="stylesheet" href="css/regstyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -112,6 +112,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </fieldset>
     </form>
 </div>
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+
+
+<script  src="js/index.js"></script>
 
 </body>
 
