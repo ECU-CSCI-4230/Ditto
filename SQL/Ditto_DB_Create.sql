@@ -4,8 +4,10 @@ use ditto_drive;
 
 CREATE TABLE User (
     User_ID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(18) NOT NULL,
+    Username VARCHAR(50) NOT NULL,
     Password VARCHAR(32) NOT NULL,
+    First_name VARCHAR(20) NOT NULL,
+    Last_name VARCHAR(20) NOT NULL,
     Email VARCHAR(50)
 );
 

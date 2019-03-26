@@ -11,8 +11,8 @@ if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 //create variables to hold user information
-$username = $password = $confirm_password = $password = $first_name = $last_name =
-$confirm_password_err = $password_err = "";
+$username  = $confirm_password = $password = $first_name = $last_name =
+$confirm_password_err = $password_err = $email = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email = trim($_POST["email"]);
@@ -42,10 +42,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 //test to see if any errors were generated
     if(empty($password_err) && empty($confirm_password_err)) {
 // Prepare an insert statement
-        $sql = "INSERT INTO User (Username, Password, Email) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO User (Username, Password, First_name, Last_name, Email) VALUES (?, ?, ?, ?, ?)";
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
+            mysqli_stmt_bind_param($stmt, "sssss", $username, $password, $first_name, $last_name, $email);
             //execute statment
             mysqli_stmt_execute($stmt);
 
