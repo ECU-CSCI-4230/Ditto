@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
+
 <head>
+  <meta charset="UTF-8">
   <title>Ditto Drive</title>
-  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="css/regstyle.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <link href='.\style.css' rel='stylesheet'>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script type="text/javascript" src="script.js"></script>
+
 </head>
 
 <body>
-  <div class="row">
-    <center><img id="logo" src=".\images\logo.png"></center>
-  </div>
 
-  <!-- The Sign In or Register Page -->
-  <div id="SignOrReg" class="row">
-    <h2 id="slogan"> Where convience is key... </h2>
-    <br>
-    <center><button onclick="location.href='signIn.php'"> Sign In </button></center>
-    <center><p id="or">OR</p></center>
-    <center><button onclick="location.href='register.php'"> Register </button></center>
-  </div>
+<div class="container">
+  <form id="contact" action="" method="POST">
+    <img src="images\logo.png" height="350" width="350" style = "text-align:center">
+    <h3 style="text-align:center">Welcome To Ditto Drive</h3>
+
+
+    <button onclick="location.href='signIn.php'" type="submit"> Sign In </button>
+
+    <p id="or" style="text-align:center">OR</p>
+
+    <button onclick="location.href='register.php'" type="submit" >Register</button>
+
+
+
+  </form>
+</div>
+
+
 
 </body>
+
 </html>
+
+
