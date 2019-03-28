@@ -13,6 +13,8 @@ $username = $_SESSION['login_username'];
 $selectedpath = "";
 
 ?>
+
+<?php ?><style><?php include 'css/mainDrive.css'; ?></style>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +34,7 @@ $selectedpath = "";
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/mainDrive.css" rel="stylesheet">
+    <!-- <link href="css/mainDrive.css" rel="stylesheet"> -->
 
 </head>
 
@@ -49,7 +51,7 @@ $selectedpath = "";
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a id="trigger">Upload File</a>
+                  <a class="nav-link" id="trigger">Upload File</a>
                   <div id="overlay">
                     <div id="popup">
                         <div id="close">
@@ -60,7 +62,7 @@ $selectedpath = "";
                         </div>
                     </div>
                   </div>
-                    <a class="nav-link" href="upload.php">Upload</a>
+                    <!-- <a class="nav-link" href="upload.php">Upload</a> -->
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home
