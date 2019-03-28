@@ -48,6 +48,17 @@ $selectedpath = "";
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                  <a id="trigger">Upload File</a>
+                  <div id="overlay">
+                    <div id="popup">
+                        <div id="close">
+                          X
+                        </div>
+                        <center><h2>Drag file to be upload</h2></center>
+                        <div id="dotted">
+                        </div>
+                    </div>
+                  </div>
                     <a class="nav-link" href="upload.php">Upload</a>
                 </li>
                 <li class="nav-item active">
@@ -84,7 +95,7 @@ $selectedpath = "";
         <div class="col-lg-9">
 
             <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+                <img class="card-img-top img-fluid" src="images/logo.png" alt="">
                 <div class="card-body">
                     <h3 class="card-title">Quick Access</h3>
                 </div>
@@ -234,7 +245,7 @@ function loadfileexplorer($conn, $username)
 //                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
 
     $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " 
+                          User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . "
                           and File_Path like '%$selectedpath%' and File_Type not like 'directory';";
 
     $result = mysqli_query($conn, $stmt);
