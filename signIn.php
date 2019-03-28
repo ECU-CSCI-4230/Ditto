@@ -21,7 +21,7 @@
             <input placeholder="Username Or Email" type="text" name="uname" tabindex="1" required autofocus>
         </fieldset>
         <fieldset>
-            <input placeholder="Password" type="text" name="psw" tabindex="1">
+            <input placeholder="Password" type="password" name="psw" tabindex="1">
         </fieldset>
 
         <fieldset>
