@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <input placeholder="Your last name" type="text" name="last_name" tabindex="1">
         </fieldset>
         <fieldset>
-            <input placeholder="Your Email Address (used as your username)" type="text" name="email" tabindex="1">
+            <input placeholder="Your Email Address (used as your username)" type="email" name="email" tabindex="1">
         </fieldset>
         <div class = "container<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
         <fieldset>

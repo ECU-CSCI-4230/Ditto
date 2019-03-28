@@ -18,9 +18,6 @@ $password_wrong_err = ''; // Variable To Store Error Message
           $username= $_POST['uname'];
           $password= $_POST['psw'];
 
-          //Server didn't like these commands
-          //$username= preg_replace('/\s+/', '', $_POST['uname']);
-          //$password= preg_replace('/\s+/', '', $_POST['psw']);
 
 // Establishing Connection with Server by passing DB_SERVER, DB_USERNAME, DB_PASSWORD and DB_NAME as a parameter
           define('DB_SERVER', 'localhost');
