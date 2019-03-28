@@ -115,11 +115,13 @@ if(isset($_FILES['fileToUpload'])){
 
     for ($i = 0; $i < $total; $i++) {
 
+        $err = 0;
         $file_name = $_FILES['fileToUpload']['name'][$i];
         $file_size = $_FILES['fileToUpload']['size'][$i];
         $file_tmp = $_FILES['fileToUpload']['tmp_name'][$i];
         $file_type = $_FILES['fileToUpload']['type'][$i];
-//        $file_ext = strtolower(end(explode('.',$_FILES['image']['name'][$i])));
+
+        $file_type = substr($file_type, 0, 30);
 
         if ($foldername == '') {
             $filepath = "uploads/$username/$file_name";

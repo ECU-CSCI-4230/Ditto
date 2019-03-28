@@ -1,47 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" >
-
-<head>
-    <meta charset="UTF-8">
-    <title>Ditto Drive</title>
-
-    <link rel="stylesheet" href="css/regstyle.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="script.js"></script>
-
-</head>
-
-<body>
-
-<div class="container">
-    <form id="contact" action="" method="POST">
-        <img src="images\logo.png" height="350" width="350" style = "text-align:center">
-        <h3>Log In</h3>
-        <fieldset>
-            <input placeholder="Username Or Email" type="text" name="uname" tabindex="1" required autofocus>
-        </fieldset>
-        <fieldset>
-            <input placeholder="Password" type="password" name="psw" tabindex="1">
-        </fieldset>
-
-        <fieldset>
-            <button type="submit" id="contact-submit" value="Submit" name="login" > Login</button>
-            <p>Don't have an account? <a href="register.php">Create one.</a>.</p>
-        </fieldset>
-    </form>
-</div>
-
-</body>
-
-</html>
 
 
 
 
-
-  <?php
+<?php
   session_start(); // Starting Session
-  $error = "Begin Error Message: "; // Variable To Store Error Message
+$password_wrong_err = ''; // Variable To Store Error Message
   if (isset($_POST['login'])) {
       if (empty($_POST['uname']) || empty($_POST['psw'])) {
           echo "Username or Password is empty ";
@@ -50,7 +13,7 @@
       {
           echo $_POST['uname'];
           echo $_POST['psw'];
-// Define $username and $password
+// Define $username and $password and $password_wrong_err;
 
           $username= $_POST['uname'];
           $password= $_POST['psw'];
@@ -94,7 +57,7 @@
                   $_SESSION['login_username'] = $username;
                   header("location: index.php"); // Redirecting To Other Page
               } else {
-                  $error = "Username or Password is invalid ";
+                  $password_wrong_err = "Username or Password is invalid";
               }
 
 //              if (rows > 0) {
@@ -113,6 +76,42 @@
   }
   ?>
 
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ditto Drive</title>
+
+    <link rel="stylesheet" href="css/regstyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="script.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+    <form id="contact" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <img src="images\logo.png" height="350" width="350" style = "text-align:center">
+        <h3>Log In</h3>
+        <fieldset>
+            <input placeholder="Username Or Email" type="text" name="uname" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+            <input placeholder="Password" type="password" name="psw" tabindex="1">
+            <span class="help-block"><?php echo $password_wrong_err; ?></span>
+        </fieldset>
+
+        <fieldset>
+            <button type="submit" id="contact-submit" value="Submit" name="login" > Login</button>
+            <p>Don't have an account? <a href="register.php">Create one.</a>.</p>
+        </fieldset>
+    </form>
+</div>
+
 </body>
 
 </html>
+
+
