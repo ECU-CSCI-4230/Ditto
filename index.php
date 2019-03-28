@@ -24,6 +24,7 @@ $selectedpath = "";
           content="Ditto Drive (Totally not trademarked) is a very file hosting service. We are a small team of students at East Carolina University working on our final project.">
     <meta name="author" content="">
     <script type="text/javascript" src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <title>Ditto Drive</title>
 
@@ -95,7 +96,7 @@ $selectedpath = "";
         <div class="col-lg-9">
 
             <div class="card mt-4">
-                <img class="card-img-top img-fluid" src="images/logo.png" alt="">
+                <img class="card-img-top img-fluid" id="logo" src="images/logo.png" alt="">
                 <div class="card-body">
                     <h3 class="card-title">Quick Access</h3>
                 </div>
