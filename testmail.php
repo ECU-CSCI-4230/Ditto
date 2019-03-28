@@ -1,6 +1,6 @@
 <?php
 
-$to = 'maryjane@email.com';
+$to = 'joshuacarpenter3@gmail.com';
 $subject = 'Marriage Proposal';
 $message = 'Hi Jane, will you marry me?';
 $from = 'donotreply@dittodrive.us';
