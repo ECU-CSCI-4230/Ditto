@@ -108,3 +108,12 @@ function adduploaddir(foldername) {
     let text = '<option value="' + foldername + '">' + foldername + '</option>'
     document.getElementById('uploadfolders').innerHTML += text;
 }
+
+$(document).ready(function() {
+  $('#trigger').click(function() {
+    $('#overlay').fadeIn(300);
+  });
+  $('#close').click(function() {
+    $('#overlay').fadeOut(300);
+  });
+});
