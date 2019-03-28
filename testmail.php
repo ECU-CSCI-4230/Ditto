@@ -1,15 +1,13 @@
 <?php
 
+$to = 'maryjane@email.com';
+$subject = 'Marriage Proposal';
+$message = 'Hi Jane, will you marry me?';
+$from = 'donotreply@dittodrive.us';
 
-
-
-
-// the message
-$msg = "First line of text\nSecond line of text";
-
-// use wordwrap() if lines are longer than 70 characters
-$msg = wordwrap($msg,70);
-
-// send email
-mail("joshuacarpenter3@gmail.com","testemail",$msg);
-?>
+// Sending email
+if(mail($to, $subject, $message)){
+    echo 'Your mail has been sent successfully.';
+} else{
+    echo 'Unable to send email. Please try again.';
+}
