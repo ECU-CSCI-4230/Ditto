@@ -1,7 +1,7 @@
 <?php
 include('session.php');
 if(!isset($_SESSION['login_user'])){
-    header("Location:signOReg.html");
+    header("Location:SigninOrRegister.html");
 }
 
 $conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
@@ -51,7 +51,7 @@ $selectedpath = "";
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" id="trigger">Upload File</a>
+                    <a class="nav-link" href="upload.php" id="trigger">Upload File</a>
                   <div id="overlay">
                     <div id="popup">
                         <div id="close">
@@ -92,6 +92,7 @@ $selectedpath = "";
             <h1 class="my-4">My Drive</h1>
             <div class="list-group" id="folderlist">
                 <a onclick="changefold(0);" class="list-group-item active" id="fold0">Home</a>
+                <a onclick="changefold(1);" class="list-group-item" id="fold1">File Share</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -119,6 +120,11 @@ $selectedpath = "";
                 </div>
                 <div class="card-body" id="fileexplorer0">
                     <ul class="list-group" id="filelist0">
+
+                    </ul>
+                </div>
+                <div class="card-body d-none" id="fileexplorer1">
+                    <ul class="list-group" id="filelist1">
 
                     </ul>
                 </div>
@@ -160,6 +166,32 @@ $selectedpath = "";
     </div>
 </div>
 <!-- END CREATE DIR MODAL -->
+
+<!-- CREATE FS MODAL -->
+<div class="modal fade" id="FSForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Share File</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5" id="FSData">
+
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-indigo">Share<i class="fas fa-paper-plane-o ml-1"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END CREATE FS MODAL -->
 
 <!-- EDIT FILE MODAL -->
 <div class="modal fade" id="fileForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -243,6 +275,7 @@ loaddirs($conn, $username);
 function loadfileexplorer($conn, $username)
 {
 //                        <-- DISPLAY FILE EXPLORER CONTENTS -->
+    $text = "<script>";
     $selectedpath = 'uploads/' . $username . '/';
 
 //                        $stmt = "select * from File where File_Path like '%uploads/$username%' ;";
@@ -258,12 +291,12 @@ function loadfileexplorer($conn, $username)
         printf("Error: %s\n", mysqli_error($conn));
     } else {
         $rows = mysqli_num_rows($result);
-        $text = "<script>";
         while ($res = $result->fetch_assoc()) {
 
             $filename = $res['File_Path'];
             $filePath = $res['File_Path'];
             $filetype = $res['File_Type'];
+            $fileID = $res['File_ID'];
             $lastmod = $res['Last_Modified'];
             $size = $res['File_Size'];
 
@@ -278,10 +311,43 @@ function loadfileexplorer($conn, $username)
             }
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-            $text .= "addfiletoexplorer('" . $foldername ."','" . $filename . "','" . $filetype . "','" . $lastmod . "','" . $size . "','" . $filePath . "');";
+            $text .= "addfiletoexplorer('" . $foldername . "','" . $filename . "','" . $filetype . "','" . $lastmod .
+                "','" . $size . "','" . $filePath . "','" . $fileID . "');";
         }
-        echo $text . '</script>';
     }
+
+    $stmtFSE = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID 
+                  join User on User.User_ID = FileShare.User_ID 
+                  where FileShare.User_ID=" . $_SESSION['login_user'] . " and Permission = 2 
+                  and File_Type not like 'directory';";
+
+    $resultFSE = mysqli_query($conn, $stmtFSE);
+
+//echo $stmt; // for  debug
+    if (!$resultFSE) {
+        printf("Error: %s\n", mysqli_error($conn));
+    } else {
+        while ($resFSE = $resultFSE->fetch_assoc()) {
+            echo "made it";
+            $filenameFS = $resFSE['File_Path'];
+            $filePathFS = $resFSE['File_Path'];
+            $filetypeFS = $resFSE['File_Type'];
+            $lastmodFS = $resFSE['Last_Modified'];
+            $sizeFS = $resFSE['File_Size'];
+
+            $lenFS = strlen($filenameFS);
+            $posFS = strrpos($filenameFS, '/');
+            $filenameFS = substr($filenameFS, $posFS - $lenFS + 1);
+
+            $foldernameFS = "#FS";
+
+            //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
+            $text .= "addfiletoexplorer('" . $foldernameFS . "','" . $filenameFS . "','" . $filetypeFS . "','" .
+                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "');";
+        }
+    }
+
+    echo $text . '</script>';
 //                        <-- END DISPLAY FILE EXPLORER CONTENTS -->
 }
 
@@ -290,51 +356,86 @@ loadfileexplorer($conn, $username);
 
 //                        <-- START CREATE DIRECTORY SCRIPT -->
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $dirname = $_POST['dirname'];
-    $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
-    $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
-    if ($stmtF = mysqli_prepare($conn, $sqlF)) {
-        // Bind variables to the prepared statement as parameters
-        $dat = date("Y-m-d");
-        $dir = 'directory';
-        $size = 0;
-        mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
+    if (isset($_POST['dirname'])) {
+        $dirname = $_POST['dirname'];
+        $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
+        $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
+        if ($stmtF = mysqli_prepare($conn, $sqlF)) {
+            // Bind variables to the prepared statement as parameters
+            $dat = date("Y-m-d");
+            $dir = 'directory';
+            $size = 0;
+            mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
 
-        mysqli_stmt_execute($stmtF);
-    } else {
-        echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+            mysqli_stmt_execute($stmtF);
+        } else {
+            echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+        }
+
+        mysqli_stmt_close($stmtF);
+
+        $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
+        $resultFID = mysqli_query($conn, $sqlFID);
+        $rowsFID = mysqli_num_rows($resultFID);
+        if ($rowsFID == 0) {
+            echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
+            $msg .= 'display_error("Unable to connect to the database. ");';
+            $err = 3;
+        } else {
+            $res = $resultFID->fetch_assoc();
+            $file_id = $res["File_ID"];
+        }
+
+        $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
+        if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
+            // Bind variables to the prepared statement as parameters
+            $own = 1;
+            mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
+
+            mysqli_stmt_execute($stmtFS);
+
+            mkdir('uploads/' . $username . '/' . $dirname, 0777, true);
+            chown('uploads/' . $username . '/' . $dirname, 'www-data:www-data');
+        } else {
+            echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
+        }
+
+        echo "<script>red()</script>";
+
+    } else if (isset($_POST['FS'])) {
+        echo "t1";
+        $shareUN = $_POST['FS'][1];
+        $fid = $_POST['FS'][0];
+
+        $sqlUID = "SELECT User_ID FROM User WHERE Username = '$shareUN';";
+        $resultUID = mysqli_query($conn, $sqlUID);
+        $rowsUID = mysqli_num_rows($resultUID);
+        if ($rowsUID == 0) {
+            echo "SELECT User_ID FROM User WHERE Username = '$shareUN';";
+            $msg .= 'display_error("Unable to connect to the database. ");';
+            $err = 3;
+        } else {
+            $res = $resultUID->fetch_assoc();
+            $User_ID = $res["User_ID"];
+            echo $User_ID;
+        }
+
+
+        $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
+        if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
+            // Bind variables to the prepared statement as parameters
+            $own = 2;
+            mysqli_stmt_bind_param($stmtFS, "ssi", $User_ID, $fid, $own);
+
+            mysqli_stmt_execute($stmtFS);
+
+        } else {
+            echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
+        }
+
+        //header('Location: red.php');
+        echo "<script>red()</script>";
     }
-
-    mysqli_stmt_close($stmtF);
-
-    $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
-    $resultFID = mysqli_query($conn, $sqlFID);
-    $rowsFID = mysqli_num_rows($resultFID);
-    if ($rowsFID == 0) {
-        echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
-        $msg .= 'display_error("Unable to connect to the database. ");';
-        $err = 3;
-    } else {
-        $res = $resultFID->fetch_assoc();
-        $file_id = $res["File_ID"];
-    }
-
-    $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
-    if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
-        // Bind variables to the prepared statement as parameters
-        $own = 1;
-        mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
-
-        mysqli_stmt_execute($stmtFS);
-
-        mkdir('uploads/' . $username . '/' . $dirname, 0777, true);
-        chown('uploads/' . $username . '/' . $dirname, 'www-data:www-data');
-    } else {
-        echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
-    }
-
-    //header('Location: red.php');
-    echo "<script>red()</script>";
 }
 //                        <-- END CREATE DIRECTORY SCRIPT -->
 ?>

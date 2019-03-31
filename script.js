@@ -1,17 +1,17 @@
 // Show the Sign In Page
 function showSignIn() {
-  var x = document.getElementById("SignOrReg");
-  x.style.display = "none";
-  var y = document.getElementById("signIn");
-  y.style.display = "block";
+    var x = document.getElementById("SignOrReg");
+    x.style.display = "none";
+    var y = document.getElementById("signIn");
+    y.style.display = "block";
 }
 
 // Show the Reg Page
 function showReg() {
-  var x = document.getElementById("SignOrReg");
-  x.style.display = "none";
-  var y = document.getElementById("reg");
-  y.style.display = "block";
+    var x = document.getElementById("SignOrReg");
+    x.style.display = "none";
+    var y = document.getElementById("reg");
+    y.style.display = "block";
 }
 
 // DISPLAY REGISTRATION SUCCESS --OLD CODE--
@@ -22,15 +22,16 @@ function regSuccess() {
     document.getElementById('reg').innerHTML = text;
 }
 
- // VARIABLES KEEP TRACK(internally) of directory(or folder) names and count
-let foldercount = 1;
+// VARIABLES KEEP TRACK(internally) of directory(or folder) names and count
+let foldercount = 2;
 let filecount = 0;
 var foldernames = [];
 var filenames = [];
 foldernames.push('');
+foldernames.push('#FS');
 filenames.push('');
 
- // ADDS FOLDER
+// ADDS FOLDER
 function addfolderitem(foldername) {
     let text = "";
     text += '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
@@ -40,7 +41,7 @@ function addfolderitem(foldername) {
     foldercount++;
 }
 
- // ADDS "+" CREATE FOLDER TAB
+// ADDS "+" CREATE FOLDER TAB
 function addaddfolder() {
     let text = '<a class="list-group-item" data-toggle="modal" data-target="#createDirForm">+</a>';
     text += "";
@@ -51,15 +52,27 @@ function red() {
     window.location.replace("red.php");
 }
 
-function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath) {
+function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fileID) {
     let num = getfoldernum(dir);
-    let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-        '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" id="filebutt">Download</a>' +
-        '<a class="btn btn-danger float-right" data-toggle="modal" data-target="#fileForm" id="filebutt">Move File</a>' +
-        '</li>'
+    let text = '<li class="list-group-item" id="file' + filecount + '">' + filename + num +
+        '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" >Download</a>' +
+        '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
+        '<a class="btn btn-light float-right" data-toggle="modal" data-target="#fileForm" >Move File</a>' +
+        '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
     filecount++
+}
+
+function prepFSModal(ID) {
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<input name="FS[]" value="' + ID + '" />' +
+        '<input type="text" id="form3" class="form-control validate" name="FS[]">' +
+        '<label data-error="wrong" data-success="right" for="form3">User Name</label>';
+
+    document.getElementById('FSData').innerHTML = txt;
+
+    $("#FSForm").modal().toggle();
 }
 
 // RETURNS FOLDER INDEX OF NAME
@@ -105,15 +118,15 @@ function newexplorer() {
 }
 
 function adduploaddir(foldername) {
-    let text = '<option value="' + foldername + '">' + foldername + '</option>'
+    let text = '<option value="' + foldername + '">' + foldername + '</option>';
     document.getElementById('uploadfolders').innerHTML += text;
 }
 
 $(document).ready(function() {
-  $('#trigger').click(function() {
-    $('#overlay').fadeIn(300);
-  });
-  $('#close').click(function() {
-    $('#overlay').fadeOut(300);
-  });
+    $('#trigger').click(function () {
+        $('#overlay').fadeIn(300);
+    });
+    $('#close').click(function () {
+        $('#overlay').fadeOut(300);
+    });
 });
