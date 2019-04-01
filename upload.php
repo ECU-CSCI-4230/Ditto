@@ -1,7 +1,7 @@
 <?php
 include('session.php');
 if(!isset($_SESSION['login_user'])){
-    header("Location:signOReg.html");
+    header("Location:SigninOrRegister.html");
 }
 $username = $_SESSION['login_username'];
 
