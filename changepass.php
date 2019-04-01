@@ -1,4 +1,7 @@
 <?php
+//Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+
 //create database connection
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'josh');
@@ -6,12 +9,13 @@ define('DB_PASSWORD', 'jcc15241711');
 define('DB_NAME', 'Ditto_Drive');
 /* Attempt to connect to MySQL database */
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$Email_Not_Exist_Error = '';
 // Check connection
-if($link === false){
+if ($link === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //create variables to hold users email password
     $user_email = $message = $newpass = $email_error = $email = '';
 
@@ -43,26 +47,79 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             //execute statment
             mysqli_stmt_execute($stmt);
 
-            //email password to user
+            //setup PHPMailer
+            require 'PHPMailer/src/Exception.php';
+            require 'PHPMailer/src/PHPMailer.php';
+            require 'PHPMailer/src/SMTP.php';
+
+            //Create a new PHPMailer instance
+            $mail = new PHPMailer;
+
+            //Tell PHPMailer to use SMTP
+            $mail->isSMTP();
+
+            //Enable SMTP debugging
+            // 0 = off (for production use)
+            // 1 = client messages
+            // 2 = client and server messages
+            $mail->SMTPDebug = 0;
+
+            //Set the hostname of the mail server
+            $mail->Host = 'smtp.gmail.com';
+
+            //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+            $mail->Port = 587;
+
+            //Set the encryption system to use - ssl (deprecated) or tls
+            $mail->SMTPSecure = 'tls';
+
+            //Whether to use SMTP authentication
+            $mail->SMTPAuth = true;
+
+            //Username to use for SMTP authentication - use full email address for gmail
+            $mail->Username = "dittodrivepassmanager@gmail.com";
+
+            //Password to use for SMTP authentication
+            $mail->Password = "jcc52896";
+
+            //Set who the message is to be sent from
+            $mail->setFrom('noreply@dittodrive.us', 'Ditto Drive');
+
+
+            //Set who the message is to be sent to
+            $mail->addAddress($email);
+
+            //Set the subject line
+            $mail->Subject = 'Your Password Has Been Reset';
+
+            //Read an HTML message body from an external file, convert referenced images to embedded,
+            //convert HTML into a basic plain-text alternative body
+            //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
 
 
 
-            echo "password should be changed to $newpass";
+            $mail->Body    = "Your new password is: <b> '$newpass' </b>";
 
+            //send the message, check for errors
+            if (!$mail->send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+            } else {
+                echo "Message sent!";
+
+            }
+
+            header("Location:PassChangeSuccess.html");
         } else {
-            $password_wrong_err = "Username or Password is invalid";
+            $Email_Not_Exist_Error = "The email entered is not associated with a account.";
         }
     }
 }
 
 
-
-
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -78,14 +135,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container">
     <form id="contact" action="" method="POST">
-        <img src="images\logo.png" height="350" width="350" style = "text-align:center">
+        <img src="images\logo.png" height="350" width="350" style="text-align:center">
         <h3>Reset Your Password</h3>
+        <div class="container<?php echo (!empty($Email_Not_Exist_Error)) ? 'has-error' : ''; ?>">
+            <fieldset>
+                <input placeholder="Please enter your email." type="text" name="email" tabindex="1" required autofocus>
+                <span class="help-block"><?php echo $Email_Not_Exist_Error; ?></span>
+            </fieldset>
+        </div>
         <fieldset>
-            <input placeholder="Please enter your email." type="text" name="email" tabindex="1" required autofocus>
-        </fieldset>
-
-        <fieldset>
-            <button type="submit" id="contact-submit" value="Submit" name="login" > Login</button>
+            <button type="submit" id="contact-submit" value="Submit" name="login">Submit</button>
             <p>Don't have an account? <a href="register.php">Open a new one.</a>.</p>
         </fieldset>
     </form>
