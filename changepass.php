@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-            $mail->Body    = "Your new password is: <b> '$newpass' </b>";
+            $mail->Body    = "Your new password is:  '$newpass' ";
 
             //send the message, check for errors
             if (!$mail->send()) {
