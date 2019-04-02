@@ -469,10 +469,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         unlink($filePath);
 
 
-        //echo $fid;
+        echo $resultUID ;
 
         //header('Location: red.php');
-        echo "<script>red()</script>";
+        //echo "<script>red()</script>";
     }
 }
 //                        <-- END CREATE DIRECTORY SCRIPT -->
