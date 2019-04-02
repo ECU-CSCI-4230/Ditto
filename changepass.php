@@ -9,7 +9,7 @@ define('DB_PASSWORD', 'jcc15241711');
 define('DB_NAME', 'Ditto_Drive');
 /* Attempt to connect to MySQL database */
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$Email_Not_Exist_Error = '';
+$Unvalid_email = '';
 // Check connection
 if ($link === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
@@ -46,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_bind_param($stmt, "ss", $newpass, $email);
             //execute statment
             mysqli_stmt_execute($stmt);
-
             //setup PHPMailer
             require 'PHPMailer/src/Exception.php';
             require 'PHPMailer/src/PHPMailer.php';
@@ -92,26 +91,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //Set the subject line
             $mail->Subject = 'Your Password Has Been Reset';
 
-            //Read an HTML message body from an external file, convert referenced images to embedded,
-            //convert HTML into a basic plain-text alternative body
-            //$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
-
-
-
-            $mail->Body    = "Your new password is:  '$newpass' ";
+            $mail->Body    = "Your new password is:  '$newpass'";
 
             //send the message, check for errors
             if (!$mail->send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;
             } else {
-                echo "Message sent!";
+                header("Location:PassChangeSuccess.html");
 
             }
-
-            header("Location:PassChangeSuccess.html");
-        } else {
-            $Email_Not_Exist_Error = "The email entered is not associated with a account.";
-        }
+        } 
+    }
+    else {
+        $Unvalid_email = "The email entered is not associated with a account.";
     }
 }
 
@@ -134,13 +126,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <div class="container">
-    <form id="contact" action="" method="POST">
+    <form id="contact" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <img src="images\logo.png" height="350" width="350" style="text-align:center">
         <h3>Reset Your Password</h3>
-        <div class="container<?php echo (!empty($Email_Not_Exist_Error)) ? 'has-error' : ''; ?>">
+        <div class = "container<?php echo (!empty($Unvalid_email)) ? 'has-error' : ''; ?>">
             <fieldset>
                 <input placeholder="Please enter your email." type="text" name="email" tabindex="1" required autofocus>
-                <span class="help-block"><?php echo $Email_Not_Exist_Error; ?></span>
+                <span class="help-block"><?php echo $Unvalid_email; ?></span>
             </fieldset>
         </div>
         <fieldset>
