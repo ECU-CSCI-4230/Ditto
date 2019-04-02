@@ -464,12 +464,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $filePath = $_POST['delete'][1];
 
         $sqlUID = "DELETE FROM file WHERE File_ID = '$fid'";
-        $resultUID = mysqli_query($conn, $sqlUID);
+
+        $conn->query($sqlUID);
+        //$resultUID = mysqli_query($conn, $sqlUID);
 
         unlink($filePath);
 
 
-        //echo $fid;
+        //echo $resultUID;
 
         //header('Location: red.php');
         echo "<script>red()</script>";
