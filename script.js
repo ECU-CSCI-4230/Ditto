@@ -58,6 +58,7 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
         '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" >Download</a>' +
         '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
         '<a class="btn btn-light float-right" data-toggle="modal" data-target="#fileForm" >Move File</a>' +
+        '<a class="btn btn-danger float-right" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
@@ -73,6 +74,17 @@ function prepFSModal(ID) {
     document.getElementById('FSData').innerHTML = txt;
 
     $("#FSForm").modal().toggle();
+}
+
+function prepDeleteModal(ID, Path) {
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<label data-error="wrong" data-success="right" for="form4">Are you Sure?</label>' +
+        '<input type="hidden" name="delete[]" value="' + ID + '" />' +
+        '<button class="btn btn-danger form-control" name="delete[]" value="' + Path +'">Confirm Delete<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('delete').innerHTML = txt;
+
+    $("#deleteForm").modal().toggle();
 }
 
 // RETURNS FOLDER INDEX OF NAME

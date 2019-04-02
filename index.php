@@ -222,6 +222,29 @@ $selectedpath = "";
 </div>
 <!-- END EDIT FILE MODAL -->
 
+<!-- Delete FILE MODAL -->
+<div class="modal fade" id="deleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Delete File</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5" id="delete">
+                        <input type="text" id="form4" class="form-control validate" name="delete">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Delete FILE MODAL -->
+
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">
@@ -432,6 +455,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else {
             echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
         }
+
+        //header('Location: red.php');
+        echo "<script>red()</script>";
+    }
+    else if (isset($_POST['delete'])) {
+        $fid = $_POST['delete'][0];
+        $filePath = $_POST['delete'][1];
+
+        $sqlUID = "DELETE FROM file WHERE File_ID = '$fid'";
+        $resultUID = mysqli_query($conn, $sqlUID);
+
+        unlink($filePath);
+
+
+        //echo $fid;
 
         //header('Location: red.php');
         echo "<script>red()</script>";
