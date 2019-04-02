@@ -463,7 +463,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $fid = $_POST['delete'][0];
         $filePath = $_POST['delete'][1];
 
-        $sqlUID = "DELETE FROM file WHERE File_ID = '$fid'";
+        $sqlUID = "DELETE FROM File WHERE File_ID = '$fid'";
 
         $conn->query($sqlUID);
         //$resultUID = mysqli_query($conn, $sqlUID);
