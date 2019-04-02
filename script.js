@@ -55,7 +55,7 @@ function red() {
 function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fileID) {
     let num = getfoldernum(dir);
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename + num +
-        '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" >Download</a>' +
+        '<a class="btn btn-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
         '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
         '<a class="btn btn-light float-right" data-toggle="modal" data-target="#fileForm" >Move File</a>' +
         '<a class="btn btn-danger float-right" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
