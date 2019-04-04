@@ -205,11 +205,11 @@ $selectedpath = "";
                 </button>
             </div>
             <li class="list-group-item">Select a Folder:
-                <select id="uploadfolders" form="uploadform" class="form-control validate" name="move">
+                <select id="uploadfolders" form="movefileform" class="form-control validate" name="moveTo">
                     <option value="">Home</option>
                 </select>
             </li>
-            <form method="POST">
+            <form method="POST" id="movefileform">
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5" id="move">
                         <input type="hidden" id="form5" class="form-control validate" name="move">
@@ -506,11 +506,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 
-        echo $_POST['move'][0];
-        echo $_POST['move'][1];
-
-        //$foldername = $_POST['selectedfolder'];
+        //echo $_POST['move'][0];
         //echo $_POST['move'][1];
+
+        $foldername = $_POST['moveTo'];
+        echo $foldername;
 
         //header('Location: red.php');
         //echo "<script>red()</script>";
