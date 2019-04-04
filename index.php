@@ -449,7 +449,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo "<script>red()</script>";
 
     } else if (isset($_POST['FS'])) {
-        echo "t1";
         $shareUN = $_POST['FS'][1];
         $fid = $_POST['FS'][0];
 
