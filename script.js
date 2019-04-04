@@ -54,7 +54,7 @@ function red() {
 
 function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fileID) {
     let num = getfoldernum(dir);
-    let text = '<li class="list-group-item" id="file' + filecount + '">' + filename + num +
+    let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
         '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" >Download</a>' +
         '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
         '<a class="btn btn-light float-right" data-toggle="modal" data-target="#fileForm" >Move File</a>' +
@@ -66,7 +66,7 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
 
 function prepFSModal(ID) {
     let txt = '<i class="fas fa-user prefix grey-text"></i>' +
-        '<input name="FS[]" value="' + ID + '" />' +
+        '<input class = "d-none" name="FS[]" value="' + ID + '" />' +
         '<input type="text" id="form3" class="form-control validate" name="FS[]">' +
         '<label data-error="wrong" data-success="right" for="form3">User Name</label>';
 

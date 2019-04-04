@@ -328,7 +328,6 @@ function loadfileexplorer($conn, $username)
         printf("Error: %s\n", mysqli_error($conn));
     } else {
         while ($resFSE = $resultFSE->fetch_assoc()) {
-            echo "made it";
             $filenameFS = $resFSE['File_Path'];
             $filePathFS = $resFSE['File_Path'];
             $filetypeFS = $resFSE['File_Type'];
