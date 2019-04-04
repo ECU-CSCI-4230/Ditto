@@ -193,8 +193,8 @@ $selectedpath = "";
 </div>
 <!-- END CREATE FS MODAL -->
 
-<!-- EDIT FILE MODAL -->
-<div class="modal fade" id="fileForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- Move FILE MODAL -->
+<div class="modal fade" id="moveForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -204,23 +204,22 @@ $selectedpath = "";
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <li class="list-group-item">Select a Folder:
+                <select id="uploadfolders" form="uploadform" class="form-control validate" name="move">
+                    <option value="">Home</option>
+                </select>
+            </li>
             <form method="POST">
                 <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <i class="fas fa-user prefix grey-text"></i>
-                        <p type="hidden" name="hiddenValue" id="hiddenValue" value="">-</p>
-                        <input type="text" id="form3" class="form-control validate" name="dirname">
-                        <label data-error="wrong" data-success="right" for="form3">Location</label>
+                    <div class="md-form mb-5" id="move">
+                        <input type="hidden" id="form5" class="form-control validate" name="move">
                     </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-indigo">Move <i class="fas fa-paper-plane-o ml-1"></i></button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- END EDIT FILE MODAL -->
+<!-- END Move FILE MODAL -->
 
 <!-- Delete FILE MODAL -->
 <div class="modal fade" id="deleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -290,6 +289,31 @@ and File_Type like 'directory';";
 }
 
 loaddirs($conn, $username);
+
+function loaddirs2($conn, $username)
+{
+
+    $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
+User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
+and File_Type like 'directory';";
+
+    $result = mysqli_query($conn, $stmt);
+
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($conn));
+    } else {
+        $text = "<script>";
+        while ($res = $result->fetch_assoc()) {
+
+            $filepath = $res['File_Path'];
+            $foldername = substr($filepath, strpos($filepath, $username) + strlen($username) + 1, -1);
+            $text .= "adduploaddir('" . $foldername . "');";
+        }
+        echo $text . '</script>';
+    }
+}
+
+loaddirs2($conn, $username);
 
 
 /*
@@ -471,10 +495,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         unlink($filePath);
 
 
-        //echo $resultUID;
+        echo $filePath;
 
         //header('Location: red.php');
         echo "<script>red()</script>";
+    }
+    else if (isset($_POST['move'])) {
+
+
+
+        //$resultUID = mysqli_query($conn, $sqlUID);
+
+
+
+        echo $_POST['move'][0];
+        echo $_POST['move'][1];
+
+        //$foldername = $_POST['selectedfolder'];
+        //echo $_POST['move'][1];
+
+        //header('Location: red.php');
+        //echo "<script>red()</script>";
     }
 }
 //                        <-- END CREATE DIRECTORY SCRIPT -->

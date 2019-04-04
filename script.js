@@ -57,7 +57,7 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename + num +
         '<a class="btn btn-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
         '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
-        '<a class="btn btn-light float-right" data-toggle="modal" data-target="#fileForm" >Move File</a>' +
+        '<a class="btn btn-light float-right" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\')" >Move File</a>' +
         '<a class="btn btn-danger float-right" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
@@ -85,6 +85,16 @@ function prepDeleteModal(ID, Path) {
     document.getElementById('delete').innerHTML = txt;
 
     $("#deleteForm").modal().toggle();
+}
+
+function prepMoveModal(ID, Path) {
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<input type="hidden" name="move[]" value="' + ID + '" />' +
+        '<button class="btn btn-dark form-control" name="move[]" value="' + Path +'">Confirm Move<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('move').innerHTML = txt;
+
+    $("#moveForm").modal().toggle();
 }
 
 // RETURNS FOLDER INDEX OF NAME
