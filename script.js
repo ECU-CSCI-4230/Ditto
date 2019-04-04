@@ -54,10 +54,11 @@ function red() {
 
 function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fileID) {
     let num = getfoldernum(dir);
-    let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-        '<a class="btn btn-dark float-right" href="' + filePath + '" role="button" >Download</a>' +
+    let text = '<li class="list-group-item" id="file' + filecount + '">' + filename + num +
+        '<a class="btn btn-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
         '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
-        '<a class="btn btn-light float-right" data-toggle="modal" data-target="#fileForm" >Move File</a>' +
+        '<a class="btn btn-light float-right" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\')" >Move File</a>' +
+        '<a class="btn btn-danger float-right" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
@@ -66,13 +67,34 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
 
 function prepFSModal(ID) {
     let txt = '<i class="fas fa-user prefix grey-text"></i>' +
-        '<input class = "d-none" name="FS[]" value="' + ID + '" />' +
+        '<input name="FS[]" value="' + ID + '" />' +
         '<input type="text" id="form3" class="form-control validate" name="FS[]">' +
         '<label data-error="wrong" data-success="right" for="form3">User Name</label>';
 
     document.getElementById('FSData').innerHTML = txt;
 
     $("#FSForm").modal().toggle();
+}
+
+function prepDeleteModal(ID, Path) {
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<label data-error="wrong" data-success="right" for="form4">Are you Sure?</label>' +
+        '<input type="hidden" name="delete[]" value="' + ID + '" />' +
+        '<button class="btn btn-danger form-control" name="delete[]" value="' + Path +'">Confirm Delete<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('delete').innerHTML = txt;
+
+    $("#deleteForm").modal().toggle();
+}
+
+function prepMoveModal(ID, Path) {
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<input type="hidden" name="move[]" value="' + ID + '" />' +
+        '<button class="btn btn-dark form-control" name="move[]" value="' + Path +'">Confirm Move<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('move').innerHTML = txt;
+
+    $("#moveForm").modal().toggle();
 }
 
 // RETURNS FOLDER INDEX OF NAME

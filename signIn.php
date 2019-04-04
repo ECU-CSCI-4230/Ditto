@@ -102,7 +102,8 @@ $password_wrong_err = ''; // Variable To Store Error Message
 
         <fieldset>
             <button type="submit" id="contact-submit" value="Submit" name="login" > Login</button>
-            <p>Don't have an account? <a href="register.php">Create one.</a>.</p>
+            <p>Don't have an account? <a href="register.php">Create one.</a></p>
+            <p>Forgot your password? <a href="changepass.php">Change it.</a></p>
         </fieldset>
     </form>
 </div>
