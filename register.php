@@ -12,7 +12,9 @@ if($link === false){
 }
 //create variables to hold user information
 $username  = $confirm_password = $password = $first_name = $last_name =
-$confirm_password_err = $password_err = $email = "";
+$confirm_password_err = $password_err = $email = $username_email_err = "";
+
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email = trim($_POST["email"]);
@@ -21,6 +23,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $confirm_password = trim($_POST["confirm_password"]);
     $first_name = trim($_POST["first_name"]);
     $last_name = trim($_POST["last_name"]);
+
+    //validate that the user is using a new email address
+    $stmt =  "select User_ID from User where Username='$email';";
+    $result = mysqli_query($link, $stmt);
+    $rows = mysqli_num_rows($result);
+echo $rows;
+    if ($rows > 0) {
+        $username_email_err = "Email is already associated with another account.";
+    }
+
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
@@ -40,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 //test to see if any errors were generated
-    if(empty($password_err) && empty($confirm_password_err)) {
+    if(empty($password_err) && empty($confirm_password_err) && empty($username_email_err)) {
 // Prepare an insert statement
         $sql = "INSERT INTO User (Username, Password, First_name, Last_name, Email) VALUES (?, ?, ?, ?, ?)";
         if ($stmt = mysqli_prepare($link, $sql)) {
@@ -91,9 +103,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <fieldset>
             <input placeholder="Your last name" type="text" name="last_name" tabindex="1">
         </fieldset>
+        <div class = "container<?php echo (!empty($username_email_err)) ? 'has-error' : ''; ?>">
         <fieldset>
             <input placeholder="Your Email Address (used as your username)" type="email" name="email" tabindex="1">
+            <span class="help-block"><?php echo $username_email_err; ?></span>
         </fieldset>
+        </div>
         <div class = "container<?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
         <fieldset>
             <input placeholder="Password" type="text" name="password" tabindex="1">

@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location:PassChangeSuccess.html");
 
             }
-        } 
+        }
     }
     else {
         $Unvalid_email = "The email entered is not associated with a account.";
