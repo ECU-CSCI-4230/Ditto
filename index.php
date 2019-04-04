@@ -98,21 +98,21 @@ $selectedpath = "";
         <!-- /.col-lg-3 -->
         <div class="col-lg-9">
 
-            <div class="card mt-4">
-                <img class="card-img-top img-fluid" id="logo" src="images/logo.png" alt="">
-                <div class="card-body">
-                    <h3 class="card-title">Quick Access</h3>
-                </div>
-            </div>
-            <!-- /.card -->
-
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    Folders
-                </div>
-                <div class="card-body">
-                </div>
-            </div>
+<!--            <div class="card mt-4">-->
+<!--                <img class="card-img-top img-fluid" id="logo" src="images/logo.png" alt="">-->
+<!--                <div class="card-body">-->
+<!--                    <h3 class="card-title">Quick Access</h3>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <!-- /.card -->
+<!---->
+<!--            <div class="card card-outline-secondary my-4">-->
+<!--                <div class="card-header">-->
+<!--                    Folders-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="card card-outline-secondary my-4" id="explorer">
                 <div class="card-header">
@@ -137,6 +137,11 @@ $selectedpath = "";
     </div>
 
 </div>
+
+<br>
+<br>
+<br>
+<div class="row"></div>
 <!-- /.container -->
 
 <!-- CREATE DIR MODAL -->
@@ -510,7 +515,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //echo $_POST['move'][1];
 
         $foldername = $_POST['moveTo'];
-        echo $foldername;
+//        echo $foldername;
 
         //header('Location: red.php');
         //echo "<script>red()</script>";

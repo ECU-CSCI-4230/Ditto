@@ -56,9 +56,9 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
     let num = getfoldernum(dir);
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
         '<a class="btn btn-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
-        '<a class="btn btn-light float-right" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
-        '<a class="btn btn-light float-right" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\')" >Move File</a>' +
-        '<a class="btn btn-danger float-right" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
+        '<a class="btn btn-danger float-right" href="#" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
+        '<a class="btn btn-light float-right" href="#" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
+        '<a class="btn btn-light float-right" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\')" >Move File</a>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
