@@ -211,7 +211,7 @@ $selectedpath = "";
             </div>
             <li class="list-group-item">Select a Folder:
                 <select id="uploadfolders" form="movefileform" class="form-control validate" name="moveTo">
-                    <option value="">Home</option>
+                    <option value="Home">Home</option>
                 </select>
             </li>
             <form method="POST" id="movefileform">
@@ -498,27 +498,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         unlink($filePath);
 
 
-        echo $filePath;
-
         //header('Location: red.php');
         echo "<script>red()</script>";
     }
     else if (isset($_POST['move'])) {
 
 
-
-        //$resultUID = mysqli_query($conn, $sqlUID);
-
-
-
-        //echo $_POST['move'][0];
-        //echo $_POST['move'][1];
-
+        $fid = $_POST['move'][0];
+        $fileName = $_POST['move'][1];
+        $filePath = $_POST['move'][2];
         $foldername = $_POST['moveTo'];
-//        echo $foldername;
+
+        //echo $foldername;
+
+
+        // Decides if it is being moved to the home directory or sub directory.
+        if ($foldername == 'Home') {
+            $newFilepath = "uploads/$username/$fileName";
+        } else {
+            $newFilepath = "uploads/$username/$foldername/$fileName";
+        }
+
+        $sqlUID = "UPDATE File SET File_Path = '$newFilepath' WHERE File_ID = '$fid';";
+        $conn->query($sqlUID);
+        //echo $sqlUID;
+
+        // Moves the file at filePath and moves it to the new position newFilepath
+        rename($filePath,$newFilepath);
 
         //header('Location: red.php');
-        //echo "<script>red()</script>";
+        echo "<script>red()</script>";
     }
 }
 //                        <-- END CREATE DIRECTORY SCRIPT -->

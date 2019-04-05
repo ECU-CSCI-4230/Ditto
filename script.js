@@ -58,7 +58,7 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
         '<a class="btn btn-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
         '<a class="btn btn-danger float-right" href="#" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
         '<a class="btn btn-light float-right" href="#" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
-        '<a class="btn btn-light float-right" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\')" >Move File</a>' +
+        '<a class="btn btn-info float-right" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\',\'' + filename + '\')" >Move File</a>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
@@ -87,9 +87,10 @@ function prepDeleteModal(ID, Path) {
     $("#deleteForm").modal().toggle();
 }
 
-function prepMoveModal(ID, Path) {
+function prepMoveModal(ID, Path, Name) {
     let txt = '<i class="fas fa-user prefix grey-text"></i>' +
         '<input type="hidden" name="move[]" value="' + ID + '" />' +
+        '<input type="hidden" name="move[]" value="' + Name + '" />' +
         '<button class="btn btn-dark form-control" name="move[]" value="' + Path +'">Confirm Move<i class="fas fa-paper-plane-o ml-1"></i></button>';
 
     document.getElementById('move').innerHTML = txt;
