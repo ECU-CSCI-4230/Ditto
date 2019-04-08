@@ -46,7 +46,7 @@ $password_wrong_err = ''; // Variable To Store Error Message
               $result = mysqli_query($conn, $stmt);
               $rows = mysqli_num_rows($result);
 
-              echo $rows;
+              //echo $rows;
 
               if ($rows == 1) {
                   $res = $result->fetch_assoc();
