@@ -1,16 +1,17 @@
 <?php
-//include('session.php');
-//if(!isset($_SESSION['login_user'])){
-//    header("Location:SigninOrRegister.html");
-//}
+include('session.php');
+if(!isset($_SESSION['login_user'])){
+    header("Location:SigninOrRegister.html");
+}
 
-//$conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
-//if ($conn === false) {
-//    die("ERROR: Could not connect. " . mysqli_connect_error());
-//}
-//
-//$username = $_SESSION['login_username'];
-//$selectedpath = "";
+$conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
+if ($conn === false) {
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+$username = $_SESSION['login_username'];
+$first_name = $_SESSION['first_name'];
+$selectedpath = "";
 
 ?>
 
@@ -122,7 +123,7 @@
 
             <div class="card card-outline-secondary my-4" id="explorer">
                 <div class="card-header">
-                    Welcome
+                    Welcome, <?php Echo $first_name ?>
                 </div>
                 <div class="card-body" id="fileexplorer0">
                     <ul class="list-group" id="filelist0">

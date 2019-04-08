@@ -13,6 +13,13 @@ $row = mysqli_fetch_assoc($ses_sql);
 
 $login_session = $row['User_ID'];
 
+
+$ses_sql = $conn->query("select First_name from User where User_ID='$user_check'");
+$row = mysqli_fetch_assoc($ses_sql);
+
+
+$_SESSION["first_name"] = $row['First_name'];
+
 if(!isset($login_session)){
     mysqli_close($connection); // Closing Connection
     header('Location: index.php'); // Redirecting To Home Page
