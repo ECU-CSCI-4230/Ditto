@@ -86,7 +86,7 @@ $selectedpath = "";
     <div class="row">
 
         <div class="col-lg-3">
-            <h1 class="my-4">My Drive</h1>
+            <h1 class="my-4"><?php echo $_SESSION['first_name'] ?>'s Drive</h1>
             <div class="list-group" id="folderlist">
                 <a onclick="changefold(0);" class="list-group-item active" id="fold0">Home</a>
                 <a onclick="changefold(1);" class="list-group-item" id="fold1">File Share</a>

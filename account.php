@@ -10,7 +10,6 @@ if ($conn === false) {
 }
 
 $username = $_SESSION['login_username'];
-$first_name = $_SESSION['first_name'];
 $selectedpath = "";
 
 ?>
@@ -89,9 +88,10 @@ $selectedpath = "";
         <div class="col-lg-3">
             <h1 class="my-4">User Account Settings</h1>
             <div class="list-group" id="folderlist">
-                <button type= "button" class= "" data-toggle="modal" data-target="#Changeemail">Change Email</button>
+                <button type= "submit" class= "contact-submit" data-toggle="modal" data-target="#Changeemail">Change Email</button>
                 <button type= "button" class= "" data-toggle="modal" data-target="#Changepassword">Change Password</button>
                 <button onclick = "location.href =' logout.php'" type="button" class="btn btn-danger">Logout</button>
+
 
 
 
@@ -123,11 +123,11 @@ $selectedpath = "";
 
             <div class="card card-outline-secondary my-4" id="explorer">
                 <div class="card-header">
-                    Welcome, <?php Echo $first_name ?>
+                    Welcome, <?php Echo $_SESSION['first_name'] ?>
                 </div>
                 <div class="card-body" id="fileexplorer0">
                     <ul class="list-group" id="filelist0">
-
+                        Here you can change your individual account settings.
                     </ul>
                 </div>
                 <div class="card-body d-none" id="fileexplorer1">
