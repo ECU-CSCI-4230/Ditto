@@ -8,7 +8,7 @@ function display_filenames() {
     for (let z = 0; z < x.length; z++){
         text += "<div class=" + "\"alert alert-info\" role=\"alert\">" + x[z].name + " selected." + "</div>";
     }
-    document.getElementById('filealert').innerHTML = text;
+    document.getElementById('upload-notis').innerHTML = text;
 }
 
 // ALERTS USER OF A SUCCESSFUL UPLOAD. APPENDS STRING PARAMETER TO SENT ALERT.

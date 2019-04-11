@@ -24,6 +24,7 @@ if ($link === false) {
   content="Ditto Drive (Totally not trademarked) is a very file hosting service. We are a small team of students at East Carolina University working on our final project.">
   <meta name="author" content="">
   <script type="text/javascript" src="script.js"></script>
+    <script src="js/dittoj.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
   <title>Ditto Drive</title>
@@ -88,6 +89,13 @@ if ($link === false) {
         </li>
       </div>
     </div>
+      <div class="col-lg-9">
+          <div class="card card-outline-secondary my-4" id="upload-notis">
+              <div class="card-header">
+
+              </div>
+          </div>
+      </div>
   </div>
 
   <br><br><br><br>
