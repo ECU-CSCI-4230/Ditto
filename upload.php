@@ -39,26 +39,27 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 <div class="container">
-<a class="navbar-brand" href="file:///Users/oliviagomez/Desktop/HTML%20Test/test2.html#">Ditto Drive</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+<a class="navbar-brand" href="#">Ditto Drive</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarResponsive">
 <ul class="navbar-nav ml-auto">
 <li class="nav-item">
-<a class="nav-link" href="file:///Users/oliviagomez/Desktop/HTML%20Test/upload.php" id="trigger">Upload File</a>
+<a class="nav-link" href="upload.php" id="trigger">Upload File</a>
 <!-- <a class="nav-link" href="upload.php">Upload</a> -->
 </li>
 <li class="nav-item active">
-<a class="nav-link" href="file:///Users/oliviagomez/Desktop/HTML%20Test/test2.html#">Home
+<a class="nav-link" href="#">Home
 <span class="sr-only">(current)</span>
 </a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="file:///Users/oliviagomez/Desktop/HTML%20Test/account.php">Account</a>
+<a class="nav-link" href="account.php">Account</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="file:///Users/oliviagomez/Desktop/HTML%20Test/test2.html#">Help</a>
+<a class="nav-link" href="#">Help</a>
 </li>
 </ul>
 </div>
@@ -71,7 +72,7 @@
 <div class="row">
 
 <div class="col-lg-3">
-<h1 class="my-4"><!--?php echo $_SESSION['first_name'] ?-->'s Drive</h1>
+<h1 class="my-4"><?php echo $_SESSION['first_name'] ?>'s Drive</h1>
 <div class="list-group" id="folderlist">
 <a class="list-group-item active" id="fold0">Logged in as: <!--?php echo $username; ?--></a>
 <li class="list-group-item">Select a Folder:
