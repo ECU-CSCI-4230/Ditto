@@ -77,18 +77,11 @@ $selectedpath = "";
         <div class="col-lg-3">
             <h1 class="my-4">User Account Settings</h1>
             <div class="list-group" id="folderlist">
-                <button type= "submit" class= "contact-submit" data-toggle="modal" data-target="#Changeemail">Change Email</button>
-                <button type= "button" class= "" data-toggle="modal" data-target="#Changepassword">Change Password</button>
+                <button type= "submit" class= "contact-submit btn btn-outline-dark" data-toggle="modal" data-target="#Changeemail">Change Email</button>
+
+                <button type= "button" class= "btn btn-outline-dark" data-toggle="modal" data-target="#Changepassword">Change Password</button>
+
                 <button onclick = "location.href =' logout.php'" type="button" class="btn btn-danger">Logout</button>
-
-
-
-
-
-
-
-
-
             </div>
         </div>
         <!-- /.col-lg-3 -->
