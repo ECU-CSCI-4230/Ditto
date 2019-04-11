@@ -405,50 +405,54 @@ loadfileexplorer($conn, $username);
 //                        <-- START CREATE DIRECTORY SCRIPT -->
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_POST['dirname'])) {
+
         $dirname = $_POST['dirname'];
-        $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
-        $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
-        if ($stmtF = mysqli_prepare($conn, $sqlF)) {
-            // Bind variables to the prepared statement as parameters
-            $dat = date("Y-m-d");
-            $dir = 'directory';
-            $size = 0;
-            mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
 
-            mysqli_stmt_execute($stmtF);
-        } else {
-            echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+        if ( strlen($dirname) != 0 && $dirname != '#FS') {
+            $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
+            $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
+            if ($stmtF = mysqli_prepare($conn, $sqlF)) {
+                // Bind variables to the prepared statement as parameters
+                $dat = date("Y-m-d");
+                $dir = 'directory';
+                $size = 0;
+                mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $dir, $dat, $size);
+
+                mysqli_stmt_execute($stmtF);
+            } else {
+                echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+            }
+
+            mysqli_stmt_close($stmtF);
+
+            $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
+            $resultFID = mysqli_query($conn, $sqlFID);
+            $rowsFID = mysqli_num_rows($resultFID);
+            if ($rowsFID == 0) {
+                echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
+                $msg .= 'display_error("Unable to connect to the database. ");';
+                $err = 3;
+            } else {
+                $res = $resultFID->fetch_assoc();
+                $file_id = $res["File_ID"];
+            }
+
+            $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
+            if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
+                // Bind variables to the prepared statement as parameters
+                $own = 1;
+                mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
+
+                mysqli_stmt_execute($stmtFS);
+
+                mkdir('uploads/' . $username . '/' . $dirname, 0777, true);
+                chown('uploads/' . $username . '/' . $dirname, 'www-data:www-data');
+            } else {
+                echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
+            }
+
+            echo "<script>red()</script>";
         }
-
-        mysqli_stmt_close($stmtF);
-
-        $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
-        $resultFID = mysqli_query($conn, $sqlFID);
-        $rowsFID = mysqli_num_rows($resultFID);
-        if ($rowsFID == 0) {
-            echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
-            $msg .= 'display_error("Unable to connect to the database. ");';
-            $err = 3;
-        } else {
-            $res = $resultFID->fetch_assoc();
-            $file_id = $res["File_ID"];
-        }
-
-        $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?);";
-        if ($stmtFS = mysqli_prepare($conn, $sqlFS)) {
-            // Bind variables to the prepared statement as parameters
-            $own = 1;
-            mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
-
-            mysqli_stmt_execute($stmtFS);
-
-            mkdir('uploads/' . $username . '/' . $dirname, 0777, true);
-            chown('uploads/' . $username . '/' . $dirname, 'www-data:www-data');
-        } else {
-            echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
-        }
-
-        echo "<script>red()</script>";
 
     } else if (isset($_POST['FS'])) {
         $shareUN = $_POST['FS'][1];
