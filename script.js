@@ -55,10 +55,10 @@ function red() {
 function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fileID) {
     let num = getfoldernum(dir);
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-        '<a class="btn btn-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
-        '<a class="btn btn-danger float-right" href="#" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
-        '<a class="btn btn-light float-right" href="#" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
-        '<a class="btn btn-info float-right" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\',\'' + filename + '\')" >Move File</a>' +
+        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
+        '<a class="btn btn-outline-danger float-right" href="#" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
+        '<a class="btn btn-outline-success float-right" href="#" role="button" onclick="prepFSModal(' + fileID + ')">FileShare</a>' +
+        '<a class="btn btn-outline-info float-right" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\',\'' + filename + '\')" >Move File</a></div>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
