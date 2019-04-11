@@ -52,17 +52,6 @@ $selectedpath = "";
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="upload.php" id="trigger">Upload File</a>
-                    <div id="overlay">
-                        <div id="popup">
-                            <div id="close">
-                                X
-                            </div>
-                            <center><h2>Drag file to be upload</h2></center>
-                            <div id="dotted">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <a class="nav-link" href="upload.php">Upload</a> -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Home
