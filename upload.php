@@ -35,6 +35,32 @@ if ($link === false) {
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="./test2_files/bootstrap.css">
 
+    <style>
+        .alert {
+            margin-bottom: 1px;
+            height: 30px;
+            line-height:30px;
+            padding:0px 15px;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+        }
+        #upload-notis {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -90,10 +116,8 @@ if ($link === false) {
       </div>
     </div>
       <div class="col-lg-9">
-          <div class="card card-outline-secondary my-4" id="upload-notis">
-              <div class="card-header">
+          <div class="container" id="upload-notis">
 
-              </div>
           </div>
       </div>
   </div>
@@ -172,6 +196,8 @@ function loaddirs($conn, $username)
 loaddirs($link, $username);
 
 if(isset($_FILES['fileToUpload'])){
+
+    echo "<script>clear_notifications()</script>";
   $err = 0;
   $total = count($_FILES['fileToUpload']['name']);
   $msg = "<script>";
@@ -204,7 +230,7 @@ if(isset($_FILES['fileToUpload'])){
     } else if ($err == 0) {
       move_uploaded_file($file_tmp, $filepath);
       $msg .= 'display_success("' . $file_name . '");';
-      $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
+//      $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
 
       // Prepare an insert For adding th eFile to the File table
       $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
