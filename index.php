@@ -382,6 +382,13 @@ function loadfileexplorer($conn, $username)
             $filetypeFS = $resFSE['File_Type'];
             $lastmodFS = $resFSE['Last_Modified'];
             $sizeFS = $resFSE['File_Size'];
+            $fileID = intval($resFSE['File_ID']);
+
+            // Following statements get file owner email using file id.
+            $stmtFSE2 = "select * from fileshare join user where fileshare.User_ID = user.User_ID and fileshare.Permission = 1 and fileshare.File_ID = " . $fileID . ";";
+            $resultFSE2 = mysqli_query($conn, $stmtFSE2);
+            $resFSE2 = $resultFSE2->fetch_assoc();
+            $fileownerFS = $resFSE2['Email'];
 
             $lenFS = strlen($filenameFS);
             $posFS = strrpos($filenameFS, '/');
@@ -390,8 +397,8 @@ function loadfileexplorer($conn, $username)
             $foldernameFS = "#FS";
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
-            $text .= "addfiletoexplorer('" . $foldernameFS . "','" . $filenameFS . "','" . $filetypeFS . "','" .
-                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "');";
+            $text .= "addfiletoexplorer2('" . $foldernameFS . "','" . $filenameFS . "','" . $filetypeFS . "','" .
+                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $fileownerFS . "');";
         }
     }
 
