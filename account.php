@@ -143,13 +143,13 @@ $selectedpath = "";
 
             <form id="contact" action="" method="POST">
                 <fieldset>
-                    <input placeholder="Enter your current password." type="text" name="email" tabindex="1" required autofocus>
+                    <input placeholder="Enter your current password." type="text" name="currentpass" tabindex="1" required autofocus>
                 </fieldset>
                 <fieldset>
-                    <input placeholder="Enter your new password." type="text" name="emailcheck" tabindex="1">
+                    <input placeholder="Enter your new password." type="text" name="newpass" tabindex="1">
                 </fieldset>
                 <fieldset>
-                    <input placeholder="Enter your new password again." type="text" name="emailcheck" tabindex="1">
+                    <input placeholder="Enter your new password again." type="text" name="newpass2" tabindex="1">
                 </fieldset>
                 <fieldset>
                     <button type="submit" id="contact-submit" value="Submit" name="login" > Submit</button>
@@ -213,6 +213,19 @@ $selectedpath = "";
 
 <?php
     loadShareExplorer($conn, $username);
+
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (isset($_POST['currentpassword'])) {
+
+            // change password php
+
+        } else if (isset($_POST['email'])) {
+
+            // change email php
+            
+        }
+    }
 ?>
 
 </body>
