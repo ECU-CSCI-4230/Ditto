@@ -292,30 +292,14 @@ and File_Type like 'directory';";
 
 loaddirs($conn, $username);
 
-function loaddirs2($conn, $username)
+/*
+ * getOwnerEmail
+ */
+function getOwnerEmail($fileid)
 {
 
-    $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
-User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . " and File_Path like '%uploads/$username%'
-and File_Type like 'directory';";
-
-    $result = mysqli_query($conn, $stmt);
-
-    if (!$result) {
-        printf("Error: %s\n", mysqli_error($conn));
-    } else {
-        $text = "<script>";
-        while ($res = $result->fetch_assoc()) {
-
-            $filepath = $res['File_Path'];
-            $foldername = substr($filepath, strpos($filepath, $username) + strlen($username) + 1, -1);
-            $text .= "adduploaddir('" . $foldername . "');";
-        }
-        echo $text . '</script>';
-    }
 }
-
-loaddirs2($conn, $username);
+//
 
 
 /*
@@ -384,7 +368,7 @@ function loadfileexplorer($conn, $username)
             $sizeFS = $resFSE['File_Size'];
             $fileID = intval($resFSE['File_ID']);
 
-            // Following statements get file owner email using file id.
+            // Get file owner email from database
             $stmtFSE2 = "select * from fileshare join user where fileshare.User_ID = user.User_ID and fileshare.Permission = 1 and fileshare.File_ID = " . $fileID . ";";
             $resultFSE2 = mysqli_query($conn, $stmtFSE2);
             $resFSE2 = $resultFSE2->fetch_assoc();

@@ -18,14 +18,14 @@ function clear_notifications() {
 // ALERTS USER OF A SUCCESSFUL UPLOAD. APPENDS STRING PARAMETER TO SENT ALERT.
 function display_success(successtext) {
     let text = "";
-    text += "<div class=" + "\"alert alert-success\" role=\"alert\"><strong>Success!</strong>" + " File has been uploaded. " + successtext + "</div>";
+    text += "<div class=" + "\"alert alert-success\" role=\"alert\"><strong> Upload Success! </strong>" + successtext + "</div>";
     document.getElementById('upload-notis').innerHTML += text;
 }
 
 // ALERTS USER OF AN UNSUCCESSFUL UPLOAD. APPENDS STRING PARAMETER TO SENT ALERT.
 function display_error(errortext) {
     let text = "";
-    text += "<div class=" + "\"alert alert-danger\" role=\"alert\"><strong>Failure!</strong>" + " File has NOT been uploaded. " + errortext + "</div>";
+    text += "<div class=" + "\"alert alert-danger\" role=\"alert\"><strong> Upload Failure! </strong>" + " " + errortext + "</div>";
     document.getElementById('upload-notis').innerHTML += text;
 }
 

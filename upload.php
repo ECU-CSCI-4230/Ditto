@@ -222,14 +222,14 @@ if(isset($_FILES['fileToUpload'])){
     }
 
     if (file_exists($filepath)) {
-      $msg .= "display_error(\"" . $file_name . " A file with this name exists already. \" );";
+      $msg .= "display_error(\"" . $file_name . " (A file with this name exists already.) \" );";
       $err = 1;
     } else if ($file_size > 8388608) {
       $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb ");';
       $err = 2;
     } else if ($err == 0) {
       move_uploaded_file($file_tmp, $filepath);
-      $msg .= 'display_success("' . $file_name . '");';
+      $msg .= 'display_success("' . $file_name . ' (' . round($file_size / 1048576, 3) . ' Mb)");';
 //      $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
 
       // Prepare an insert For adding th eFile to the File table

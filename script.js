@@ -1,28 +1,16 @@
-// Show the Sign In Page
-function showSignIn() {
-    var x = document.getElementById("SignOrReg");
-    x.style.display = "none";
-    var y = document.getElementById("signIn");
-    y.style.display = "block";
-}
 
-// Show the Reg Page
-function showReg() {
-    var x = document.getElementById("SignOrReg");
-    x.style.display = "none";
-    var y = document.getElementById("reg");
-    y.style.display = "block";
-}
 
-// DISPLAY REGISTRATION SUCCESS --OLD CODE--
-function regSuccess() {
-    let text = "";
-    text += "<div class=" + "\"alert alert-success\" role=\"alert\" id=\"sucbadge\"><strong>Success!</strong>" + " REGISTRATION SUCCESSFUL ";
-    text += " <a href=\"signIn.php\">CLICK HERE TO LOGIN</a></div>";
-    document.getElementById('reg').innerHTML = text;
-}
+// // DISPLAY REGISTRATION SUCCESS --OLD CODE--
+// function regSuccess() {
+//     let text = "";
+//     text += "<div class=" + "\"alert alert-success\" role=\"alert\" id=\"sucbadge\"><strong>Success!</strong>" + " REGISTRATION SUCCESSFUL ";
+//     text += " <a href=\"signIn.php\">CLICK HERE TO LOGIN</a></div>";
+//     document.getElementById('reg').innerHTML = text;
+// }
 
-// VARIABLES KEEP TRACK(internally) of directory(or folder) names and count
+/*
+    VARIABLES KEEP TRACK(internally) of directory(or folder) names and count
+*/
 let foldercount = 2;
 let filecount = 0;
 var foldernames = [];
@@ -31,27 +19,48 @@ foldernames.push('');
 foldernames.push('#FS');
 filenames.push('');
 
-// ADDS FOLDER
+
+/*
+    ADDS FOLDER TO PAGE WITH GIVEN NAME
+*/
 function addfolderitem(foldername) {
-    let text = "";
-    text += '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
+
+    // Adds viewable folder tab
+    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
     document.getElementById('folderlist').innerHTML += text;
+
+    // Adds folder to input options in file command pop-up
+    let text2 = '<option value="' + foldername + '">' + foldername + '</option>';
+    document.getElementById('uploadfolders').innerHTML += text2;
+
+    // Adds file explorer, assigned by numbers in sequential order...
     newexplorer();
     foldernames.push(foldername);
     foldercount++;
 }
 
-// ADDS "+" CREATE FOLDER TAB
+
+/*
+    ADDS "+" CREATE FOLDER "CLICKABLE" TAB
+*/
 function addaddfolder() {
     let text = '<a class="list-group-item" data-toggle="modal" data-target="#createDirForm">+</a>';
     text += "";
     document.getElementById('folderlist').innerHTML += text;
 }
 
+
+/*
+    REDIRECTS CURRENT PAGE TO INDEX
+*/
 function red() {
     window.location.replace("red.php");
 }
 
+/*
+    ADDS USER OWNED FILE AND BUTTONS TO VIEW. Adds an individual file to the specified folder.
+    File is added to file explorer via sequentially assigned number to each explorer
+*/
 function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fileID) {
 
     let num = getfoldernum(dir);
@@ -67,6 +76,9 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
     filecount++
 }
 
+/*
+    ADDS SHARED FILE(RECEIVED) WITH BUTTONS TO VIEW. Adds an individual file to the specified folder.
+*/
 function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fileID, fileowner) {
 
     let num = getfoldernum(dir);
@@ -80,6 +92,10 @@ function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fi
     filecount++
 }
 
+
+/*
+    ADDS INPUT FORM DATA TO FILE-SHARE POPUP WINDOW
+*/
 function prepFSModal(ID) {
     let txt = '<i class="fas fa-user prefix grey-text"></i>' +
         '<input class="d-none" name="FS[]" value="' + ID + '" />' +
@@ -91,6 +107,10 @@ function prepFSModal(ID) {
     $("#FSForm").modal().toggle();
 }
 
+
+/*
+    ADDS INPUT FORM DATA TO DELETE FILE POPUP WINDOW
+*/
 function prepDeleteModal(ID, Path) {
     let txt = '<i class="fas fa-user prefix grey-text"></i>' +
         '<label data-error="wrong" data-success="right" for="form4">Are you Sure?</label>' +
@@ -102,6 +122,9 @@ function prepDeleteModal(ID, Path) {
     $("#deleteForm").modal().toggle();
 }
 
+/*
+    ADDS INPUT FORM DATA TO MOVE-FILE POPUP WINDOW
+*/
 function prepMoveModal(ID, Path, Name) {
     let txt = '<i class="fas fa-user prefix grey-text"></i>' +
         '<input type="hidden" name="move[]" value="' + ID + '" />' +
@@ -113,7 +136,10 @@ function prepMoveModal(ID, Path, Name) {
     $("#moveForm").modal().toggle();
 }
 
-// RETURNS FOLDER INDEX OF NAME
+
+/*
+   Returns forder-number that corresponds with the name given as parameter
+*/
 function getfoldernum(name){
     for (let i=0;i<=foldercount; i++) {
         if (name == foldernames[i]) {
@@ -123,6 +149,9 @@ function getfoldernum(name){
     return 0;
 }
 
+/*
+    Returns forder-number of the folder(directory) that is currently open in view
+*/
 function getactivefolder() {
     for (let i=0;i<=foldercount; i++) {
         if (document.getElementById('fold' + i).classList.contains('active')) {
@@ -131,6 +160,7 @@ function getactivefolder() {
     }
     return 0;
 }
+
 function changefold(foldernum) {
     for (let i = 0; i < foldercount; i++) {
         document.getElementById('fold' + i).classList.remove('active');
