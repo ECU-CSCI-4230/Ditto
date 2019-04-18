@@ -229,7 +229,7 @@ if(isset($_FILES['fileToUpload'])){
       $err = 2;
     } else if ($err == 0) {
       move_uploaded_file($file_tmp, $filepath);
-      $msg .= 'display_success("' . $file_name . ' (' . round($file_size / 1048576, 3) . ' Mb)");';
+      $msg .= 'display_success("' . $file_name . ' (' . round($file_size / 1048576, 3) . ' Mb) into directory ' . $foldername . '/");';
 //      $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
 
       // Prepare an insert For adding th eFile to the File table

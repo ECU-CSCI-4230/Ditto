@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+include('functions.php');
 if(!isset($_SESSION['login_user'])){
     header("Location:SigninOrRegister.html");
 }
@@ -107,14 +108,8 @@ $selectedpath = "";
                 <div class="card-header">
                     Welcome, <?php Echo $_SESSION['first_name'] ?>
                 </div>
-                <div class="card-body" id="fileexplorer0">
-                    <ul class="list-group" id="filelist0">
-                        Here you can change your individual account settings.
-                    </ul>
-                </div>
-                <div class="card-body d-none" id="fileexplorer1">
-                    <ul class="list-group" id="filelist1">
-
+                <div class="card-body" id="fileexplorer2">
+                    <ul class="list-group" id="filelist2">
                     </ul>
                 </div>
             </div>
@@ -216,7 +211,9 @@ $selectedpath = "";
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-
+<?php
+    loadShareExplorer($conn, $username);
+?>
 
 </body>
 

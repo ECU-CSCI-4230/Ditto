@@ -15,8 +15,11 @@ let foldercount = 2;
 let filecount = 0;
 var foldernames = [];
 var filenames = [];
+
 foldernames.push('');
 foldernames.push('#FS');
+
+
 filenames.push('');
 
 
@@ -90,6 +93,25 @@ function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fi
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
     filecount++
+}
+
+/*
+    ADDS SHARED FILE(OWNED) WITH BUTTONS TO VIEW. Adds an individual file to the specified folder.
+*/
+function addfiletoexplorer3(dir, filename, filetype, lastmod, size, filePath, fileID, fileowner) {
+
+    if (dir == '#FS') {
+        let num = getfoldernum(dir);
+
+        let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
+            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
+            '<div style="text-emphasis: dot; float: right; margin-right: 15px;">Owner: ' + fileowner + '    ' +
+            '</li>';
+        document.getElementById('filelist2').innerHTML += text;
+        filenames.push(filename);
+        filecount++
+    }
+    else {}
 }
 
 

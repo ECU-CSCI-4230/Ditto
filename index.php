@@ -349,9 +349,9 @@ function loadfileexplorer($conn, $username)
         }
     }
 
-    $stmtFSE = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID 
-                  join User on User.User_ID = FileShare.User_ID 
-                  where FileShare.User_ID=" . $_SESSION['login_user'] . " and Permission = 2 
+    $stmtFSE = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID
+                  join User on User.User_ID = FileShare.User_ID
+                  where FileShare.User_ID=" . $_SESSION['login_user'] . " and Permission = 2
                   and File_Type not like 'directory';";
 
     $resultFSE = mysqli_query($conn, $stmtFSE);
