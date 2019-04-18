@@ -292,14 +292,6 @@ and File_Type like 'directory';";
 
 loaddirs($conn, $username);
 
-/*
- * getOwnerEmail
- */
-function getOwnerEmail($fileid)
-{
-
-}
-//
 
 
 /*

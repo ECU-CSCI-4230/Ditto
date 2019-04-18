@@ -7,6 +7,7 @@
  */
 
 $conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
+
 if ($conn === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
@@ -126,11 +127,12 @@ function loadShareExplorer($conn, $username)
             $sizeFS = $resFSE['File_Size'];
             $fileID = intval($resFSE['File_ID']);
 
-            // Get file owner email from database
-            $stmtFSE2 = "select * from fileshare join user where fileshare.User_ID = user.User_ID and fileshare.Permission = 1 and fileshare.File_ID = " . $fileID . ";";
-            $resultFSE2 = mysqli_query($conn, $stmtFSE2);
-            $resFSE2 = $resultFSE2->fetch_assoc();
-            $fileownerFS = $resFSE2['Email'];
+//            // Get file owner email from database
+//            $stmtFSE2 = "select * from fileshare join user where fileshare.User_ID = user.User_ID and fileshare.Permission = 1 and fileshare.File_ID = " . $fileID . ";";
+//            $resultFSE2 = mysqli_query($conn, $stmtFSE2);
+//            $resFSE2 = $resultFSE2->fetch_assoc();
+//            $fileownerFS = $resFSE2['Email'];
+            $fileownerFS = getOwnerEmail($fileID, $conn);
 
             $lenFS = strlen($filenameFS);
             $posFS = strrpos($filenameFS, '/');
@@ -146,3 +148,16 @@ function loadShareExplorer($conn, $username)
 
     echo $text . '</script>';
 }
+
+/*
+ * getOwnerEmail
+ */
+function getOwnerEmail($fileID, $conn)
+{
+    // Get file owner email from database
+    $stmtFSE2 = "select * from fileshare join user where fileshare.User_ID = user.User_ID and fileshare.Permission = 1 and fileshare.File_ID = " . $fileID . ";";
+    $resultFSE2 = mysqli_query($conn, $stmtFSE2);
+    $resFSE2 = $resultFSE2->fetch_assoc();
+    return $resFSE2['Email'];
+}
+//
