@@ -247,6 +247,30 @@ $selectedpath = "";
 <!-- END Delete FILE MODAL -->
 
 
+<!-- Delete Directory MODAL -->
+<div class="modal fade" id="deleteDirectoryForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Delete Directory</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5" id="deleteDirectory">
+                        <input type="text" id="form4" class="form-control validate" name="deleteDirectory">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Delete Directory MODAL -->
+
+
 <!-- Footer -->
 <footer class="py-5 bg-dark">
     <div class="container">
@@ -282,8 +306,10 @@ and File_Type like 'directory';";
         while ($res = $result->fetch_assoc()) {
 
             $filepath = $res['File_Path'];
+            $fileID = $res['File_ID'];
+
             $foldername = substr($filepath, strpos($filepath, $username) + strlen($username) + 1, -1);
-            $text .= "addfolderitem('" . $foldername . "');";
+            $text .= "addfolderitem('" . $foldername . "','" . $fileID . "');";
         }
         echo $text . '</script>';
     }
@@ -511,6 +537,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         rename($filePath,$newFilepath);
 
         //header('Location: red.php');
+        echo "<script>red()</script>";
+    }
+    else if (isset($_POST['deleteDirectory'])) {
+
+        $folderName = $_POST['deleteDirectory'][0];
+        $fid = $_POST['deleteDirectory'][1];
+        $filepath = "uploads/$username/$folderName/";
+
+        $sqlUID = "DELETE FROM File WHERE File_ID = '$fid'";
+        $sqlUID2 = "DELETE FROM File WHERE File_Path LIKE '$filepath%'";
+
+        $conn->query($sqlUID);
+        $conn->query($sqlUID2);
+
+
         echo "<script>red()</script>";
     }
 }

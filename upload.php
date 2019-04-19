@@ -155,6 +155,9 @@ if ($link === false) {
 <div class="row"></div>
 <!-- /.container -->
 
+  <br>
+  <br>
+  <br>
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">

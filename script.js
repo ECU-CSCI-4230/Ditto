@@ -26,10 +26,10 @@ filenames.push('');
 /*
     ADDS FOLDER TO PAGE WITH GIVEN NAME
 */
-function addfolderitem(foldername) {
+function addfolderitem(foldername, fileID) {
 
     // Adds viewable folder tab
-    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '</a>';
+    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '<button class="btn btn-outline-danger float-right" href="#" role="button" onclick="prepDeleteDirectoryModal(\'' + fileID  +'\',\'' + foldername + '\')">Delete</button>';
     document.getElementById('folderlist').innerHTML += text;
 
     // Adds folder to input options in file command pop-up
@@ -143,6 +143,18 @@ function prepDeleteModal(ID, Path) {
 
     $("#deleteForm").modal().toggle();
 }
+
+function prepDeleteDirectoryModal(directoryName, ID) {
+
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<input type="hidden" name="deleteDirectory[]" value="' + ID + '" />' +
+        '<button class="btn btn-danger form-control" name="deleteDirectory[]" value="' + directoryName +'">Confirm Delete<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('deleteDirectory').innerHTML = txt;
+
+    $("#deleteDirectoryForm").modal().toggle();
+}
+
 
 /*
     ADDS INPUT FORM DATA TO MOVE-FILE POPUP WINDOW
