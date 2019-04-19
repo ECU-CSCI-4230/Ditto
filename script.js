@@ -29,7 +29,10 @@ filenames.push('');
 function addfolderitem(foldername, fileID) {
 
     // Adds viewable folder tab
-    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '<button class="btn btn-danger float-right" href="#" role="button" onclick="prepDeleteDirectoryModal(\'' + fileID  +'\',\'' + foldername + '\')"> <span class="glyphicon glyphicon-trash"></span> Delete </button>';
+    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername +
+        '<button class="btn btn-default float-right btm-sm" href="#" role="button" onclick="prepDeleteDirectoryModal(\'' + fileID  +'\',\'' + foldername + '\')"> ' +
+        '<span class="glyphicon glyphicon-trash"></span></button>';
+
     document.getElementById('folderlist').innerHTML += text;
 
     // Adds folder to input options in file command pop-up
@@ -69,10 +72,10 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
     let num = getfoldernum(dir);
 
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
-        '<a class="btn btn-outline-danger float-right" href="#" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
-        '<a class="btn btn-outline-success float-right" href="#" role="button" onclick="prepFSModal(' + fileID + ')">Share</a>' +
-        '<a class="btn btn-outline-info float-right" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\',\'' + filename + '\')" >Move</a></div>' +
+        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right btn-sm" href="' + filePath + '"download="" role="button" >Download</a>' +
+        '<a class="btn btn-outline-danger float-right btn-sm" href="#" role="button" onclick="prepDeleteModal(\'' + fileID  +'\',\'' + filePath + '\')">Delete</a>' +
+        '<a class="btn btn-outline-success float-right btn-sm" href="#" role="button" onclick="prepFSModal(' + fileID + ')">Share</a>' +
+        '<a class="btn btn-outline-info float-right btn-sm" href="#" role="button" onclick="prepMoveModal(\'' + fileID  +'\',\'' + filePath + '\',\'' + filename + '\')" >Move</a></div>' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
@@ -87,7 +90,7 @@ function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fi
     let num = getfoldernum(dir);
 
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
+        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right btn-sm" href="' + filePath + '"download="" role="button" >Download</a>' +
         '<div style="text-emphasis: dot; float: right; margin-right: 15px;">Owner: ' + fileowner + '    ' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
@@ -104,7 +107,7 @@ function addfiletoexplorer3(dir, filename, filetype, lastmod, size, filePath, fi
         let num = getfoldernum(dir);
 
         let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right" href="' + filePath + '"download="" role="button" >Download</a>' +
+            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right btn-sm" href="' + filePath + '"download="" role="button" >Download</a>' +
             '<div style="text-emphasis: dot; float: right; margin-right: 15px;">Owner: ' + fileowner + '    ' +
             '</li>';
         document.getElementById('filelist2').innerHTML += text;

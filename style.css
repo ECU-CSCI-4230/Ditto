@@ -1,133 +1,46 @@
+
+
+.navbar {
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.navbar-brand {
+  font-size: 24px !important;
+}
+
+#folderlist .list-group-item {
+  padding: auto;
+  height: 45px;
+}
+
+#folderlist .btn-sm {
+  float: top;
+}
+
+
+.alert {
+  margin-bottom: 1px;
+  height: 30px;
+  line-height:30px;
+  padding:0px 15px;
+}
 body, html {
+  font-size: 16px;
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Lucida Grande";
-}
-
-body {
-  background-image: url(images/background.jpg);
-  /* background-position: center; */
-  background-size: cover, contain;
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 60px;
 }
-
-nav {
-  margin-bottom: 0px;
-}
-
-/*#logo {*/
-  /*height: auto;*/
-  /*margin: 0 auto;*/
-  /*margin-bottom: -10%;*/
-  /*margin-top: -5%;*/
-  /*max-width: 700px;*/
-/*}*/
-
-/*#logo2 {*/
-  /*height: auto;*/
-  /*margin: 0 auto;*/
-  /*margin-bottom: -10%;*/
-  /*margin-top: -5%;*/
-  /*width: 400px;*/
-/*}*/
-
-/*#logo3 {*/
-  /*padding-bottom: -15%;*/
-  /*margin-top: -5%;*/
-  /*margin-bottom: -50%;*/
-/*}*/
-
-#SignOrReg {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 400px;
-}
-
-#sucbadge {
-  margin-top: 300px;
-}
-
-#slogan {
-  color: #FFFFFF;
-  border: #979797;
-  text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  font-size: 275%;
-}
-
-button {
-  margin-top: 3%;
-  padding: 2% 15% 2% 15%;
-  background-color: #303841;
-  border: 1px solid #979797;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  color: #FFFFFF;
-  font-size: 125%;
-}
-
-button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  transform: scale(1.1);
-}
-
-#or {
-  margin-top: 5%;
-  font-size: 125%;
-  color: #FFFFFF;
-}
-
-#line {
-  margin-left: 31vw;
-  margin-right: 31vw;
-  border-width: 2px;
-}
-
-#signIn {
-  margin: auto;
-  width: 50%;
-  margin-top: 2%;
-  background: rgba(216, 216, 216, 0.8);
-}
-
-#namebar {
-  padding-top: 50px;
-  padding-right: 50px;
-}
-input {
-  border-radius: 5px;
-  background: rgb(216, 216, 216);
-  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 7.5px 25px 0 rgba(0,0,0,0.19);
-  border:1px solid #979797;
-}
-
-#info {
-  width:80%;
-  margin-bottom: 7%;
-  height: 5vh;
-}
-
-#remember {
-  margin-top: 7%;
-  margin-bottom: 5%;
-}
-
-#forgot {
-  margin-top: 7%;
-  margin-bottom: 5%;
-}
-
-#reg_box {
-  margin: auto;
-  width: 75%;
-  margin-top: 10%;
-  background: rgba(216, 216, 216, 0.8);
+#upload-notis {
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 

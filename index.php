@@ -16,6 +16,7 @@ $selectedpath = "";
 
 <?php ?><style><?php include 'css/mainDrive.css'; ?></style>
 <!DOCTYPE html>
+<meta charset=utf-8>
 <html lang="en">
 
 <head>
@@ -32,9 +33,10 @@ $selectedpath = "";
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <!-- <link href="css/mainDrive.css" rel="stylesheet"> -->
+    <link href="style.css" rel="stylesheet">
 
 </head>
 
@@ -79,6 +81,10 @@ $selectedpath = "";
         </div>
     </div>
 </nav>
+
+<br>
+<br>
+<br>
 
 <!-- Page Content -->
 <div class="container">

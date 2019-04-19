@@ -35,7 +35,7 @@ $selectedpath = "";
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <!-- <link href="css/mainDrive.css" rel="stylesheet"> -->
+    <link href="style.css" rel="stylesheet">
 
 </head>
 
@@ -69,6 +69,10 @@ $selectedpath = "";
         </div>
     </div>
 </nav>
+
+<br>
+<br>
+<br>
 
 <!-- Page Content -->
 <div class="container">

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mccle
- * Date: 4/18/2019
- * Time: 4:06 PM
- */
-
 $conn = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
 
 if ($conn === false) {
@@ -29,6 +22,7 @@ function loadfileexplorer($conn, $username)
     $stmt = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID join User on
                           User.User_ID = FileShare.User_ID where User.User_ID=" . $_SESSION['login_user'] . "
                           and File_Path like '%$selectedpath%' and File_Type not like 'directory';";
+
 
     $result = mysqli_query($conn, $stmt);
 
@@ -106,12 +100,10 @@ function loadfileexplorer($conn, $username)
 function loadShareExplorer($conn, $username)
 {
     $text = "<script>";
-    $selectedpath = 'uploads/' . $username . '/';
 
-    $stmtFSE = "SELECT * FROM File join FileShare on File.File_ID = FileShare.File_ID 
-                  join User on User.User_ID = FileShare.User_ID 
-                  where FileShare.User_ID=" . $_SESSION['login_user'] . " and Permission = 2 
-                  and File_Type not like 'directory';";
+    $stmtFSE = "select * from File join (select FileShare.File_ID from FileShare join (select * from FileShare where 
+              Permission = 2) as f on f.File_ID = FileShare.File_ID where FileShare.Permission = 1 and 
+              FileShare.User_ID=" . $_SESSION['login_user'] . ") as Shared on File.File_ID = Shared.File_ID;";
 
     $resultFSE = mysqli_query($conn, $stmtFSE);
 
@@ -120,19 +112,14 @@ function loadShareExplorer($conn, $username)
         printf("Error: %s\n", mysqli_error($conn));
     } else {
         while ($resFSE = $resultFSE->fetch_assoc()) {
+
             $filenameFS = $resFSE['File_Path'];
             $filePathFS = $resFSE['File_Path'];
             $filetypeFS = $resFSE['File_Type'];
             $lastmodFS = $resFSE['Last_Modified'];
             $sizeFS = $resFSE['File_Size'];
             $fileID = intval($resFSE['File_ID']);
-
-//            // Get file owner email from database
-//            $stmtFSE2 = "select * from fileshare join user where fileshare.User_ID = user.User_ID and fileshare.Permission = 1 and fileshare.File_ID = " . $fileID . ";";
-//            $resultFSE2 = mysqli_query($conn, $stmtFSE2);
-//            $resFSE2 = $resultFSE2->fetch_assoc();
-//            $fileownerFS = $resFSE2['Email'];
-            $fileownerFS = getOwnerEmail($fileID, $conn);
+            $test = "";
 
             $lenFS = strlen($filenameFS);
             $posFS = strrpos($filenameFS, '/');
@@ -142,7 +129,7 @@ function loadShareExplorer($conn, $username)
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
             $text .= "addfiletoexplorer3('" . $foldernameFS . "','" . $filenameFS . "','" . $filetypeFS . "','" .
-                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $fileownerFS . "');";
+                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $test . "');";
         }
     }
 

@@ -34,32 +34,7 @@ if ($link === false) {
 
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="./test2_files/bootstrap.css">
-
-    <style>
-        .alert {
-            margin-bottom: 1px;
-            height: 30px;
-            line-height:30px;
-            padding:0px 15px;
-        }
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-        }
-        #upload-notis {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-    </style>
+    <link href="style.css" rel="stylesheet">
 
 </head>
 
@@ -106,8 +81,8 @@ if ($link === false) {
 
     <div class="col-lg-3">
       <h1 class="my-4"><?php echo $_SESSION['first_name'] ?>'s Drive</h1>
-      <div class="list-group" id="folderlist">
-        <a class="list-group-item active" id="fold0">Logged in as: <!--?php echo $username; ?--></a>
+      <div class="list-group">
+        <a class="list-group-item"">Logged in as: <?php echo $username; ?> </a>
         <li class="list-group-item">Select a Folder:
           <select id="uploadfolders" form="uploadform" name="selectedfolder">
             <option value="">Home</option>
