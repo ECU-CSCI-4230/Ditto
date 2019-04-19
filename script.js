@@ -29,7 +29,7 @@ filenames.push('');
 function addfolderitem(foldername, fileID) {
 
     // Adds viewable folder tab
-    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '<button class="btn btn-outline-danger float-right" href="#" role="button" onclick="prepDeleteDirectoryModal(\'' + fileID  +'\',\'' + foldername + '\')">Delete</button>';
+    let text = '<a class="list-group-item" id="fold' + foldercount + '" onclick="changefold(' + foldercount + ');">' + foldername + '<button class="btn btn-danger float-right" href="#" role="button" onclick="prepDeleteDirectoryModal(\'' + fileID  +'\',\'' + foldername + '\')"> <span class="glyphicon glyphicon-trash"></span> Delete </button>';
     document.getElementById('folderlist').innerHTML += text;
 
     // Adds folder to input options in file command pop-up

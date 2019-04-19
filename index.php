@@ -545,12 +545,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $fid = $_POST['deleteDirectory'][1];
         $filepath = "uploads/$username/$folderName/";
 
+        // Delete the  directory in the database
         $sqlUID = "DELETE FROM File WHERE File_ID = '$fid'";
+
+        // Delete all files in the directory from the database
         $sqlUID2 = "DELETE FROM File WHERE File_Path LIKE '$filepath%'";
 
         $conn->query($sqlUID);
         $conn->query($sqlUID2);
 
+
+        // Remove all files in directory before deleting
+        $iterator = new RecursiveDirectoryIterator($filepath);
+        foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
+        {
+            if ($file->isDir()) {
+                @rmdir($file->getPathname());
+            } else {
+                unlink($file->getPathname());
+            }
+        }
+        @rmdir($filepath);
 
         echo "<script>red()</script>";
     }
