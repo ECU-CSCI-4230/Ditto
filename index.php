@@ -381,7 +381,7 @@ function loadfileexplorer($conn, $username)
             $fileID = intval($resFSE['File_ID']);
 
             // Get file owner email from database
-            $stmtFSE2 = "select * from  Fileshare join user where Fileshare.User_ID = user.User_ID and Fileshare.Permission = 1 and Fileshare.File_ID = " . $fileID . " ;";
+            $stmtFSE2 = "select * from  Fileshare join User where Fileshare.User_ID = User.User_ID and Fileshare.Permission = 1 and Fileshare.File_ID = " . $fileID . " ;";
             $resultFSE2 = mysqli_query($conn, $stmtFSE2);
             $resFSE2 = $resultFSE2->fetch_assoc();
             $fileownerFS = $resFSE2['Email'];
