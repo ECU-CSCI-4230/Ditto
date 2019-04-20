@@ -33,6 +33,7 @@ $selectedpath = "";
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">

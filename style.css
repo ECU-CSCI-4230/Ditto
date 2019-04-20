@@ -11,7 +11,13 @@
 
 #folderlist .list-group-item {
   padding: auto;
-  height: 45px;
+  height: 65px;
+}
+
+#folderlist {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 25px;
 }
 
 #folderlist .btn-sm {

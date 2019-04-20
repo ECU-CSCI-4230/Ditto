@@ -18,19 +18,20 @@ if ($link === false) {
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description"
-  content="Ditto Drive (Totally not trademarked) is a very file hosting service. We are a small team of students at East Carolina University working on our final project.">
-  <meta name="author" content="">
-  <script type="text/javascript" src="script.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+    content="Ditto Drive (Totally not trademarked) is a very file hosting service. We are a small team of students at East Carolina University working on our final project.">
+    <meta name="author" content="">
+    <script type="text/javascript" src="script.js"></script>
     <script src="js/dittoj.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
-  <title>Ditto Drive</title>
+    <title>Ditto Drive</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="./test2_files/bootstrap.css">
@@ -40,99 +41,75 @@ if ($link === false) {
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="index.php">Ditto Drive</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-      aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="upload.php" id="trigger">Upload File</a>
-          <!-- <a class="nav-link" href="upload.php">Upload</a> -->
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="account.php">Account</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Help</a>
-        </li>
-      </ul>
+        <a class="navbar-brand" href="index.php">Ditto Drive</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="upload.php" id="trigger">Upload File</a>
+                  <!-- <a class="nav-link" href="upload.php">Upload</a> -->
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="index.php">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="account.php">Account</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Help</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
-  <br>
-  <br>
-  <br>
+  <br><br><br>
 
-<!-- Page Content -->
-<div class="container">
+    <!-- Page Content -->
+    <div class="container">
 
-  <div class="row">
+      <div class="row">
 
-    <div class="col-lg-3">
-      <h1 class="my-4"><?php echo $_SESSION['first_name'] ?>'s Drive</h1>
-      <div class="list-group">
-        <a class="list-group-item"">Logged in as: <?php echo $username; ?> </a>
-        <li class="list-group-item">Select a Folder:
-          <select id="uploadfolders" form="uploadform" name="selectedfolder">
-            <option value="">Home</option>
-          </select>
-        </li>
-      </div>
-    </div>
-      <div class="col-lg-9">
-          <div class="container" id="upload-notis">
+        <div class="col-lg-3">
+          <h1 class="my-4"><?php echo $_SESSION['first_name'] ?>'s Drive</h1>
+          <div class="list-group">
+            <a class="list-group-item"">Logged in as: <?php echo $username; ?> </a>
+            <li class="list-group-item">Select a Folder:
+              <select id="uploadfolders" form="uploadform" name="selectedfolder">
+                <option value="">Home</option>
+              </select>
+            </li>
+          </div>
+        </div>
+          <div class="col-lg-9">
+              <div class="container" id="upload-notis">
 
+              </div>
           </div>
       </div>
-  </div>
 
-  <br><br><br><br>
+      <br><br><br><br>
 
-  <div class="row">
-    <div class="form-group col-md-12">
-      <form action="" method="POST" enctype = "multipart/form-data" id="uploadform">
-        <input type="text"  name="directory">
-        <input id="uploadinput" name="fileToUpload[]" oninput="display_filenames()" type="file" multiple>
-        <p>Drag your files here or click in this area.</p>
-        <button type="submit">Upload</button>
-      </form>
+      <div class="row">
+        <div class="form-group col-md-12">
+          <form action="" method="POST" enctype = "multipart/form-data" id="uploadform">
+            <input type="text"  name="directory">
+            <input id="uploadinput" name="fileToUpload[]" oninput="display_filenames()" type="file" multiple>
+            <p>Drag your files here or click in this area.</p>
+            <button type="submit">Upload</button>
+          </form>
+        </div>
+      </div>
+
     </div>
-  </div>
-
-  <br><br><br><br><br><br><br>
-
-  <div class="row">
-    <div class="form-group col-md-6">
-    </div>
-    <div class="form-group col-md-6">
-      <ul class="list-group" id="stats">
-      </ul>
-    </div>
-  </div>
-
-
-</div>
-
-<br>
-<br>
-<br>
-<div class="row"></div>
-<!-- /.container -->
-
-  <br>
-  <br>
-  <br>
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">

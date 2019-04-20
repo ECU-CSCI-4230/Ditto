@@ -54,17 +54,6 @@ $selectedpath = "";
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="upload.php" id="trigger">Upload File</a>
-                  <div id="overlay">
-                    <div id="popup">
-                        <div id="close">
-                          X
-                        </div>
-                        <center><h2>Drag file to be upload</h2></center>
-                        <div id="dotted">
-                        </div>
-                    </div>
-                  </div>
-                    <!-- <a class="nav-link" href="upload.php">Upload</a> -->
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home
@@ -82,9 +71,7 @@ $selectedpath = "";
     </div>
 </nav>
 
-<br>
-<br>
-<br>
+<br><br><br>
 
 <!-- Page Content -->
 <div class="container">
@@ -266,6 +253,7 @@ $selectedpath = "";
             </div>
             <form method="POST">
                 <div class="modal-body mx-3">
+                    <p>Are you sure you want to delete this directory and its contents?</p>
                     <div class="md-form mb-5" id="deleteDirectory">
                         <input type="text" id="form4" class="form-control validate" name="deleteDirectory">
                     </div>
