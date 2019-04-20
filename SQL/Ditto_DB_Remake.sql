@@ -1,4 +1,4 @@
-use ditto_drive;
+use Ditto_Drive;
 
 drop table FileShare;
 drop table User;
