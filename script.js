@@ -91,7 +91,8 @@ function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fi
 
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
         '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right btn-sm" href="' + filePath + '"download="" role="button" >Download</a>' +
-        '<div style="text-emphasis: dot; float: right; margin-right: 15px;">Owner: ' + fileowner + '    ' +
+        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" href="#" role="button" >Remove</a>' +
+        '<div style="text-emphasis: dot; float: right; margin-right: 20px;">Owner: ' + fileowner + '    ' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
     filenames.push(filename);
@@ -106,10 +107,12 @@ function addfiletoexplorer3(dir, filename, filetype, lastmod, size, filePath, fi
     if (dir == '#FS') {
         let num = getfoldernum(dir);
 
+        // Contents of displayed file item
         let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right btn-sm" href="' + filePath + '"download="" role="button" >Download</a>' +
-            '<div style="text-emphasis: dot; float: right; margin-right: 15px;">Recipient: ' + fileRecip + '    ' +
+            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" href="#" role="button" >Revoke Permissions</a>' +
+            '<div style="text-emphasis: dot; float: right; margin-right: 20px;">Recipient: ' + fileRecip + '    ' +
             '</li>';
+
         document.getElementById('filelist2').innerHTML += text;
         filenames.push(filename);
         filecount++

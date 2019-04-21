@@ -113,6 +113,9 @@ $selectedpath = "";
                 <div class="card-header">
                     Welcome, <?php Echo $_SESSION['first_name'] ?>
                 </div>
+                <div class="card-header">
+                    Here are the files you have shared.
+                </div>
                 <div class="card-body" id="fileexplorer2">
                     <ul class="list-group" id="filelist2">
                     </ul>
