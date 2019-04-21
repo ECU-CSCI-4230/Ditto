@@ -93,26 +93,18 @@ $selectedpath = "";
         <!-- /.col-lg-3 -->
         <div class="col-lg-9">
 
-            <!--            <div class="card mt-4">-->
-            <!--                <img class="card-img-top img-fluid" id="logo" src="images/logo.png" alt="">-->
-            <!--                <div class="card-body">-->
-            <!--                    <h3 class="card-title">Quick Access</h3>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <!-- /.card -->
-            <!---->
-            <!--            <div class="card card-outline-secondary my-4">-->
-            <!--                <div class="card-header">-->
-            <!--                    Folders-->
-            <!--                </div>-->
-            <!--                <div class="card-body">-->
-            <!--                </div>-->
-            <!--            </div>-->
-
             <div class="card card-outline-secondary my-4" id="explorer">
                 <div class="card-header">
-                    Welcome, <?php Echo $_SESSION['first_name'] ?>
+                    User Information
                 </div>
+                <div class="card-body">
+                    First Name: <?php Echo $_SESSION['first_name'] ?> <br>
+                    Last Name: <?php Echo $_SESSION['last_name'] ?> <br>
+                    Email: <?php Echo $_SESSION['email'] ?> <br>
+                </div>
+            </div>
+
+            <div class="card card-outline-secondary my-4" id="explorer">
                 <div class="card-header">
                     Here are the files you have shared.
                 </div>
@@ -121,7 +113,6 @@ $selectedpath = "";
                     </ul>
                 </div>
             </div>
-            <!-- /.card -->
 
         </div>
         <!-- /.col-lg-9 -->
@@ -134,7 +125,8 @@ $selectedpath = "";
 <br>
 <br>
 <div class="row"></div>
-<!-- /.container -->
+<!-- / Page Content -->
+
 
 
 <!-- Change password MODAL -->

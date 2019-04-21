@@ -13,7 +13,8 @@ $row = mysqli_fetch_assoc($ses_sql);
 
 $login_session = $row['User_ID'];
 $_SESSION["first_name"] = $row['First_name'];
-
+$_SESSION["last_name"] = $row['Last_name'];
+$_SESSION["email"] = $row['Email'];
 
 
 
