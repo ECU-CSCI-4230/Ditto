@@ -23,7 +23,6 @@ loadShareExplorer($conn, $username);
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['currentpass'])) {
-        echo "made it here------";
         $cur_password = trim($_POST['currentpass']);
         $new_pass = trim($_POST['newpass']);
         $new_pass_ver = trim($_POST[newpass2]);
@@ -37,13 +36,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         if (strcmp($row['Password'], $cur_password) == 0) {
             //check new passwords entered to see if they are the same
             if (strcmp($new_pass, $new_pass_ver) == 0) {
-                //insert new password into database
                 $stmt = "UPDATE User SET Password = '$new_pass' WHERE User_id = '$cur_userID'";
                 if (mysqli_query($conn, $stmt)) {
 
                     print "Your password has been updated successfully";
                 } else {
-                    echo "Error updating password, please contact support. " . mysqli_error($conn);
+                    print "Error updating password, please contact support. " . mysqli_error($conn);
                 }
             } else {
                 echo "New passwords entered do not match";
@@ -58,8 +56,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     } else if (isset($_POST['email'])) {
-        //begin change email info
-        
+        $new_email = $_POST['email'];
+        $new_email_ver = $_POST['emailcheck'];
+        $cur_userID = $_SESSION['login_user'];
+        $ses_sql = $conn->query("select * from User where User_ID='$cur_userID'");
+        $row = mysqli_fetch_assoc($ses_sql);
+        //check to see if two emails entered match
+        if (strcmp($new_email, $new_email_ver) == 0) {
+            $stmt = "UPDATE User SET Username = '$new_email', Email = '$new_email'  WHERE User_id = '$cur_userID'";
+            if (mysqli_query($conn, $stmt)) {
+
+                print "Your password has been updated successfully";
+            } else {
+                print "Error updating email, please contact support. " . mysqli_error($conn);
+            }
+        } else {
+            print "The two emails entered do not match.";
+        }
+
+
 
     }
 }
