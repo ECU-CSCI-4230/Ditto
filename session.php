@@ -12,14 +12,12 @@ $ses_sql = $conn->query("select * from User where User_ID='$user_check'");
 $row = mysqli_fetch_assoc($ses_sql);
 
 $login_session = $row['User_ID'];
+//set session variables for user
 $_SESSION["first_name"] = $row['First_name'];
 $_SESSION["last_name"] = $row['Last_name'];
 $_SESSION["email"] = $row['Email'];
 
-
-
-
-
+//end session if session is open
 if(!isset($login_session)){
     mysqli_close($connection); // Closing Connection
     header('Location: index.php'); // Redirecting To Home Page

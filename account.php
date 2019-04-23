@@ -13,6 +13,56 @@ if ($conn === false) {
 $username = $_SESSION['login_username'];
 $selectedpath = "";
 
+
+
+
+
+
+loadShareExplorer($conn, $username);
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_POST['currentpass'])) {
+        echo "made it here------";
+        $cur_password = trim($_POST['currentpass']);
+        $new_pass = trim($_POST['newpass']);
+        $new_pass_ver = trim($_POST[newpass2]);
+        $cur_userID = $_SESSION['login_user'];
+
+        $ses_sql = $conn->query("select * from User where User_ID='$cur_userID'");
+        $row = mysqli_fetch_assoc($ses_sql);
+
+
+        //check to see if current password matches password stored
+        if (strcmp($row['Password'], $cur_password) == 0) {
+            //check new passwords entered to see if they are the same
+            if (strcmp($new_pass, $new_pass_ver) == 0) {
+                //insert new password into database
+                $stmt = "UPDATE User SET Password = '$new_pass' WHERE User_id = '$cur_userID'";
+                if (mysqli_query($conn, $stmt)) {
+
+                    print "Your password has been updated successfully";
+                } else {
+                    echo "Error updating password, please contact support. " . mysqli_error($conn);
+                }
+            } else {
+                echo "New passwords entered do not match";
+            }
+
+        }else {
+            echo "The current password you entered does not match what is on record.";
+            //set variable for warning message to user
+        }
+
+
+
+
+    } else if (isset($_POST['email'])) {
+        //begin change email info
+        
+
+    }
+}
 ?>
 
 <?php ?><style><?php include 'css/mainDrive.css'; ?></style>
@@ -162,7 +212,7 @@ $selectedpath = "";
         </div>
     </div>
 </div>
-<!-- END Change password MODAL -->
+<!-- END Change email MODAL -->
 
 <!-- Change password MODAL -->
 <div class="modal fade" id="Changeemail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -194,7 +244,7 @@ $selectedpath = "";
         </div>
     </div>
 </div>
-<!-- END Change password MODAL -->
+<!-- END Change email MODAL -->
 
 
 
@@ -211,22 +261,6 @@ $selectedpath = "";
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<?php
-    loadShareExplorer($conn, $username);
-
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        if (isset($_POST['currentpassword'])) {
-
-            // change password php
-
-        } else if (isset($_POST['email'])) {
-
-            // change email php
-
-        }
-    }
-?>
 
 </body>
 
