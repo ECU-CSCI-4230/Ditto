@@ -64,6 +64,13 @@ function red() {
 }
 
 /*
+    REDIRECTS CURRENT PAGE TO ACCOUNT
+*/
+function red2() {
+    window.location.replace("red2.php");
+}
+
+/*
     ADDS USER OWNED FILE AND BUTTONS TO VIEW. Adds an individual file to the specified folder.
     File is added to file explorer via sequentially assigned number to each explorer
 */
@@ -109,7 +116,7 @@ function addfiletoexplorer3(dir, filename, filetype, lastmod, size, filePath, fi
 
         // Contents of displayed file item
         let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" href="#" role="button" >Revoke Permissions</a>' +
+            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" role="button" onclick="prepRevokeModal(\'' + fileRecip +'\',\'' + fileID + '\')">Revoke Permissions</a>' +
             '<div style="text-emphasis: dot; float: right; margin-right: 20px;">Recipient: ' + fileRecip + '    ' +
             '</li>';
 
@@ -174,6 +181,21 @@ function prepMoveModal(ID, Path, Name) {
     document.getElementById('move').innerHTML = txt;
 
     $("#moveForm").modal().toggle();
+}
+
+/*
+    ADDS INPUT FORM DATA TO DELETE FILE POPUP WINDOW
+*/
+function prepRevokeModal(ID, File_ID) {
+    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
+        '<label data-error="wrong" data-success="right" for="form4">Are you Sure?</label>' +
+        '<input type="hidden" name="delete[]" value="' + ID + '" />' +
+        '<button class="btn btn-danger form-control" name="revoke" value="">Confirm Revoke<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('revoke').innerHTML = txt;
+    $("#sharedto").text();
+
+    $("#revokeForm").modal().toggle();
 }
 
 

@@ -76,4 +76,11 @@ function loadShareExplorer($conn)
     echo $text . '</script>';
 }
 
-//
+function getemail($ID) {
+
+    $ses_sql = ("select * from User where User_ID='$ID'");
+    $
+    $resultFSE = mysqli_query($conn, $ses_sql);
+
+    $login_session = $row['User_ID'];
+}

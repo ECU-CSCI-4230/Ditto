@@ -12,72 +12,8 @@ if ($conn === false) {
 
 $username = $_SESSION['login_username'];
 $selectedpath = "";
+$sharedto = "";
 
-
-
-
-
-
-loadShareExplorer($conn, $username);
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    if (isset($_POST['currentpass'])) {
-        $cur_password = trim($_POST['currentpass']);
-        $new_pass = trim($_POST['newpass']);
-        $new_pass_ver = trim($_POST[newpass2]);
-        $cur_userID = $_SESSION['login_user'];
-
-        $ses_sql = $conn->query("select * from User where User_ID='$cur_userID'");
-        $row = mysqli_fetch_assoc($ses_sql);
-
-
-        //check to see if current password matches password stored
-        if (strcmp($row['Password'], $cur_password) == 0) {
-            //check new passwords entered to see if they are the same
-            if (strcmp($new_pass, $new_pass_ver) == 0) {
-                $stmt = "UPDATE User SET Password = '$new_pass' WHERE User_id = '$cur_userID'";
-                if (mysqli_query($conn, $stmt)) {
-
-                    print "Your password has been updated successfully";
-                } else {
-                    print "Error updating password, please contact support. " . mysqli_error($conn);
-                }
-            } else {
-                echo "New passwords entered do not match";
-            }
-
-        }else {
-            echo "The current password you entered does not match what is on record.";
-            //set variable for warning message to user
-        }
-
-
-
-
-    } else if (isset($_POST['email'])) {
-        $new_email = $_POST['email'];
-        $new_email_ver = $_POST['emailcheck'];
-        $cur_userID = $_SESSION['login_user'];
-        $ses_sql = $conn->query("select * from User where User_ID='$cur_userID'");
-        $row = mysqli_fetch_assoc($ses_sql);
-        //check to see if two emails entered match
-        if (strcmp($new_email, $new_email_ver) == 0) {
-            $stmt = "UPDATE User SET Username = '$new_email', Email = '$new_email'  WHERE User_id = '$cur_userID'";
-            if (mysqli_query($conn, $stmt)) {
-
-                print "Your password has been updated successfully";
-            } else {
-                print "Error updating email, please contact support. " . mysqli_error($conn);
-            }
-        } else {
-            print "The two emails entered do not match.";
-        }
-
-
-
-    }
-}
 ?>
 
 <?php ?><style><?php include 'css/mainDrive.css'; ?></style>
@@ -261,6 +197,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 <!-- END Change email MODAL -->
 
+<!-- REVOKE PERMISSIONS MODAL -->
+<div class="modal fade" id="revokeForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Revoke Permissions</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST">
+                <div class="modal-body mx-3">
+                    <p>Are you sure you want to revoke access to this file by the user: </p>
+                    <p id="sharedto"><?php Echo $sharedto ?></p>
+                    <p>?</p>
+                    <div class="md-form mb-5" id="revoke">
+                        <input type="text" id="form4" class="form-control validate" name="deleteDirectory">
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- END REVOKE PERMISSIONS MODAL -->
 
 
 
@@ -276,6 +241,79 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<?php
+
+
+
+
+
+loadShareExplorer($conn, $username);
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_POST['currentpass'])) {
+        $cur_password = trim($_POST['currentpass']);
+        $new_pass = trim($_POST['newpass']);
+        $new_pass_ver = trim($_POST[newpass2]);
+        $cur_userID = $_SESSION['login_user'];
+
+        $ses_sql = $conn->query("select * from User where User_ID='$cur_userID'");
+        $row = mysqli_fetch_assoc($ses_sql);
+
+        $text = "";
+        //check to see if current password matches password stored
+        if (strcmp($row['Password'], $cur_password) == 0) {
+            //check new passwords entered to see if they are the same
+            if (strcmp($new_pass, $new_pass_ver) == 0) {
+                $stmt = "UPDATE User SET Password = '$new_pass' WHERE User_id = '$cur_userID'";
+                if (mysqli_query($conn, $stmt)) {
+
+                    $text = "Your password has been updated successfully";
+                } else {
+                    $text = "Error updating password, please contact support. " . mysqli_error($conn);
+                }
+            } else {
+                $text = "New passwords entered do not match";
+            }
+
+        }else {
+            $text = "The current password you entered does not match what is on record.";
+            //set variable for warning message to user
+        }
+
+        echo '<script>alert("' . $text . '");</script>';
+        echo '<script>red2();</script>';
+
+
+    } else if (isset($_POST['email'])) {
+
+        $text = "";
+
+        $new_email = $_POST['email'];
+        $new_email_ver = $_POST['emailcheck'];
+        $cur_userID = $_SESSION['login_user'];
+        $ses_sql = $conn->query("select * from User where User_ID='$cur_userID'");
+        $row = mysqli_fetch_assoc($ses_sql);
+        //check to see if two emails entered match
+        if (strcmp($new_email, $new_email_ver) == 0) {
+            $stmt = "UPDATE User SET Username = '$new_email', Email = '$new_email'  WHERE User_id = '$cur_userID'";
+            if (mysqli_query($conn, $stmt)) {
+
+                $text = "Your email has been updated successfully";
+            } else {
+                $text = "Error updating email, please contact support. " . mysqli_error($conn);
+            }
+        } else {
+            $text = "The two emails entered do not match.";
+        }
+
+        echo '<script>alert("' . $text . '");</script>';
+        echo '<script>red2();</script>';
+
+
+    }
+}
+?>
 
 </body>
 
