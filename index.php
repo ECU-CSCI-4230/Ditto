@@ -264,6 +264,35 @@ $selectedpath = "";
 </div>
 <!-- END Delete Directory MODAL -->
 
+<!-- REMOVE SHARED MODAL -->
+<div class="modal fade" id="removeSharedForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Revoke Permissions</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST">
+                <div class="modal-body mx-3">
+                    <p>Are you sure you want to remove this file (<b id="sharedfilename"></b>)
+                        from your list of files shared with you?</p><br>
+                    <div class="md-form mb-5" id="removeShared">
+
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- REMOVE SHARED MODAL -->
+
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">
@@ -385,6 +414,7 @@ function loadfileexplorer($conn, $username)
             $resultFSE2 = mysqli_query($conn, $stmtFSE2);
             $resFSE2 = $resultFSE2->fetch_assoc();
             $fileownerFS = $resFSE2['Email'];
+            $ownerID = $resFSE['User_ID'];
 
             $lenFS = strlen($filenameFS);
             $posFS = strrpos($filenameFS, '/');
@@ -394,7 +424,7 @@ function loadfileexplorer($conn, $username)
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
             $text .= "addfiletoexplorer2('" . $foldernameFS . "','" . $filenameFS . "','" . $filetypeFS . "','" .
-                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $fileownerFS . "');";
+                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $fileownerFS . "','" . $ownerID . "');";
         }
     }
 
@@ -563,6 +593,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         echo "<script>red()</script>";
     }
+    else if (isset($_POST['removeShared'])) {
+
+
+        $text = "";
+
+        $recip_ID = $_POST['userID'];
+        $file_ID = $_POST['fileID'];
+
+        $stmt = "Delete from FileShare where User_ID='$recip_ID' and File_ID='$file_ID' and Permission=2;";
+
+        if (mysqli_query($conn, $stmt)) {
+
+            $text = "File removed successfully.";
+        } else {
+            $text = "Error Encountered. Action was not successful. " . mysqli_error($conn);
+        }
+
+        echo '<script>alert("' . $text . '");</script>';
+        echo '<script>red();</script>';
+
+    }
+
 }
 //                        <-- END CREATE DIRECTORY SCRIPT -->
 ?>

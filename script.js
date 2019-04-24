@@ -92,13 +92,14 @@ function addfiletoexplorer(dir, filename, filetype, lastmod, size, filePath, fil
 /*
     ADDS SHARED FILE(RECEIVED) WITH BUTTONS TO VIEW. Adds an individual file to the specified folder.
 */
-function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fileID, fileowner) {
+function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fileID, fileowner, ownerID) {
 
     let num = getfoldernum(dir);
 
     let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
         '<div style="display:inline-block; float:right;"><a class="btn btn-outline-dark float-right btn-sm" href="' + filePath + '"download="" role="button" >Download</a>' +
-        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" href="#" role="button" >Remove</a>' +
+        '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" ' +
+        ' href="#" role="button" onclick="prepRemoveModal(\'' + ownerID + '\',\'' + fileID + '\',\'' + filename + '\')"">Remove</a>' +
         '<div style="text-emphasis: dot; float: right; margin-right: 20px;">Owner: ' + fileowner + '    ' +
         '</li>';
     document.getElementById('filelist' + num).innerHTML += text;
@@ -200,6 +201,19 @@ function prepRevokeModal(Email, Recip_ID, File_ID, filename) {
     $("#sharedfilename").text(filename);
 
     $("#revokeForm").modal().toggle();
+}
+
+function prepRemoveModal(Recip_ID, File_ID, filename) {
+    let txt =
+        '<input type="hidden" name="fileID" value="' + File_ID + '" />' +
+        '<input type="hidden" name="userID" value="' + Recip_ID + '" />' +
+        '<button class="btn btn-danger form-control" name="removeShared" value="">Confirm Remove File<i class="fas fa-paper-plane-o ml-1"></i></button>';
+
+    document.getElementById('removeShared').innerHTML = txt;
+
+    $("#sharedfilename").text(filename);
+
+    $("#removeSharedForm").modal().toggle();
 }
 
 
