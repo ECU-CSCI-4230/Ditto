@@ -109,15 +109,16 @@ function addfiletoexplorer2(dir, filename, filetype, lastmod, size, filePath, fi
 /*
     ADDS SHARED FILE(OWNED) WITH BUTTONS TO VIEW. Adds an individual file to the specified folder.
 */
-function addfiletoexplorer3(dir, filename, filetype, lastmod, size, filePath, fileID, fileRecip) {
+function addfiletoexplorer3(dir, filename, filetype, lastmod, size, filePath, fileID, recipEmail, recipID) {
 
     if (dir == '#FS') {
         let num = getfoldernum(dir);
 
         // Contents of displayed file item
         let text = '<li class="list-group-item" id="file' + filecount + '">' + filename +
-            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" role="button" onclick="prepRevokeModal(\'' + fileRecip +'\',\'' + fileID + '\')">Revoke Permissions</a>' +
-            '<div style="text-emphasis: dot; float: right; margin-right: 20px;">Recipient: ' + fileRecip + '    ' +
+            '<div style="display:inline-block; float:right;"><a class="btn btn-outline-danger float-right btn-sm" href="#" ' +
+            'role="button" onclick="prepRevokeModal(\'' + recipEmail +'\',\'' + recipID + '\',\'' + fileID + '\',\'' + filename + '\')">Revoke Permissions</a>' +
+            '<div style="text-emphasis: dot; float: right; margin-right: 20px;">Recipient: ' + recipEmail + '    ' +
             '</li>';
 
         document.getElementById('filelist2').innerHTML += text;
@@ -186,14 +187,17 @@ function prepMoveModal(ID, Path, Name) {
 /*
     ADDS INPUT FORM DATA TO DELETE FILE POPUP WINDOW
 */
-function prepRevokeModal(ID, File_ID) {
-    let txt = '<i class="fas fa-user prefix grey-text"></i>' +
-        '<label data-error="wrong" data-success="right" for="form4">Are you Sure?</label>' +
-        '<input type="hidden" name="delete[]" value="' + ID + '" />' +
+function prepRevokeModal(Email, Recip_ID, File_ID, filename) {
+    let txt =
+        '<input type="hidden" name="revokedfileID" value="' + File_ID + '" />' +
+        '<input type="hidden" name="userID" value="' + Recip_ID + '" />' +
         '<button class="btn btn-danger form-control" name="revoke" value="">Confirm Revoke<i class="fas fa-paper-plane-o ml-1"></i></button>';
 
     document.getElementById('revoke').innerHTML = txt;
-    $("#sharedto").text();
+
+    $("#sharedto").text(Email);
+
+    $("#sharedfilename").text(filename);
 
     $("#revokeForm").modal().toggle();
 }

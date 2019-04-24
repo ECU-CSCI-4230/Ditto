@@ -211,11 +211,10 @@ $sharedto = "";
 
             <form method="POST">
                 <div class="modal-body mx-3">
-                    <p>Are you sure you want to revoke access to this file by the user: </p>
-                    <p id="sharedto"><?php Echo $sharedto ?></p>
-                    <p>?</p>
+                    <p>Are you sure you want to revoke access to the file (<b id="sharedfilename"></b>)
+                        from the user: <b id="sharedto"></b>?</p><br>
                     <div class="md-form mb-5" id="revoke">
-                        <input type="text" id="form4" class="form-control validate" name="deleteDirectory">
+
                     </div>
                 </div>
             </form>
@@ -242,9 +241,6 @@ $sharedto = "";
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <?php
-
-
-
 
 
 loadShareExplorer($conn, $username);
@@ -310,6 +306,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<script>alert("' . $text . '");</script>';
         echo '<script>red2();</script>';
 
+
+    } else if (isset($_POST['revoke'])) {
+
+        $text = "";
+
+        $recip_ID = $_POST['userID'];
+        $file_ID = $_POST['revokedfileID'];
+
+        $stmt = "Delete from fileshare where User_ID='$recip_ID' and File_ID='$file_ID' and Permission=2;";
+
+        if (mysqli_query($conn, $stmt)) {
+
+            $text = "Permissions revoked successfully.";
+        } else {
+            $text = "Error Encountered. Action was not successful. " . mysqli_error($conn);
+        }
+
+        echo '<script>alert("' . $text . '");</script>';
+        echo '<script>red2();</script>';
 
     }
 }

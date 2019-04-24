@@ -58,7 +58,8 @@ function loadShareExplorer($conn)
             $lastmodFS = $resFSE['Last_Modified'];
             $sizeFS = $resFSE['File_Size'];
             $fileID = intval($resFSE['File_ID']);
-            $recip = $resFSE['Username'];
+            $recipEmail = $resFSE['Username'];
+            $recipID = $resFSE['User_ID'];
 
 
             $lenFS = strlen($filenameFS);
@@ -69,18 +70,20 @@ function loadShareExplorer($conn)
 
             //echo '<li class="list-group-item file-desc">' . $filename . '</li>';
             $text .= "addfiletoexplorer3('" . $foldernameFS . "','" . $filenameFS . "','" . $filetypeFS . "','" .
-                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $recip . "');";
+                $lastmodFS . "','" . $sizeFS . "','" . $filePathFS . "','" . $fileID . "','" . $recipEmail . "','" . $recipID . "');";
         }
     }
 
     echo $text . '</script>';
 }
 
-function getemail($ID) {
+function getemail($conn, $ID) {
 
     $ses_sql = ("select * from User where User_ID='$ID'");
-    $
+
     $resultFSE = mysqli_query($conn, $ses_sql);
 
-    $login_session = $row['User_ID'];
+    $row = $resultFSE->fetch_assoc();
+
+    return $row['Email'];
 }
