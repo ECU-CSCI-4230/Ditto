@@ -314,7 +314,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $recip_ID = $_POST['userID'];
         $file_ID = $_POST['revokedfileID'];
 
-        $stmt = "Delete from fileshare where User_ID='$recip_ID' and File_ID='$file_ID' and Permission=2;";
+        $stmt = "Delete from FileShare where User_ID='$recip_ID' and File_ID='$file_ID' and Permission=2;";
 
         if (mysqli_query($conn, $stmt)) {
 
