@@ -12,7 +12,6 @@ if ($conn === false) {
 
 $username = $_SESSION['login_username'];
 $selectedpath = "";
-$sharedto = "";
 
 ?>
 
@@ -292,7 +291,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = mysqli_fetch_assoc($ses_sql);
         //check to see if two emails entered match
         if (strcmp($new_email, $new_email_ver) == 0) {
-            $stmt = "UPDATE User SET Username = '$new_email', Email = '$new_email'  WHERE User_id = '$cur_userID'";
+            $stmt = "UPDATE User SET Email = '$new_email'  WHERE User_id = '$cur_userID'";
             if (mysqli_query($conn, $stmt)) {
 
                 $text = "Your email has been updated successfully";

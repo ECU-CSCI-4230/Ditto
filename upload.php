@@ -182,53 +182,51 @@ if(isset($_FILES['fileToUpload'])){
     } else if ($file_size > 8388608) {
       $msg .= 'display_error("' . $file_name . ' is ' . $file_size / 1048576 . ' Mb... Max size is 8 Mb ");';
       $err = 2;
-    } else if ($err == 0) {
-      move_uploaded_file($file_tmp, $filepath);
-      $msg .= 'display_success("' . $file_name . ' (' . round($file_size / 1048576, 3) . ' Mb) into directory ' . $foldername . '/");';
-//      $msg .= 'display_upload_stats("' . $file_name . '","' . $file_size / 1000 . '","' . $file_type . '");';
+    } else if ($err == 0 && move_uploaded_file($file_tmp, $filepath)) {
 
-      // Prepare an insert For adding th eFile to the File table
-      $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
-      if ($stmtF = mysqli_prepare($link, $sqlF)) {
-        // Bind variables to the prepared statement as parameters
-        $dat = date("Y-m-d");
-        mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $file_type, $dat, $file_size);
+        $msg .= 'display_success("' . $file_name . ' (' . round($file_size / 1048576, 3) . ' Mb) into directory ' . $foldername . '/");';
+        // Prepare an insert For adding th eFile to the File table
+        $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
+        if ($stmtF = mysqli_prepare($link, $sqlF)) {
+            // Bind variables to the prepared statement as parameters
+            $dat = date("Y-m-d");
+            mysqli_stmt_bind_param($stmtF, "sssi", $filepath, $file_type, $dat, $file_size);
 
-        mysqli_stmt_execute($stmtF);
-      } else {
-        echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
-      }
+            mysqli_stmt_execute($stmtF);
+        } else {
+            echo "ERROR: Could not prepare query: $sqlF. " . mysqli_error($link);
+        }
 
-      mysqli_stmt_close($stmtF);
+        mysqli_stmt_close($stmtF);
 
 
-      //Get the File_ID for the file we just made
-      $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
-      $resultFID = mysqli_query($link, $sqlFID);
-      $rowsFID = mysqli_num_rows($resultFID);
+        //Get the File_ID for the file we just made
+        $sqlFID = "SELECT File_ID FROM File WHERE File_Path = '$filepath'";
+        $resultFID = mysqli_query($link, $sqlFID);
+        $rowsFID = mysqli_num_rows($resultFID);
 
-      if ($rowsFID == 0) {
-        echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
-        $msg .= 'display_error("Unable to connect to the database. ");';
-        $err = 3;
-      } else {
-        $res = $resultFID->fetch_assoc();
-        $file_id = $res["File_ID"];
-      }
+        if ($rowsFID == 0) {
+            echo "SELECT File_ID FROM File WHERE File_Path = '$filepath';";
+            $msg .= 'display_error("Unable to connect to the database. ");';
+            $err = 3;
+        } else {
+            $res = $resultFID->fetch_assoc();
+            $file_id = $res["File_ID"];
+        }
 
-      //Insert into FileShare
-      $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
-      if ($stmtFS = mysqli_prepare($link, $sqlFS)) {
-        // Bind variables to the prepared statement as parameters
-        $own = 1;
-        mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
+        //Insert into FileShare
+        $sqlFS = "INSERT INTO FileShare (User_ID, File_ID, Permission) VALUES (?, ?, ?)";
+        if ($stmtFS = mysqli_prepare($link, $sqlFS)) {
+            // Bind variables to the prepared statement as parameters
+            $own = 1;
+            mysqli_stmt_bind_param($stmtFS, "ssi", $_SESSION['login_user'], $file_id, $own);
 
-        mysqli_stmt_execute($stmtFS);
-      } else {
-        echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($link);
-      }
+            mysqli_stmt_execute($stmtFS);
+        } else {
+            echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($link);
+        }
 
-      mysqli_stmt_close($stmtFS);
+        mysqli_stmt_close($stmtFS);
     }
   }
 

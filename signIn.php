@@ -42,7 +42,7 @@ $password_wrong_err = ''; // Variable To Store Error Message
 //
 // SQL query to fetch information of registerd users and finds user match.
 
-              $stmt =  "select User_ID from User where Password='$password' AND Username='$username';";
+              $stmt =  "select User_ID from User where Password='$password' AND Email='$username';";
               $result = mysqli_query($conn, $stmt);
               $rows = mysqli_num_rows($result);
 
