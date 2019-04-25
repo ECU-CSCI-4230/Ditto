@@ -442,7 +442,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $dirname = $_POST['dirname'];
 
-        echo $_SESSION['login_username'];
+
 
         if ( strlen($dirname) != 0 && $dirname != '#FS') {
             $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
@@ -487,6 +487,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "ERROR: Could not prepare query: $sqlFS. " . mysqli_error($conn);
             }
 
+
+            echo "<script>alert(" . $_SESSION['login_username'] . ")</script>";
             echo "<script>red()</script>";
         }
 
