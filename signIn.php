@@ -51,7 +51,7 @@ $password_wrong_err = ''; // Variable To Store Error Message
               if ($rows == 1) {
                   $res = $result->fetch_assoc();
                   $_SESSION['login_user'] = $res["User_ID"]; // Initializing Session
-                  $_SESSION['login_username'] = $username;
+                  $_SESSION['login_username'] = $res["Username"];
                   header("location: index.php"); // Redirecting To Other Page
               } else {
                   $password_wrong_err = "Username or Password is invalid";

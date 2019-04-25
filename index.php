@@ -360,6 +360,7 @@ function loadfileexplorer($conn, $username)
 
     $result = mysqli_query($conn, $stmt);
 
+
 //echo $stmt; // for  debug
     if (!$result) {
         printf("Error: %s\n", mysqli_error($conn));
