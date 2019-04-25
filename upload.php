@@ -4,6 +4,7 @@ if(!isset($_SESSION['login_user'])){
   header("Location:SigninOrRegister.html");
 }
 $username = $_SESSION['login_username'];
+$email = $_SESSION['email'];
 
 $link = mysqli_connect("localhost", "josh", "jcc15241711", "Ditto_Drive");
 if ($link === false) {
@@ -81,7 +82,7 @@ if ($link === false) {
         <div class="col-lg-3">
           <h1 class="my-4"><?php echo $_SESSION['first_name'] ?>'s Drive</h1>
           <div class="list-group">
-            <a class="list-group-item"">Logged in as: <?php echo $username; ?> </a>
+            <a class="list-group-item"">Logged in as: <?php echo $email; ?> </a>
             <li class="list-group-item">Select a Folder:
               <select id="uploadfolders" form="uploadform" name="selectedfolder">
                 <option value="">Home</option>
