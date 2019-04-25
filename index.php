@@ -442,6 +442,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $dirname = $_POST['dirname'];
 
+        echo $_SESSION['login_username'];
+
         if ( strlen($dirname) != 0 && $dirname != '#FS') {
             $filepath = "uploads/" . $_SESSION['login_username'] . '/' . $dirname . '/';
             $sqlF = "INSERT INTO File (File_Path, File_Type, Last_Modified, File_Size) VALUES (?, ?, ?, ?);";
